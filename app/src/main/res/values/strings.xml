@@ -2,4 +2,14 @@
     <string name="app_name">MySport-mobile</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="greeting">Hello,</string>
+    <string name="name_example">John Cena</string>
+    <string name="profile_picture_desc">Profile picture</string>
+    <string name="post_add">Post add</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sort_by">Sort by</string>
+    <string name="participants_example">Participants:\n\n\t- John Cena\n\t- Jack Daniels\n\t- Morgan Freeman\n\t- Mike Wazowski\n\t- Chuck Norris\n\t- Brad Pitt\n\t- Conchita Wurst</string>
+    <string name="sport_name_example">Volleyball</string>
+    <string name="sport_time_example">5:30 pm</string>
 </resources>

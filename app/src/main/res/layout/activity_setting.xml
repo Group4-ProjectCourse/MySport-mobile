@@ -10,8 +10,7 @@
         android:id="@+id/menu"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/label">
+        android:layout_height="wrap_content">
 
         <AutoCompleteTextView
             android:layout_width="match_parent"

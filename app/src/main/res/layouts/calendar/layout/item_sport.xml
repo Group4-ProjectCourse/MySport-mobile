@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="2dp"
     app:cardCornerRadius="4dp"
@@ -16,10 +16,11 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="5dp"
+            android:id="@+id/view1"
             android:background="@color/color4"/>
 
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/time1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sport_time_example"
@@ -28,7 +29,7 @@
             android:padding="16dp"/>
 
         <TextView
-            android:id="@+id/sport_name"
+            android:id="@+id/sport_name1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sport_name_example"
@@ -40,13 +41,13 @@
             android:paddingEnd="16dp"/>
 
         <TextView
-            android:id="@+id/participants"
+            android:id="@+id/participants1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/participants_example"
             android:fontFamily="@fonts/poppins_medium"
             android:includeFontPadding="false"
-            android:maxLines="5"
+            android:maxLines="7"
             android:padding="16dp"/>
 
     </LinearLayout>

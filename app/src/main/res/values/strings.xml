@@ -11,6 +11,16 @@
     <string name="participants_example">Participants:\n\n\t- John Cena\n\t- Jack Daniels\n\t- Morgan Freeman\n\t- Mike Wazowski\n\t- Chuck Norris\n\t- Brad Pitt\n\t- Conchita Wurst</string>
     <string name="sport_name_example">Volleyball</string>
     <string name="sport_time_example">5:30 pm</string>
+    <string name="sport_name_example1">Badminton</string>
+    <string name="sport_time_example1">4:00 pm</string>
+    <string name="sport_name_example2">Football</string>
+    <string name="sport_time_example2">7:30 pm</string>
+    <string name="sport_name_example3">Paddle</string>
+    <string name="sport_time_example3">2:30 pm</string>
+    <string name="sport_name_example4">Boxing</string>
+    <string name="sport_time_example4">12:45 am</string>
+    <string name="sport_name_example5">Yoga</string>
+    <string name="sport_time_example5">10:00 am</string>
     <string name="home">Home</string>
     <string name="calendar">Calendar</string>
     <string name="messenger">Messenger</string>

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".HomeFragment"
     android:orientation="vertical">
 
     <TextView
@@ -18,9 +19,9 @@
         android:paddingStart="16dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        app:drawableStartCompat="@drawable/ic_sort"
         android:drawablePadding="8dp"
-        android:textColor="@android:color/darker_gray"/>
+        android:textColor="@android:color/darker_gray"
+        app:drawableStartCompat="@drawable/ic_sort" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

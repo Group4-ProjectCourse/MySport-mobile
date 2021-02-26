@@ -1,4 +1,4 @@
-package com.example.mysport_mobile.calendar;
+package com.mysport.mysport_mobile.calendar;
 
 import android.os.Bundle;
 
@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mysport_mobile.R;
+import com.mysport.mysport_mobile.R;
 
 /*
  * A simple {@link Fragment} subclass.

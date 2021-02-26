@@ -1,4 +1,4 @@
-package com.example.mysport_mobile;
+package com.mysport.mysport_mobile;
 
 import android.content.Context;
 

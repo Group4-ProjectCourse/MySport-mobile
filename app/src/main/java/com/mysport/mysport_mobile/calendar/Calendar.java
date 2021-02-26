@@ -1,10 +1,10 @@
-package com.example.mysport_mobile.calendar;
+package com.mysport.mysport_mobile.calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.mysport_mobile.R;
+import com.mysport.mysport_mobile.R;
 
 public class Calendar extends AppCompatActivity {
 

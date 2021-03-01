@@ -9,9 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MySportmobile">
-        <activity android:name=".settings.SettingActivity" />
+        <activity android:name=".MainActivity" />
         <activity
-            android:name="com.mysport.mysport_mobile.MainActivity"
+            android:name="com.mysport.mysport_mobile.SettingActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.MySportmobile.NoActionBar">
             <intent-filter>

@@ -1,4 +1,4 @@
-package com.mysport.mysport_mobile.settings;
+package com.mysport.mysport_mobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;

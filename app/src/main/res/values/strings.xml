@@ -35,4 +35,19 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="language">Language:</string>
     <string name="background_colour">Background colour:</string>
+    <string name="balance_example">$123</string>
+    <string name="balance">Balance</string>
+    <string name="score">Score</string>
+    <string name="score_example">239</string>
+    <string name="fullname">Fullname</string>
+    <string name="email">Email</string>
+    <string name="email_example">john.cena@mysport-community.com</string>
+    <string name="phone">Phone</string>
+    <string name="phone_example">+46 1234 1234 123</string>
+    <string name="password">Password</string>
+    <string name="role">Role</string>
+    <string name="address">Address</string>
+    <string name="address_example">Olastorpsvagen 23 Lgh 1108</string>
+    <string name="update">Update</string>
+    <string name="account_balance_icon_desc">Account balance icon</string>
 </resources>

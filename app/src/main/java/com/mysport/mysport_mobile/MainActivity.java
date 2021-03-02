@@ -1,7 +1,10 @@
 package com.mysport.mysport_mobile;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -13,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
+import com.mysport.mysport_mobile.calendar.HomeFragment;
+import com.mysport.mysport_mobile.profile.UserProfile;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -32,6 +37,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //tool bar
         setSupportActionBar(toolbar);
         //nav drawer menu
+
+        //Hide or show items
+        Menu menu = navigationView.getMenu();
+        menu.findItem(R.id.nav_logout).setVisible(false);
+        //menu.findItem(R.id.nav_profile).setVisible(false); //If unlogged
+
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this,
@@ -44,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        navigationView.setCheckedItem(R.id.nav_home);
 
         //fragment transaction
         handleFragment(new HomeFragment());
@@ -67,7 +80,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+        int id = menuItem.getItemId();
+
+        if(id == R.id.nav_settings)
+            startActivity(new Intent(this, SettingActivity.class));
+        else if (id == R.id.nav_profile)
+            startActivity(new Intent(this, UserProfile.class));
+        else if (id == R.id.nav_share)
+            Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
+
+
+//        switch (menuItem.getItemId()){
+//            case R.id.nav_home:
+//            break;
+//
+//            case R.id.nav_settings:
+//                Intent intent = new Intent(this, SettingActivity.class);
+//                startActivity(intent);
+//                break;
+//            case R.id.nav_share:
+//                Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
+//                break;
+//        }
+
+
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+
         return true;
     }
 }

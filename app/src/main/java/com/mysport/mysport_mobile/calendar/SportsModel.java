@@ -1,4 +1,4 @@
-package com.mysport.mysport_mobile;
+package com.mysport.mysport_mobile.calendar;
 
 public class SportsModel {
     private String sportName, time, participants;

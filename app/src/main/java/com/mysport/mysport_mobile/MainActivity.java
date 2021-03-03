@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.mysport.mysport_mobile.calendar.HomeFragment;
 import com.mysport.mysport_mobile.profile.UserProfile;
+import com.mysport.mysport_mobile.settings.SettingActivity;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

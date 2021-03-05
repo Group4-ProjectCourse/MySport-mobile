@@ -18,7 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.mysport.mysport_mobile.calendar.DayFragment;
 import com.mysport.mysport_mobile.profile.UserProfile;
-import com.mysport.mysport_mobile.settings.SettingActivity;
+import com.mysport.mysport_mobile.settings.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -86,28 +86,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         int id = menuItem.getItemId();
 
-        if(id == R.id.nav_settings)
-            startActivity(new Intent(this, SettingActivity.class));
+        if(id == navigationView.getCheckedItem().getItemId())
+            Toast.makeText(this, getString(R.string.menu_item_selected_again) + " - " + navigationView.getCheckedItem().getTitle(), Toast.LENGTH_SHORT).show();
+        else if(id == R.id.nav_home)
+            handleFragment(new DayFragment());
+        else if(id == R.id.nav_settings)
+            handleFragment(new SettingsFragment());
         else if (id == R.id.nav_profile)
             handleFragment(new UserProfile());
         else if (id == R.id.nav_share)
-            Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
-
-
-//        switch (menuItem.getItemId()){
-//            case R.id.nav_home:
-//            break;
-//
-//            case R.id.nav_settings:
-//                Intent intent = new Intent(this, SettingActivity.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.nav_share:
-//                Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
-//                break;
-//        }
-
-
+            Toast.makeText(this, R.string.message_share_example, Toast.LENGTH_SHORT).show();
 
         drawerLayout.closeDrawer(GravityCompat.START);
 

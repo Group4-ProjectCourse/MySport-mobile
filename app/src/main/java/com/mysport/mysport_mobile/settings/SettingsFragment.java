@@ -24,21 +24,21 @@ public class SettingsFragment extends Fragment {
 
         spinnerLanguage = view.findViewById(R.id.spinnerLanguage);
         spinnerColour = view.findViewById(R.id.spinnerColour);
-//        ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, languages);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinnerLanguage.setAdapter(adapter);
-//        spinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                String selectedItem = adapterView.getItemAtPosition(i).toString();
-//                Toast.makeText(adapterView.getContext(), "Selected: " + selectedItem, Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
+        ArrayAdapter adapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item,  languages);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLanguage.setAdapter(adapter);
+        spinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedItem = adapterView.getItemAtPosition(i).toString();
+                Toast.makeText(adapterView.getContext(), "Selected: " + selectedItem, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         return view;
     }

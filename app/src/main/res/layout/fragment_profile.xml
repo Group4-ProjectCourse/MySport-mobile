@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    tools:context=".profile.UserProfile">
+
+    <RelativeLayout
+        android:background="@color/colorMySport"
+        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:padding="20dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:contentDescription="@string/profile_picture_desc"
+            android:id="@+id/profile_image"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_height="100dp"
+            android:layout_width="100dp"
+            android:src="@drawable/profile_image_john_cena" />
+
+        <TextView
+            android:fontFamily="@fonts/poppins_semibold"
+            android:id="@+id/full_name"
+            android:includeFontPadding="false"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/profile_image"
+            android:layout_width="wrap_content"
+            android:text="@string/name_example"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+        <TextView
+            android:includeFontPadding="false"
+            android:layout_below="@id/full_name"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/profile_image"
+            android:layout_width="wrap_content"
+            android:text="@string/name_example"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-100dp"
+        android:layout_width="match_parent"
+        android:padding="20dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_height="125dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            app:cardBackgroundColor="@color/colorMySport"
+            app:cardElevation="10dp">
+
+            <RelativeLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:padding="5dp">
+
+                <ImageView
+                    android:contentDescription="@string/account_balance_icon_desc"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    android:src="@drawable/ic_account_balance" />
+
+                <TextView
+                    android:fontFamily="@fonts/poppins_semibold"
+                    android:id="@+id/payment_label"
+                    android:includeFontPadding="false"
+                    android:layout_centerInParent="true"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/balance_example"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:fontFamily="@fonts/poppins"
+                    android:id="@+id/payment_desc"
+                    android:includeFontPadding="false"
+                    android:layout_below="@id/payment_label"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/balance"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_height="125dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            app:cardBackgroundColor="@color/colorMySport"
+            app:cardElevation="10dp">
+
+            <RelativeLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    android:src="@drawable/ic_face" />
+
+                <TextView
+                    android:fontFamily="@fonts/poppins_semibold"
+                    android:id="@+id/score_label"
+                    android:includeFontPadding="false"
+                    android:layout_centerInParent="true"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/score_example"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:fontFamily="@fonts/poppins"
+                    android:id="@+id/score_desc"
+                    android:includeFontPadding="false"
+                    android:layout_below="@id/score_label"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/score"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:hint="@string/fullname"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:background="@android:color/transparent"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_person"
+                android:editable="true"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="@string/name_example" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:hint="@string/email"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:background="@android:color/transparent"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_mail"
+                android:editable="true"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="@string/email_example" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:hint="@string/phone"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:background="@android:color/transparent"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_phone"
+                android:editable="true"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="@string/phone_example" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:hint="@string/address"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:background="@android:color/transparent"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_house"
+                android:editable="true"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="@string/address_example" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:background="@color/colorMySport"
+            android:fontFamily="@fonts/poppins_semibold"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/update" />
+
+    </LinearLayout>
+</LinearLayout>

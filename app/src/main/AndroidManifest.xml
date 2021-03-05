@@ -9,8 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MySportmobile">
-        <activity android:name=".profile.UserProfile"></activity>
-        <activity android:name=".calendar.DayActivity" />
         <activity android:name=".settings.SettingActivity" />
         <activity
             android:name=".MainActivity"
@@ -18,7 +16,6 @@
             android:theme="@style/Theme.MySportmobile.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

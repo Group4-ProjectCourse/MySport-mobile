@@ -16,13 +16,13 @@ import com.mysport.mysport_mobile.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements SportsAdapter.OnRecyclerItemClick {
+public class DayFragment extends Fragment implements SportsAdapter.OnRecyclerItemClick {
 
     private RecyclerView recyclerView;
     private SportsAdapter sportsAdapter;
     private List<SportsModel> sportsList;
 
-    public HomeFragment() {
+    public DayFragment() {
         // Required empty public constructor
     }
 
@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment implements SportsAdapter.OnRecyclerIt
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_day_table, container, false);
         recyclerView = view.findViewById(R.id.recycler);
         sportsList = new ArrayList<>(4);
 

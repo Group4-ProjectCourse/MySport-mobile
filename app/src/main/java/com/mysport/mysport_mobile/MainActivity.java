@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
-import com.mysport.mysport_mobile.calendar.HomeFragment;
+import com.mysport.mysport_mobile.calendar.DayFragment;
 import com.mysport.mysport_mobile.profile.UserProfile;
 import com.mysport.mysport_mobile.settings.SettingActivity;
 
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
+    private int currentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Hide or show items
         Menu menu = navigationView.getMenu();
-        menu.findItem(R.id.nav_logout).setVisible(false);
+        //menu.findItem(R.id.nav_logout).setVisible(false);
         //menu.findItem(R.id.nav_profile).setVisible(false); //If unlogged
 
         navigationView.bringToFront();
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setCheckedItem(R.id.nav_home);
 
         //fragment transaction
-        handleFragment(new HomeFragment());
+        handleFragment(new DayFragment());
     }
 
     private void handleFragment(Fragment fragment){
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(id == R.id.nav_settings)
             startActivity(new Intent(this, SettingActivity.class));
         else if (id == R.id.nav_profile)
-            startActivity(new Intent(this, UserProfile.class));
+            handleFragment(new UserProfile());
         else if (id == R.id.nav_share)
             Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
 

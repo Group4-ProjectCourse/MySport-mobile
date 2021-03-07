@@ -3,6 +3,10 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+configurations {
+    compile.exclude group: "junit", module: "junit"
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -64,7 +68,6 @@ dependencies {
 
     implementation 'com.google.dagger:dagger:2.14.1'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
-    testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     testImplementation 'junit:junit:4.13.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

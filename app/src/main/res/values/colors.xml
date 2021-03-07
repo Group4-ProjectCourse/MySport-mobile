@@ -10,7 +10,7 @@
 
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#FFFFFF</color>
-    <color name="colorAccent">#F2F2F2</color>
+    <color name="colorAccent">#FFC107</color>
     <color name="colorMySport">#763dee</color>
 
     <color name="color1">#F1755B</color>
@@ -18,4 +18,23 @@
     <color name="color3">#B05777</color>
     <color name="color4">#EEBE5C</color>
     <color name="color5">#8778E9</color>
+    <color name="colorGrey">#F1F1F1</color>
+
+    <color name="dayViewDefaultBackgroundColor">#1D2D79</color>
+    <color name="dayViewDefaultDividerLinesColor">#FF397F</color>
+    <color name="dayViewDefaultTimeBlockColor">#0C174F</color>
+    <color name="dayViewDefaultTimeBlockTextColor">#1ECBA3</color>
+    <color name="dayViewDefaultEventsColor">#0C174F</color>
+    <color name="dayViewDefaultEventsTextColor">#F6F7F9</color>
+
+    <color name="monthViewDefaultBackgroundColor">#0C174F</color>
+    <color name="monthViewDefaultTodayCircleColor">#FF397F</color>
+    <color name="monthViewDefaultSelectedDayCircleColor">#FF397F</color>
+    <color name="monthViewDefaultDebugLinesColor">#FFFFFF</color>
+    <color name="monthViewDefaultYearTextColor">#F6F7F9</color>
+    <color name="monthViewDefaultMonthTextColor">#F6F7F9</color>
+    <color name="monthViewDefaultWeekdayTextColor">#1ECBA3</color>
+    <color name="monthViewDefaultDayNotInMonthTextColor">#5564B3</color>
+    <color name="monthViewDefaultDayTextColor">#F6F7F9</color>
+    <color name="monthViewDefaultChevronColor">#F6F7F9</color>
 </resources>

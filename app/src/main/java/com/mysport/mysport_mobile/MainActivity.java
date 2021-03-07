@@ -3,6 +3,7 @@ package com.mysport.mysport_mobile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -14,9 +15,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
+import com.facebook.login.LoginManager;
 import com.google.android.material.navigation.NavigationView;
 import com.mysport.mysport_mobile.calendar.DayFragment;
+import com.google.firebase.auth.FirebaseAuth;
 import com.mysport.mysport_mobile.profile.UserProfile;
 import com.mysport.mysport_mobile.settings.SettingsFragment;
 
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private Toolbar toolbar;
     private int currentId;
+    FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,10 +99,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else if (id == R.id.nav_profile)
             handleFragment(new UserProfile());
         else if (id == R.id.nav_share)
+
             Toast.makeText(this, R.string.message_share_example, Toast.LENGTH_SHORT).show();
+
+//        else if (id == R.id.nav_logout)
+//            FirebaseAuth.getInstance().signOut();
+
+
+//        switch (menuItem.getItemId()){
+//            case R.id.nav_home:
+//            break;
+//
+//            case R.id.nav_settings:
+//                Intent intent = new Intent(this, SettingActivity.class);
+//                startActivity(intent);
+//                break;
+//            case R.id.nav_share:
+//                Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
+//                break;
+//        }
+
+
+
 
         drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_logout:
+                mAuth.signOut();
+                LoginManager.getInstance().logOut();
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

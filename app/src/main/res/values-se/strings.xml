@@ -55,4 +55,14 @@
     <string name="saveButton">Save</string>
     <string name="menu_item_selected_again">You\'ve already selected</string>
     <string name="message_share_example">Sharing...</string>
+    <string name="add_event_button">Add event button</string>
+    <string name="login_to">Logga in på</string>
+    <string name="new_here_create_account">Ny här ? Skapa Konto</string>
+    <string name="forgot_password">Glömt ditt Lösenord ?</string>
+    <string name="name">Namn</string>
+    <string name="sign_out">Logga ut</string>
+    <string name="create_new_account">Skapa Nytt Konto</string>
+    <string name="register">Registrera</string>
+    <string name="already_registered_login_here">Redan registrerad ? Logga in här</string>
+    <string name="continue_with_email">Fortsätt med E-post</string>
 </resources>

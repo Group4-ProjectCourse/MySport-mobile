@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "958538443523",
+    "project_id": "mysport-mobile",
+    "storage_bucket": "mysport-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958538443523:android:75a5146073e0a5d74c1736",
+        "android_client_info": {
+          "package_name": "com.example.mysport_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "958538443523-6i4e5s2fc14b2tefadshjvtmmkagq4r3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLtUTOUDZJEeL54M4p6OOBr9YUn4iGr4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "958538443523-6i4e5s2fc14b2tefadshjvtmmkagq4r3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958538443523:android:9acd8e4773435cac4c1736",
+        "android_client_info": {
+          "package_name": "com.mysport.mysport_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "958538443523-6i4e5s2fc14b2tefadshjvtmmkagq4r3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLtUTOUDZJEeL54M4p6OOBr9YUn4iGr4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "958538443523-6i4e5s2fc14b2tefadshjvtmmkagq4r3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

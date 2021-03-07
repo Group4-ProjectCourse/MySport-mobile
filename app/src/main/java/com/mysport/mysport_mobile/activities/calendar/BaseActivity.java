@@ -1,4 +1,4 @@
-package com.mysport.mysport_mobile.activities;
+package com.mysport.mysport_mobile.activities.calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 

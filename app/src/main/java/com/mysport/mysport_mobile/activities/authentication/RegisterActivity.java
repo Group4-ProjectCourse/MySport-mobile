@@ -1,4 +1,4 @@
-package com.mysport.mysport_mobile;
+package com.mysport.mysport_mobile.activities.authentication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.mysport.mysport_mobile.R;
 
 import java.util.HashMap;
 import java.util.Map;

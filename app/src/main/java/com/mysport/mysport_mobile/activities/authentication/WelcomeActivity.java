@@ -1,4 +1,4 @@
-package com.mysport.mysport_mobile;
+package com.mysport.mysport_mobile.activities.authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.mysport.mysport_mobile.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 

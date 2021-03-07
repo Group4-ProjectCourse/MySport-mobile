@@ -1,4 +1,4 @@
-package com.mysport.mysport_mobile.activities;
+package com.mysport.mysport_mobile.activities.calendar;
 
 import android.os.Bundle;
 import android.widget.Toast;

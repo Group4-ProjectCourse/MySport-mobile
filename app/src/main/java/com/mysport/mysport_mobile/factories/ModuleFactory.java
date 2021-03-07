@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.mysport.mysport_mobile.App;
 import com.mysport.mysport_mobile.R;
-import com.mysport.mysport_mobile.activities.DayViewActivity;
-import com.mysport.mysport_mobile.activities.MonthViewActivity;
+import com.mysport.mysport_mobile.activities.calendar.DayViewActivity;
+import com.mysport.mysport_mobile.activities.calendar.MonthViewActivity;
 import com.mysport.mysport_mobile.models.Module;
 
 import java.util.Arrays;

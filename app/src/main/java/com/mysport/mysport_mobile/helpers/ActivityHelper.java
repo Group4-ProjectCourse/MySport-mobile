@@ -5,7 +5,7 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
-import com.mysport.mysport_mobile.activities.BaseActivity;
+import com.mysport.mysport_mobile.activities.calendar.BaseActivity;
 
 public class ActivityHelper {
 

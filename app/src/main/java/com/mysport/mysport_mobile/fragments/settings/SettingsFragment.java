@@ -1,4 +1,4 @@
-package com.mysport.mysport_mobile.settings;
+package com.mysport.mysport_mobile.fragments.settings;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class SettingsFragment extends Fragment {
 
-    private final String[] languages = {"English", "Swedish", "Norwegian"};
+    private final String[] languages = { "English", "Swedish", "Norwegian" };
     private Spinner spinnerLanguage;
     private Spinner spinnerColour;
     private ArrayAdapter<?> adapter;

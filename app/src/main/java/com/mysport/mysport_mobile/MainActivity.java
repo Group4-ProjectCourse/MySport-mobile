@@ -1,6 +1,5 @@
 package com.mysport.mysport_mobile;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,10 +16,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.facebook.login.LoginManager;
 import com.google.android.material.navigation.NavigationView;
-import com.mysport.mysport_mobile.calendar.DayFragment;
+import com.mysport.mysport_mobile.fragments.calendar.DayFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mysport.mysport_mobile.profile.UserProfile;
-import com.mysport.mysport_mobile.settings.SettingsFragment;
+import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

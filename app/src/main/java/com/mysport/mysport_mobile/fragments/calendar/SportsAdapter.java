@@ -1,4 +1,4 @@
-package com.mysport.mysport_mobile.calendar;
+package com.mysport.mysport_mobile.fragments.calendar;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -54,8 +54,6 @@
     <string name="saveButton">Save</string>
     <string name="menu_item_selected_again">You\'ve already selected</string>
     <string name="message_share_example">Sharing...</string>
-    <string name="menu_item_selected_again" translatable="false">You\'ve already selected</string>
-    <string name="message_share_example" translatable="false">Sharing...</string>
     <string name="add_event_button">Add event button</string>
 
     <string name="day_view_activity_description" translatable="false">Shows the day view in an activity</string>

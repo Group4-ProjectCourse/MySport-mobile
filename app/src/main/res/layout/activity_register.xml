@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ripped"
-    tools:context=".RegisterActivity">
+    tools:context=".activities.authentication.RegisterActivity">
 
     <TextView
         android:id="@+id/create_new_account_text"

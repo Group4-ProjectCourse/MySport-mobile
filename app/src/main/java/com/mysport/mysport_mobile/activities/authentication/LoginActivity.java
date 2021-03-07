@@ -1,4 +1,4 @@
-package com.mysport.mysport_mobile;
+package com.mysport.mysport_mobile.activities.authentication;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,11 +32,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.mysport.mysport_mobile.profile.UserProfile;
-import com.squareup.picasso.Picasso;
-
-
-
+import com.mysport.mysport_mobile.MainActivity;
+import com.mysport.mysport_mobile.R;
 
 
 public class LoginActivity extends AppCompatActivity {

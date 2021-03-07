@@ -70,7 +70,7 @@
     <string name="register">Register</string>
     <string name="already_registered_login_here">Already Registered ? Login Here</string>
     <string name="continue_with_email">Continue with Email</string>
-
+    <string name="buttonSave">Save</string>
 
 
 </resources>

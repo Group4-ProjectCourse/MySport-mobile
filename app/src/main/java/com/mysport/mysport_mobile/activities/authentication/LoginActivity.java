@@ -188,6 +188,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
         }
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
@@ -243,7 +244,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUIG(GoogleSignInAccount account) {
         if (account != null) {
-            startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
         } else {
             Toast.makeText(this, "Please sign in to continue", Toast.LENGTH_SHORT).show();
         }

@@ -15,15 +15,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.facebook.login.LoginManager;
 import com.google.android.material.navigation.NavigationView;
-<<<<<<< Updated upstream
 import com.mysport.mysport_mobile.calendar.DayFragment;
-=======
 import com.google.firebase.auth.FirebaseAuth;
-import com.mysport.mysport_mobile.calendar.HomeFragment;
->>>>>>> Stashed changes
 import com.mysport.mysport_mobile.profile.UserProfile;
 import com.mysport.mysport_mobile.settings.SettingsFragment;
 
@@ -32,11 +27,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-<<<<<<< Updated upstream
     private int currentId;
-=======
     FirebaseAuth mAuth;
->>>>>>> Stashed changes
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,10 +99,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else if (id == R.id.nav_profile)
             handleFragment(new UserProfile());
         else if (id == R.id.nav_share)
-<<<<<<< Updated upstream
+
             Toast.makeText(this, R.string.message_share_example, Toast.LENGTH_SHORT).show();
-=======
-            Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
+
 //        else if (id == R.id.nav_logout)
 //            FirebaseAuth.getInstance().signOut();
 
@@ -128,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        }
 
 
->>>>>>> Stashed changes
+
 
         drawerLayout.closeDrawer(GravityCompat.START);
 

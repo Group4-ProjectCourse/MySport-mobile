@@ -50,7 +50,7 @@
     <string name="address_example">Olastorpsvagen 23 Lgh 1108</string>
     <string name="update">Update</string>
     <string name="account_balance_icon_desc">Account balance icon</string>
-<<<<<<< Updated upstream
+
     <string name="saveButton">Save</string>
     <string name="menu_item_selected_again" translatable="false">You\'ve already selected</string>
     <string name="message_share_example" translatable="false">Sharing...</string>
@@ -58,9 +58,9 @@
 
     <string name="day_view_activity_description" translatable="false">Shows the day view in an activity</string>
     <string name="month_view_activity_description" translatable="false">Shows the month view in an activity</string>
-=======
-    <string name="facebook_app_id">426138265341832</string>
-    <string name="fb_login_protocol_scheme">fb426138265341832</string>
+
+    <string name="facebook_app_id" translatable="false">426138265341832</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb426138265341832</string>
     <string name="login_to">Login to</string>
     <string name="new_here_create_account">New Here ? Create Account</string>
     <string name="forgot_password">Forgot Password ?</string>
@@ -72,5 +72,5 @@
     <string name="continue_with_email">Continue with Email</string>
 
 
->>>>>>> Stashed changes
+
 </resources>

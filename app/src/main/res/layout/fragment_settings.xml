@@ -7,23 +7,13 @@
     android:orientation="vertical"
     tools:context=".fragments.settings.SettingsFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="@color/colorMySport"
-        app:contentInsetEnd="0dp"
-        app:contentInsetStart="0dp"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:navigationIcon="@drawable/ic_menu">
 
         <TextView
             android:id="@+id/textViewSettingsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorMySport"
-            android:paddingStart="16dp"
+            android:paddingStart="45dp"
             android:paddingTop="8dp"
             android:paddingEnd="16dp"
             android:paddingBottom="8dp"
@@ -32,7 +22,6 @@
             android:textSize="20sp">
 
         </TextView>
-    </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:id="@+id/languagesTextView"

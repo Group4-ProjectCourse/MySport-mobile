@@ -51,4 +51,5 @@
     <string name="update">Update</string>
     <string name="account_balance_icon_desc">Account balance icon</string>
     <string name="saveButton">Save</string>
+    <string name="add_event_button">Add event button</string>
 </resources>

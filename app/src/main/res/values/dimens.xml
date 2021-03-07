@@ -5,4 +5,29 @@
     <dimen name="appbar_padding">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+
+    <dimen name="dayViewDefaultRowHeight">70dp</dimen>
+    <dimen name="dayViewDefaultDividerLinesPadding">15dp</dimen>
+    <dimen name="dayViewDefaultDividerLinesStrokeWidth">1px</dimen>
+    <dimen name="dayViewDefaultTimeBlockWidth">0dp</dimen>
+    <item name="dayViewDefaultTimeBlockScale" format="float" type="dimen">0.2</item>
+    <dimen name="dayViewDefaultTimeBlockTextSize">10sp</dimen>
+    <dimen name="dayViewDefaultEventsPadding">15dp</dimen>
+    <dimen name="dayViewDefaultEventsBorderRadius">5dp</dimen>
+    <dimen name="dayViewDefaultEventsTextSize">16sp</dimen>
+    <dimen name="dayViewDefaultEventsTextPadding">8dp</dimen>
+    <dimen name="dayViewDefaultEventsMinHeight">35dp</dimen>
+
+    <dimen name="monthViewDefaultYearTextSize">10sp</dimen>
+    <dimen name="monthViewDefaultMonthTextSize">20sp</dimen>
+    <dimen name="monthViewDefaultWeekdayTextSize">13sp</dimen>
+    <dimen name="monthViewDefaultDayNotInMonthTextSize">12sp</dimen>
+    <dimen name="monthViewDefaultDayTextSize">12sp</dimen>
+    <dimen name="monthViewDefaultMonthYearPadding">5dp</dimen>
+    <dimen name="monthViewDefaultHeaderPadding">15dp</dimen>
+    <dimen name="monthViewDefaultTodayCircleRadius">15dp</dimen>
+    <dimen name="monthViewDefaultTodayCircleStrokeWidth">1dp</dimen>
+    <dimen name="monthViewDefaultSelectedDayCircleRadius">15dp</dimen>
+    <dimen name="monthViewDefaultChevronWidth">30dp</dimen>
+    <dimen name="monthViewDefaultChevronHeight">30dp</dimen>
 </resources>

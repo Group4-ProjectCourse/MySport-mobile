@@ -18,6 +18,7 @@ import com.facebook.login.LoginManager;
 import com.google.android.material.navigation.NavigationView;
 import com.mysport.mysport_mobile.fragments.calendar.DayFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import com.mysport.mysport_mobile.fragments.calendar.DayViewFragment;
 import com.mysport.mysport_mobile.profile.UserProfile;
 import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
 
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setCheckedItem(R.id.nav_home);
 
         //fragment transaction
-        handleFragment(new DayFragment());
+        handleFragment(new DayViewFragment());
     }
 
     private void handleFragment(Fragment fragment){
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(id == navigationView.getCheckedItem().getItemId())
             Toast.makeText(this, getString(R.string.menu_item_selected_again) + " - " + navigationView.getCheckedItem().getTitle(), Toast.LENGTH_SHORT).show();
         else if(id == R.id.nav_home)
-            handleFragment(new DayFragment());
+            handleFragment(new DayViewFragment());
         else if(id == R.id.nav_settings)
             handleFragment(new SettingsFragment());
         else if (id == R.id.nav_profile)

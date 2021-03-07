@@ -21,7 +21,7 @@ import androidx.core.content.ContextCompat;
 
 import com.mysport.mysport_mobile.R;
 import com.mysport.mysport_mobile.models.CalendarRange;
-import com.mysport.mysport_mobile.models.Event;
+import com.mysport.mysport_mobile.models.SportEvent;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
 import com.mysport.mysport_mobile.utils.ResourceUtils;
 
@@ -66,8 +66,8 @@ public class DayView extends View {
 
     private String[] formattedHourTexts = new String[HOURS];
 
-    private List<Event> events = new ArrayList<>();
-    private Map<Event, RenderData> eventsRenderData = new LinkedHashMap<>();
+    private List<SportEvent> sportEvents = new ArrayList<>();
+    private Map<SportEvent, RenderData> eventsRenderData = new LinkedHashMap<>();
     private int eventsPadding;
     private int eventsBorderRadius;
     private int eventsTextPadding;
@@ -85,7 +85,7 @@ public class DayView extends View {
         private StaticLayout textLayout;
 
         // Indicates all the overlapping events this event has (including itself)
-        private List<Event> overlappingEvents = new ArrayList<>();
+        private List<SportEvent> overlappingSportEvents = new ArrayList<>();
 
         // Indicates if this event needs to be updated graphically
         private boolean dirty = true;
@@ -95,7 +95,7 @@ public class DayView extends View {
     }
 
     public interface EventClickedListener {
-        void onEventClicked(Event event);
+        void onEventClicked(SportEvent sportEvent);
     }
 
     public DayView(Context context) {
@@ -348,53 +348,53 @@ public class DayView extends View {
         setDay(calendar);
     }
 
-    public List<Event> getEvents() {
-        return events;
+    public List<SportEvent> getSportEvents() {
+        return sportEvents;
     }
 
-    public void setEvents(List<Event> events) {
-        if (events == null) {
+    public void setSportEvents(List<SportEvent> sportEvents) {
+        if (sportEvents == null) {
             return;
         }
 
-        for (Event event : events) {
+        for (SportEvent sportEvent : sportEvents) {
             // We need to check if all the events can be added to this day
-            if (!dayRange.intersects(event.getCalendarRange())) {
+            if (!dayRange.intersects(sportEvent.getCalendarRange())) {
                 return;
             }
         }
 
-        this.events = events;
+        this.sportEvents = sportEvents;
         refreshEventsRenderData();
         updateAllEventIntersections();
         refresh();
     }
 
-    public void addEvent(Event event) {
-        if (event == null) {
+    public void addEvent(SportEvent sportEvent) {
+        if (sportEvent == null) {
             return;
         }
 
         // We need to check if this event can be added to this day
-        if (!dayRange.intersects(event.getCalendarRange())) {
+        if (!dayRange.intersects(sportEvent.getCalendarRange())) {
             return;
         }
 
-        events.add(event);
-        createNewEventRenderData(event);
+        sportEvents.add(sportEvent);
+        createNewEventRenderData(sportEvent);
         updateAllEventIntersections();
         refresh();
     }
 
-    public void removeEvent(Event event) {
-        events.remove(event);
-        eventsRenderData.remove(event);
+    public void removeEvent(SportEvent sportEvent) {
+        sportEvents.remove(sportEvent);
+        eventsRenderData.remove(sportEvent);
         updateAllEventIntersections();
         refresh();
     }
 
     public void clearEvents() {
-        events.clear();
+        sportEvents.clear();
         eventsRenderData.clear();
         refresh();
     }
@@ -475,24 +475,24 @@ public class DayView extends View {
     private void refreshEventsRenderData() {
         eventsRenderData.clear();
 
-        if (events == null || events.isEmpty()) {
+        if (sportEvents == null || sportEvents.isEmpty()) {
             // Do not init event bounds for empty event list
             return;
         }
 
-        for (Event event : events) {
-            createNewEventRenderData(event);
+        for (SportEvent sportEvent : sportEvents) {
+            createNewEventRenderData(sportEvent);
         }
     }
 
-    private void createNewEventRenderData(Event event) {
-        if (event.getCalendarRange() == null) {
+    private void createNewEventRenderData(SportEvent sportEvent) {
+        if (sportEvent.getCalendarRange() == null) {
             // Do not update event bounds for an invalid event
             return;
         }
 
         // Set an empty object so we know to update it in the measure step
-        eventsRenderData.put(event, new RenderData());
+        eventsRenderData.put(sportEvent, new RenderData());
     }
 
     private float getCalendarRowY(Calendar calendar) {
@@ -525,8 +525,8 @@ public class DayView extends View {
     }
 
     private void updateAllEventIntersections() {
-        for (Event event : eventsRenderData.keySet()) {
-            updateEventIntersection(event);
+        for (SportEvent sportEvent : eventsRenderData.keySet()) {
+            updateEventIntersection(sportEvent);
         }
     }
 
@@ -535,45 +535,45 @@ public class DayView extends View {
     // so we won't spend too much effort investing into optimizations for now. Also
     // this method should not be called within the view life cycle methods and should be called
     // when the relevant model data changes
-    private void updateEventIntersection(Event event) {
-        RenderData renderData = eventsRenderData.get(event);
+    private void updateEventIntersection(SportEvent sportEvent) {
+        RenderData renderData = eventsRenderData.get(sportEvent);
 
         // Reset the overlapping events
-        renderData.overlappingEvents.clear();
+        renderData.overlappingSportEvents.clear();
 
         if (!renderData.shouldDraw) {
             // If we shouldn't draw, then there's no point to finding intersections
             return;
         }
 
-        for (Map.Entry<Event, RenderData> entry : eventsRenderData.entrySet()) {
-            Event eventEntry = entry.getKey();
+        for (Map.Entry<SportEvent, RenderData> entry : eventsRenderData.entrySet()) {
+            SportEvent sportEventEntry = entry.getKey();
             // Assuming map is in order
-            if (event == eventEntry) {
-                if (renderData.overlappingEvents.size() > eventsNumMaxEventsOverlappingTimes) {
-                    renderData.overlappingEvents.clear();
+            if (sportEvent == sportEventEntry) {
+                if (renderData.overlappingSportEvents.size() > eventsNumMaxEventsOverlappingTimes) {
+                    renderData.overlappingSportEvents.clear();
 
                     // When the number of time overlaps is greater than the maximum, then
                     // we should not be showing any more events after the last overlap in terms of order
                     renderData.shouldDraw = false;
                 }
 
-                for (Event overlappingEvent : renderData.overlappingEvents) {
+                for (SportEvent overlappingSportEvent : renderData.overlappingSportEvents) {
                     // Add this event to the list of overlapping events in each overlapping event earlier in the map
                     // so we can update the positions and size
-                    eventsRenderData.get(overlappingEvent).overlappingEvents.add(event);
+                    eventsRenderData.get(overlappingSportEvent).overlappingSportEvents.add(sportEvent);
                 }
 
                 // Add event as overlapping with itself
-                renderData.overlappingEvents.add(eventEntry);
+                renderData.overlappingSportEvents.add(sportEventEntry);
 
                 // We are only looking at the entries in front of this event's to see if this
                 // qualifies to be shown under the max events overlapping count
                 break;
             }
 
-            if (event.getCalendarRange().intersects(eventEntry.getCalendarRange())) {
-                renderData.overlappingEvents.add(eventEntry);
+            if (sportEvent.getCalendarRange().intersects(sportEventEntry.getCalendarRange())) {
+                renderData.overlappingSportEvents.add(sportEventEntry);
             }
         }
     }
@@ -586,17 +586,17 @@ public class DayView extends View {
             return super.onTouchEvent(event);
         }
 
-        Event touchedEvent = null;
-        for (Map.Entry<Event, RenderData> entry : eventsRenderData.entrySet()) {
+        SportEvent touchedSportEvent = null;
+        for (Map.Entry<SportEvent, RenderData> entry : eventsRenderData.entrySet()) {
             if (!entry.getValue().bounds.contains(event.getX(), event.getY())) {
                 continue;
             }
 
             // We touched this event
-            touchedEvent = entry.getKey();
+            touchedSportEvent = entry.getKey();
         }
 
-        if (touchedEvent == null) {
+        if (touchedSportEvent == null) {
             // No event has been touched so pass to parent
             return super.onTouchEvent(event);
         }
@@ -608,7 +608,7 @@ public class DayView extends View {
             case MotionEvent.ACTION_UP:
                 // Notify listeners
                 for (EventClickedListener listener : listeners) {
-                    listener.onEventClicked(touchedEvent);
+                    listener.onEventClicked(touchedSportEvent);
                 }
                 return true;
         }
@@ -636,8 +636,8 @@ public class DayView extends View {
             timeBlockWidth = (int) (timeBlockScale * width);
         }
 
-        for (Map.Entry<Event, RenderData> entry : eventsRenderData.entrySet()) {
-            Event event = entry.getKey();
+        for (Map.Entry<SportEvent, RenderData> entry : eventsRenderData.entrySet()) {
+            SportEvent sportEvent = entry.getKey();
             RenderData renderData = entry.getValue();
             if (!renderData.dirty) {
                 // If not dirty then we don't need to update
@@ -650,32 +650,32 @@ public class DayView extends View {
             }
 
             // Calculate the event width with the available width space
-            float eventWidth = (float) (width - timeBlockWidth - eventsPadding * (renderData.overlappingEvents.size() + 1)) / (renderData.overlappingEvents.size());
+            float eventWidth = (float) (width - timeBlockWidth - eventsPadding * (renderData.overlappingSportEvents.size() + 1)) / (renderData.overlappingSportEvents.size());
 
             // Get the x offset
-            float left = timeBlockWidth + eventsPadding * (renderData.overlappingEvents.indexOf(event) + 1) + eventWidth * renderData.overlappingEvents.indexOf(event);
+            float left = timeBlockWidth + eventsPadding * (renderData.overlappingSportEvents.indexOf(sportEvent) + 1) + eventWidth * renderData.overlappingSportEvents.indexOf(sportEvent);
 
             // Account for the minimum event height for the top of the rect
-            float top = Math.min(getCalendarRowY(event.getCalendarRange().getStart()), height - eventsMinHeight);
+            float top = Math.min(getCalendarRowY(sportEvent.getCalendarRange().getStart()), height - eventsMinHeight);
 
             // Just use the event width and the x offset
             float right = left + eventWidth;
 
             // Account for the minimum event height for the bottom of the rect
-            float bottom = Math.max(getCalendarRowY(event.getCalendarRange().getEnd()), top + eventsMinHeight);
+            float bottom = Math.max(getCalendarRowY(sportEvent.getCalendarRange().getEnd()), top + eventsMinHeight);
 
             renderData.bounds.set(left, top, right, bottom);
 
             // Object allocation needed, but will only occur when dirty bit is on and the layout needs to be updated.
             // Not too expensive since we are not changing the text frequently.
             // Create a static layout to contain the event name
-            renderData.textLayout = new StaticLayout(event.getName(), eventsTextPaint, (int) renderData.bounds.width() - eventsTextPadding * 2, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+            renderData.textLayout = new StaticLayout(sportEvent.getName(), eventsTextPaint, (int) renderData.bounds.width() - eventsTextPadding * 2, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
 
             // Check if we can fit all the lines within the event rectangle, if not, we will need to truncate the text to fit
             if (renderData.textLayout.getLineTop(renderData.textLayout.getLineCount()) + eventsTextPadding * 2 > renderData.bounds.height()) {
                 // Get the line of text that the end of the event bounds bottom intersects with
                 int lineMax = renderData.textLayout.getLineForVertical((int) renderData.bounds.height() - eventsTextPadding * 2);
-                String truncatedEventName = event.getName().substring(0, renderData.textLayout.getLineStart(lineMax));
+                String truncatedEventName = sportEvent.getName().substring(0, renderData.textLayout.getLineStart(lineMax));
                 renderData.textLayout = new StaticLayout(truncatedEventName, eventsTextPaint, (int) renderData.bounds.width() - eventsTextPadding * 2, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
             }
 

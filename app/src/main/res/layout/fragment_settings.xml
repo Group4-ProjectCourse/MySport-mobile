@@ -75,8 +75,11 @@
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#C81717"
+        android:background="@color/colorMySport"
         android:backgroundTint="#F31717"
-        android:text="Button" />
+        android:text="Button"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:iconTint="#F40000" />
 
 </LinearLayout>

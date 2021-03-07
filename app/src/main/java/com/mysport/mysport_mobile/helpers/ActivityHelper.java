@@ -13,10 +13,6 @@ public class ActivityHelper {
 
     public ActivityHelper(@NonNull Context context) {
         this.context = context;
-
-        if (context == null) {
-            throw new IllegalArgumentException("Context cannot be null.");
-        }
     }
 
     public void startActivity(Class activityClass) {

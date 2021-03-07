@@ -2,10 +2,9 @@ package com.mysport.mysport_mobile.presenters;
 
 import androidx.annotation.NonNull;
 
-import com.mysport.mysport_mobile.viewholders.ActivityListViewHolder;
 import com.mysport.mysport_mobile.helpers.ActivityHelper;
-import com.mysport.mysport_mobile.interfaces.ActivityListViewInterface;
 import com.mysport.mysport_mobile.models.Module;
+import com.mysport.mysport_mobile.viewholders.ActivityListViewHolder;
 
 import java.util.List;
 

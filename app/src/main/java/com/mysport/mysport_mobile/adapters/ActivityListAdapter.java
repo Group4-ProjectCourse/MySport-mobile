@@ -22,18 +22,17 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListViewHo
     @NonNull
     @Override
     public ActivityListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ActivityListViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_activity_list, parent, false));
+        return new ActivityListViewHolder(LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.item_activity_list, parent, false
+        ));
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ActivityListViewHolder holder, int position) {
         presenter.populate(holder, position);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.clicked(holder.getAdapterPosition());
-            }
-        });
+        holder.itemView.setOnClickListener(
+                v -> presenter.clicked(holder.getAdapterPosition()))
+        ;
     }
 
     @Override

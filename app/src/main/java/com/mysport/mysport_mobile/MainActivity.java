@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private Toolbar toolbar;
     private int currentId;
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
 
     @Override

@@ -9,7 +9,6 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.mysport.mysport_mobile.R;
-import com.mysport.mysport_mobile.activities.calendar.BaseActivity;
 import com.mysport.mysport_mobile.models.CalendarRange;
 import com.mysport.mysport_mobile.models.SportEvent;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
@@ -22,6 +21,7 @@ public class DayViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_day_view, container, false);
         DayView dayView = view.findViewById(R.id.dayView);
+
         dayView.addEventClickedListener(new DayView.EventClickedListener() {
                 @Override
                 public void onEventClicked(SportEvent sportEvent) {

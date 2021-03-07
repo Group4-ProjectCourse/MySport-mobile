@@ -65,4 +65,5 @@
     <string name="register">Registrera</string>
     <string name="already_registered_login_here">Redan registrerad ? Logga in här</string>
     <string name="continue_with_email">Fortsätt med E-post</string>
+    <string name="display_option_nav">Display option</string>
 </resources>

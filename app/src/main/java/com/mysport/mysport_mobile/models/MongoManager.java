@@ -39,9 +39,9 @@ public class MongoManager {
     }
 
 
-    public void addActivity(LocalDate date, Activity activity){
+    public void addActivity(LocalDate date, MongoActivity activity){
         try(MongoClient client = getClient()) {
-            MongoCollection<Day> collection = getCollection(client, date);
+            MongoCollection<MongoDay> collection = getCollection(client, date);
             if (collection.find(Filters.eq("_id", date.getDayOfMonth())).first() == null)
                 insertDay(collection, date.getDayOfMonth(), date.getDayOfYear());
             collection.updateOne(Filters.eq("_id", date.getDayOfMonth()),
@@ -103,18 +103,16 @@ public class MongoManager {
         }
     }
 
-
-    private void insertDay(MongoCollection<Day> collection, int dayOfMonth, int dayOfYear){
-        collection.insertOne(new Day(dayOfMonth, dayOfYear, new ArrayList<>(5)));
+    private void insertDay(MongoCollection<MongoDay> collection, int dayOfMonth, int dayOfYear){
+        collection.insertOne(new MongoDay(dayOfMonth, dayOfYear, new ArrayList<>(5)));
     }
-
 
     //Legacy
     public int getParticipantsCount(LocalDate date, String sport){
         int sum = 0;
         try(MongoClient client = getClient()){
-            MongoCollection<Day> collection = getCollection(client, date);
-            Day day = collection.find(
+            MongoCollection<MongoDay> collection = getCollection(client, date);
+            MongoDay day = collection.find(
                     BasicDBObject.parse("{ _id: "+ date.getDayOfMonth()+", " +
                             "\"activities._id\": \"" + sport + "\" }")
             ).first();
@@ -130,22 +128,22 @@ public class MongoManager {
         return sum;
     }
 
-    public Day getDay(){
+    public MongoDay getDay(){
         return getDay(LocalDate.now());
     }
 
-    public Day getDay(LocalDate date){
-        ArrayList<Activity> activities = new ArrayList<>(3);
+    public MongoDay getDay(LocalDate date){
+        ArrayList<MongoActivity> activities = new ArrayList<>(3);
         try(MongoClient client = getClient()){
-            MongoCollection<Day> collection = getCollection(client, date);
-            FindIterable<Day> day = collection.find(
+            MongoCollection<MongoDay> collection = getCollection(client, date);
+            FindIterable<MongoDay> day = collection.find(
                     BasicDBObject.parse("{ _id: "+ date.getDayOfMonth()+" }")
             );
             if(day.first() == null)
                 return null;
             for(Object a : day.first().getActivities()){
                 Document document = (Document) a;
-                activities.add(new Activity(
+                activities.add(new MongoActivity(
                         document.getString("_id"),
                         document.getString("location"),
                         document.getInteger("rating"),
@@ -156,11 +154,11 @@ public class MongoManager {
                 ));
             }
         }
-        return new Day(date.getDayOfMonth(), date.getDayOfYear(), activities);
+        return new MongoDay(date.getDayOfMonth(), date.getDayOfYear(), activities);
     }
 
-    private MongoCollection<Day> getCollection(MongoClient client, LocalDate date){
-        return getDatabase(client, String.valueOf(date.getYear())).getCollection(date.getMonth().name(), Day.class);
+    private MongoCollection<MongoDay> getCollection(MongoClient client, LocalDate date){
+        return getDatabase(client, String.valueOf(date.getYear())).getCollection(date.getMonth().name(), MongoDay.class);
     }
 
     private MongoDatabase getDatabase(MongoClient client, String year){
@@ -182,24 +180,24 @@ public class MongoManager {
     }
 
     @Entity
-    public static final class Day {
+    public static final class MongoDay {
         @Id
         private int day;
         private int dayOfYear;
-        private ArrayList<Activity> activities;
+        private ArrayList<MongoActivity> activities;
 
-        public Day(){
+        public MongoDay(){
 
         }
 
-        public Day(int day, int dayOfYear, ArrayList<Activity> activities){
+        public MongoDay(int day, int dayOfYear, ArrayList<MongoActivity> activities){
             this.dayOfYear = dayOfYear;
             this.day = day;
             this.activities = activities;
         }
 
         public void removeActivity(String name){
-            for(Activity a : activities){
+            for(MongoActivity a : activities){
                 if(a.name.equals(name)){
                     activities.remove(a);
                     break;
@@ -207,11 +205,11 @@ public class MongoManager {
             }
         }
 
-        public ArrayList<Activity> getActivities() {
+        public ArrayList<MongoActivity> getActivities() {
             return activities;
         }
 
-        public void setActivities(ArrayList<Activity> activities) {
+        public void setActivities(ArrayList<MongoActivity> activities) {
             this.activities = activities;
         }
 
@@ -238,7 +236,7 @@ public class MongoManager {
     }
 
     @Entity
-    public static final class Activity {
+    public static final class MongoActivity {
         @Id
         private String name;
         private String location;
@@ -248,11 +246,11 @@ public class MongoManager {
         private ArrayList<Integer> leaders;
         private ArrayList<Integer> members;
 
-        public Activity(){
+        public MongoActivity(){
 
         }
 
-        public Activity(String name, String location, int rating, int start, int end, ArrayList<Integer> leaders, ArrayList<Integer> members){
+        public MongoActivity(String name, String location, int rating, int start, int end, ArrayList<Integer> leaders, ArrayList<Integer> members){
             this.name = name;
             this.location = location;
             this.rating = rating;

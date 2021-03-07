@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.mysport.mysport_mobile.fragments.calendar.DayFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mysport.mysport_mobile.fragments.calendar.DayViewFragment;
+import com.mysport.mysport_mobile.fragments.calendar.MonthViewFragment;
 import com.mysport.mysport_mobile.profile.UserProfile;
 import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
 
@@ -27,9 +30,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
+    private ImageView viewOption;
     private int currentId;
     private FirebaseAuth mAuth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+        viewOption = findViewById(R.id.nav_overflow_menu_item);
         toolbar = findViewById(R.id.toolbar);
         //tool bar
         setSupportActionBar(toolbar);
@@ -61,17 +65,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-
         navigationView.setCheckedItem(R.id.nav_home);
 
         //fragment transaction
-        handleFragment(new DayViewFragment());
+        handleFragment(new DayViewFragment(), "DAY_VIEW");
+        //handleFragment(new MonthViewFragment(), "MONTH_VIEW");
+
+        viewOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = getSupportFragmentManager().findFragmentByTag("DAY_VIEW");
+                if(fragment != null && fragment.isVisible())
+                    handleFragment(new MonthViewFragment(), "MONTH_VIEW");
+                else
+                    handleFragment(new DayViewFragment(), "DAY_VIEW");
+            }
+        });
     }
 
     private void handleFragment(Fragment fragment){
+        handleFragment(fragment, null);
+    }
+
+    private void handleFragment(Fragment fragment, String tag){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-        transaction.replace(R.id.frameLayout, fragment);
+        transaction.replace(R.id.frameLayout, fragment, tag == null ? "" : tag);
         transaction.commit();
     }
 
@@ -92,36 +111,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(id == navigationView.getCheckedItem().getItemId())
             Toast.makeText(this, getString(R.string.menu_item_selected_again) + " - " + navigationView.getCheckedItem().getTitle(), Toast.LENGTH_SHORT).show();
-        else if(id == R.id.nav_home)
-            handleFragment(new DayViewFragment());
+        else if(id == R.id.nav_home){
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag("DAY_VIEW");
+            if(fragment != null && fragment.isVisible())
+                handleFragment(new MonthViewFragment(), "MONTH_VIEW");
+            else
+                handleFragment(new DayViewFragment(), "DAY_VIEW");
+        }
         else if(id == R.id.nav_settings)
             handleFragment(new SettingsFragment());
         else if (id == R.id.nav_profile)
             handleFragment(new UserProfile());
         else if (id == R.id.nav_share)
-
             Toast.makeText(this, R.string.message_share_example, Toast.LENGTH_SHORT).show();
 
 //        else if (id == R.id.nav_logout)
 //            FirebaseAuth.getInstance().signOut();
 
-
-//        switch (menuItem.getItemId()){
-//            case R.id.nav_home:
-//            break;
-//
-//            case R.id.nav_settings:
-//                Intent intent = new Intent(this, SettingActivity.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.nav_share:
-//                Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
-//                break;
-//        }
-
-
-
-
+        toolbar.setTitle(navigationView.getCheckedItem().getTitle());
         drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
@@ -136,12 +143,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.nav_logout:
-                mAuth.signOut();
-                LoginManager.getInstance().logOut();
-                finish();
-                return true;
+        int id = item.getItemId();
+
+        if (id == R.id.nav_logout) {
+            mAuth.signOut();
+            LoginManager.getInstance().logOut();
+            finish();
+            return true;
+        }
+        else if(id == R.id.nav_overflow_menu_item) {
+            Toast.makeText(this, "Overflow menu item selected", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

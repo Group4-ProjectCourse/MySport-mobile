@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mysport.mysport_mobile.views.DayView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dayView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:scrollbars="none">
-
-    <com.mysport.mysport_mobile.views.DayView
-        android:id="@+id/dayView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-</ScrollView>
+    android:layout_height="match_parent" />

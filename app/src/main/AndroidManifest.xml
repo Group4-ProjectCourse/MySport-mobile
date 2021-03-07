@@ -13,33 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MySportmobile">
 
-<!--        <activity-->
-<!--            android:name=".activities.TestActivity">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+        <activity android:name=".activities.authentication.WelcomeActivity" />
+        <activity android:name=".activities.authentication.EmailLoginActivity" />
+        <activity android:name=".activities.authentication.RegisterActivity" />
+        <activity android:name=".activities.authentication.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<!--        <activity-->
-<!--            android:name=".activities.calendar.DayViewActivity"-->
-<!--            android:label="DayViewActivity"-->
-<!--            android:parentActivityName=".activities.TestActivity" />-->
-<!--        <activity-->
-<!--            android:name=".activities.calendar.MonthViewActivity"-->
-<!--            android:label="MonthViewActivity"-->
-<!--            android:parentActivityName=".activities.TestActivity" />-->
-
-<!--        <activity android:name=".activities.authentication.WelcomeActivity" />-->
-<!--        <activity android:name=".activities.authentication.EmailLoginActivity" />-->
-<!--        <activity android:name=".activities.authentication.RegisterActivity" />-->
-<!--        <activity android:name=".activities.authentication.LoginActivity">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".MainActivity"

@@ -24,7 +24,7 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        spinnerLanguage = view.findViewById(R.id.spinnerLanguage);
+        spinnerLanguage = view.findViewById(R.id.spinnerColour);
         spinnerColour = view.findViewById(R.id.spinnerColour);
         adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, languages);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -24,7 +24,12 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -34,9 +39,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mysport.mysport_mobile.profile.UserProfile;
 import com.squareup.picasso.Picasso;
-
-
-
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -56,6 +58,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button mEmailButton;
     private float value = 0;
     private SignInButton mGoogleButton;
+    private GoogleSignInClient mGoogleSignInClient;
+    private int RC_SIGN_IN = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +108,14 @@ public class LoginActivity extends AppCompatActivity {
         videoBG.setVideoURI(uri);
         videoBG.start();
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleButton.setOnClickListener(view -> {
+            signIn();
+        });
+
         // https://developer.android.com/reference/android/widget/VideoView.html
         videoBG.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -142,31 +154,39 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
- //       authStateListener = new FirebaseAuth.AuthStateListener() {
- //           @Override
- //           public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
- //               FirebaseUser user = firebaseAuth.getCurrentUser();
- //               if (user != null){
- //                  updateUI(user);
- //               }
- //               else {
- //                  updateUI(null);
- //               }
- //           }
- //       };
+        //       authStateListener = new FirebaseAuth.AuthStateListener() {
+        //           @Override
+        //           public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        //               FirebaseUser user = firebaseAuth.getCurrentUser();
+        //               if (user != null){
+        //                  updateUI(user);
+        //               }
+        //               else {
+        //                  updateUI(null);
+        //               }
+        //           }
+        //       };
 
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
                 if (currentAccessToken == null) {
-                   // mFirebaseAuth.getInstance().signOut();
+                    // mFirebaseAuth.getInstance().signOut();
                 }
             }
         };
     }
 
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+        }
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -178,7 +198,7 @@ public class LoginActivity extends AppCompatActivity {
         mFirebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Log.d(TAG, "sign in with credential: successful");
                     FirebaseUser user = mFirebaseAuth.getCurrentUser();
                     updateUI(user);
@@ -193,19 +213,36 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            updateUIG(account);
+        } catch (ApiException e) {
+            Log.w(TAG, "signInResult:failed code = " + e.getStatusCode());
+            updateUIG(null);
+        }
+    }
+
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
-         //   textViewUser.setText(user.getDisplayName());
-         //   if (user.getPhotoUrl() != null){
-         //       String photoUrl = user.getPhotoUrl().toString();
-         //       photoUrl = photoUrl + "?type=large";
-         //       Picasso.get().load(photoUrl).into(mLogo);
-         //   }
+            //   textViewUser.setText(user.getDisplayName());
+            //   if (user.getPhotoUrl() != null){
+            //       String photoUrl = user.getPhotoUrl().toString();
+            //       photoUrl = photoUrl + "?type=large";
+            //       Picasso.get().load(photoUrl).into(mLogo);
+            //   }
+        } else {
+            //  textViewUser.setText("");
+            //  mLogo.setImageResource(R.drawable.com_facebook_profile_picture_blank_portrait);
+            Toast.makeText(this, "Please sign in to continue", Toast.LENGTH_SHORT).show();
         }
-        else{
-          //  textViewUser.setText("");
-          //  mLogo.setImageResource(R.drawable.com_facebook_profile_picture_blank_portrait);
+    }
+
+    private void updateUIG(GoogleSignInAccount account) {
+        if (account != null) {
+            startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
+        } else {
             Toast.makeText(this, "Please sign in to continue", Toast.LENGTH_SHORT).show();
         }
     }
@@ -213,17 +250,22 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-       // mFirebaseAuth.addAuthStateListener(authStateListener);
+        // mFirebaseAuth.addAuthStateListener(authStateListener);
         FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
-        if (currentUser != null){
+        if (currentUser != null) {
             updateUI(currentUser);
         }
+        // Check for existing Google Sign In account, if the user is already signed in
+// the GoogleSignInAccount will be non-null.
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+//        if (account != null)
+//            updateUIG(account);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-       // mCurrentVideoPosition = mMediaPlayer.getCurrentPosition();
+        // mCurrentVideoPosition = mMediaPlayer.getCurrentPosition();
         videoBG.pause();
     }
 
@@ -233,14 +275,14 @@ public class LoginActivity extends AppCompatActivity {
         videoBG.start();
     }
 
- //   @Override
- //   protected void onStop() {
- //       super.onStop();
- //       if (authStateListener != null){
- //           mFirebaseAuth.removeAuthStateListener(authStateListener);
- //       }
+    //   @Override
+    //   protected void onStop() {
+    //       super.onStop();
+    //       if (authStateListener != null){
+    //           mFirebaseAuth.removeAuthStateListener(authStateListener);
+    //       }
 //
- //   }
+    //   }
 
     @Override
     protected void onDestroy() {

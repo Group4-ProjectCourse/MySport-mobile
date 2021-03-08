@@ -13,7 +13,7 @@ public class MonthViewActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_month_view);
+        setContentView(R.layout.fragment_month_view);
 
         final MonthView firstMonthView = findViewById(R.id.firstMonthView);
         firstMonthView.setOnSelectedDayListener(new MonthView.OnSelectedDayListener() {

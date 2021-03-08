@@ -24,13 +24,16 @@ import com.mysport.mysport_mobile.fragments.calendar.DayViewFragment;
 import com.mysport.mysport_mobile.fragments.calendar.MonthViewFragment;
 import com.mysport.mysport_mobile.profile.UserProfile;
 import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
+import com.mysport.mysport_mobile.utils.CalendarUtils;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private ImageView viewOption;
+    private ImageView viewOption, addSport;
     private int currentId;
     private FirebaseAuth mAuth;
 
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         viewOption = findViewById(R.id.nav_overflow_menu_item);
+        addSport = findViewById(R.id.add_sport_button);
         toolbar = findViewById(R.id.toolbar);
         //tool bar
         setSupportActionBar(toolbar);
@@ -69,25 +73,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //fragment transaction
         handleFragment(new DayViewFragment(), "DAY_VIEW");
+        toolbar.setTitle(CalendarUtils.toSimpleString(Calendar.getInstance()));
         //handleFragment(new MonthViewFragment(), "MONTH_VIEW");
 
         viewOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment = getSupportFragmentManager().findFragmentByTag("DAY_VIEW");
-                if(fragment != null && fragment.isVisible())
+                if(fragment != null && fragment.isVisible()) {
                     handleFragment(new MonthViewFragment(), "MONTH_VIEW");
-                else
-                    handleFragment(new DayViewFragment(), "DAY_VIEW");
+                    toolbar.setTitle("Calendar View");
+                    viewOption.setVisibility(View.GONE);
+                    addSport.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        addSport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
 
-    private void handleFragment(Fragment fragment){
+    public void handleFragment(Fragment fragment){
         handleFragment(fragment, null);
     }
 
-    private void handleFragment(Fragment fragment, String tag){
+    public void handleFragment(Fragment fragment, String tag){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         transaction.replace(R.id.frameLayout, fragment, tag == null ? "" : tag);
@@ -155,5 +169,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(this, "Overflow menu item selected", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
+    public ImageView getViewOption() {
+        return viewOption;
+    }
+
+    public ImageView getAddSport() {
+        return addSport;
     }
 }

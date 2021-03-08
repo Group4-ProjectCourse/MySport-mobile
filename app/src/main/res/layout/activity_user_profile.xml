@@ -36,7 +36,7 @@
                 android:fontFamily="@fonts/poppins_semibold"
                 android:includeFontPadding="false"
                 android:text="@string/name_example"
-                android:textColor="@color/white"
+                android:textColor="@color/whiteColor"
                 android:textSize="25sp" />
 
             <TextView
@@ -85,7 +85,7 @@
                         android:fontFamily="@fonts/poppins_semibold"
                         android:includeFontPadding="false"
                         android:text="@string/balance_example"
-                        android:textColor="@color/white"
+                        android:textColor="@color/whiteColor"
                         android:textSize="20sp" />
 
                     <TextView
@@ -97,7 +97,7 @@
                         android:fontFamily="@fonts/poppins"
                         android:includeFontPadding="false"
                         android:text="@string/balance"
-                        android:textColor="@color/white"
+                        android:textColor="@color/whiteColor"
                         android:textSize="14sp" />
 
                 </RelativeLayout>
@@ -131,7 +131,7 @@
                         android:fontFamily="@fonts/poppins_semibold"
                         android:includeFontPadding="false"
                         android:text="@string/score_example"
-                        android:textColor="@color/white"
+                        android:textColor="@color/whiteColor"
                         android:textSize="20sp" />
 
                     <TextView
@@ -143,7 +143,7 @@
                         android:fontFamily="@fonts/poppins"
                         android:includeFontPadding="false"
                         android:text="@string/score"
-                        android:textColor="@color/white"
+                        android:textColor="@color/whiteColor"
                         android:textSize="14sp" />
 
                 </RelativeLayout>

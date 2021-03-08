@@ -15,7 +15,7 @@ public class DayViewActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_day_view);
+        setContentView(R.layout.fragment_day_view);
 
         DayView dayView = findViewById(R.id.dayView);
         dayView.addEventClickedListener(new DayView.EventClickedListener() {

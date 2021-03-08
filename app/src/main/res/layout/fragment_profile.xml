@@ -32,7 +32,7 @@
             android:layout_toEndOf="@+id/profile_image"
             android:layout_width="wrap_content"
             android:text="@string/name_example"
-            android:textColor="@color/white"
+            android:textColor="@color/whiteColor"
             android:textSize="25sp" />
 
         <TextView
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="@string/balance_example"
-                    android:textColor="@color/white"
+                    android:textColor="@color/whiteColor"
                     android:textSize="20sp" />
 
                 <TextView
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="@string/balance"
-                    android:textColor="@color/white"
+                    android:textColor="@color/whiteColor"
                     android:textSize="14sp" />
 
             </RelativeLayout>
@@ -127,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="@string/score_example"
-                    android:textColor="@color/white"
+                    android:textColor="@color/whiteColor"
                     android:textSize="20sp" />
 
                 <TextView
@@ -139,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="@string/score"
-                    android:textColor="@color/white"
+                    android:textColor="@color/whiteColor"
                     android:textSize="14sp" />
 
             </RelativeLayout>

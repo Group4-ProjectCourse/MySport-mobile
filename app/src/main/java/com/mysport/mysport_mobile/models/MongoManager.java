@@ -38,15 +38,15 @@ public class MongoManager {
         rootLogger.setLevel(Level.OFF);
     }
 
-
     public void addActivity(LocalDate date, MongoActivity activity){
         try(MongoClient client = getClient()) {
             MongoCollection<MongoDay> collection = getCollection(client, date);
             if (collection.find(Filters.eq("_id", date.getDayOfMonth())).first() == null)
                 insertDay(collection, date.getDayOfMonth(), date.getDayOfYear());
-            collection.updateOne(Filters.eq("_id", date.getDayOfMonth()),
-                    Updates.addToSet("activities", activity
-                    ));
+            collection.updateOne(
+                    Filters.eq("_id", date.getDayOfMonth()),
+                    Updates.addToSet("activities", activity)
+            );
         }
     }
 

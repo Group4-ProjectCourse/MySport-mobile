@@ -66,4 +66,5 @@
     <string name="already_registered_login_here">Allrede Registrert ? Logg inn her</string>
     <string name="continue_with_email">Fortsett med E-post</string>
     <string name="display_option_nav">Display option</string>
+    <string name="example_address_home">USA, Minnesota, Gun Beach valley 420</string>
 </resources>

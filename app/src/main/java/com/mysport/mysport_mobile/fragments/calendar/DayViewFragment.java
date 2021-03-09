@@ -14,25 +14,24 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mysport.mysport_mobile.MainActivity;
 import com.mysport.mysport_mobile.R;
+import com.mysport.mysport_mobile.enums.TransactionAction;
 import com.mysport.mysport_mobile.models.SportEvent;
 import com.mysport.mysport_mobile.views.DayView;
 
 public class DayViewFragment extends Fragment {
-    private Dialog dialog;
-    private Animation rotateOpen, rotateClose, fromBotton, toBottom;
-    private FloatingActionButton addActivity, edit, addMember;
-    private Boolean clicked = false;
+
+    private FloatingFragment floatingFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_day_view, container, false);
         DayView dayView = view.findViewById(R.id.dayView);
-        addActivity = view.findViewById(R.id.day_view_add_button);
-        edit = view.findViewById(R.id.day_view_edit_button);
-        addMember = view.findViewById(R.id.day_view_add_person_button);
-        dialog = new Dialog(getContext());
-        loadAnimations();
+        floatingFragment = new FloatingFragment();
+
+        MainActivity parent = (MainActivity) getActivity();
+        parent.handleFragment(TransactionAction.ADD, R.id.main_place_for_floating_buttons, floatingFragment);
 
         dayView.addEventClickedListener(new DayView.EventClickedListener() {
                 @Override
@@ -41,27 +40,6 @@ public class DayViewFragment extends Fragment {
                 }
             }
         );
-
-        addActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OnAddButtonClicked();
-            }
-        });
-
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Edit button clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        addMember.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Add Member button clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
 
 //        Calendar startCalendar = CalendarUtils.createCalendar();
 //        startCalendar.add(Calendar.DATE, -1);
@@ -173,51 +151,10 @@ public class DayViewFragment extends Fragment {
         return view;
     }
 
-    private void OnAddButtonClicked() {
-        setVisibility();
-        setAnimation();
-        setClickable();
-    }
-
-    private void setAnimation() {
-
-    }
-
-    private void setVisibility() {
-        edit.setVisibility((clicked = !clicked) ? View.INVISIBLE : View.VISIBLE);
-        addMember.setVisibility(clicked ? View.INVISIBLE : View.VISIBLE);
-    }
-
-    private void setClickable(){
-        edit.setClickable(!clicked);
-        addMember.setClickable(!clicked);
-    }
-
-    private void createSportEvent(){
-        addActivity.startAnimation(clicked ? rotateClose : rotateOpen);
-        edit.startAnimation(clicked ? toBottom : fromBotton);
-        addActivity.startAnimation(clicked ? toBottom : fromBotton);
-    }
-
-    public void showAddForm(View v){
-        TextView textClose;
-        Button follow;
-        dialog.setContentView(R.layout.add_form);
-        textClose = dialog.findViewById(R.id.popup_txtClose_button);
-        follow = dialog.findViewById(R.id.popup_follow_button);
-        textClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-    }
-
-    private void loadAnimations(){
-        rotateOpen = AnimationUtils.loadAnimation(getContext(), R.anim.dayview_rotate_open_anim);
-        rotateClose = AnimationUtils.loadAnimation(getContext(), R.anim.dayview_rotate_close_anim);
-        fromBotton = AnimationUtils.loadAnimation(getContext(), R.anim.dayview_from_bottom_anim);
-        toBottom = AnimationUtils.loadAnimation(getContext(), R.anim.dayview_to_bottom_anim);
+    @Override
+    public void onStop() {
+        super.onStop();
+        MainActivity parent = (MainActivity) getActivity();
+        parent.handleFragment(TransactionAction.REMOVE, R.id.main_place_for_floating_buttons, floatingFragment);
     }
 }

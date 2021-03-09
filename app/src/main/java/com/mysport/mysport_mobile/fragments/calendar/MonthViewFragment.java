@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import com.mysport.mysport_mobile.MainActivity;
 import com.mysport.mysport_mobile.R;
+import com.mysport.mysport_mobile.enums.TransactionAction;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
 import com.mysport.mysport_mobile.views.MonthView;
 
@@ -30,7 +31,7 @@ public class MonthViewFragment extends Fragment {
                     Toast.makeText(getContext(), getString(R.string.error_usage_incorrect_place), Toast.LENGTH_LONG).show();
                     return;
                 }
-                parent.handleFragment(new DayViewFragment(), "DAY_VIEW");
+                parent.handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new DayViewFragment(), "DAY_VIEW");
                 parent.getToolbar().setTitle(CalendarUtils.toSimpleString(day));
                 parent.getViewOption().setVisibility(View.VISIBLE);
                 parent.getViewOption().setClickable(true);

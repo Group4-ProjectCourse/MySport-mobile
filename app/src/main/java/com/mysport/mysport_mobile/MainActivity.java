@@ -6,7 +6,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,9 +18,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.facebook.login.LoginManager;
 import com.google.android.material.navigation.NavigationView;
-import com.mysport.mysport_mobile.fragments.calendar.DayFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import com.mysport.mysport_mobile.enums.TransactionAction;
 import com.mysport.mysport_mobile.fragments.calendar.DayViewFragment;
+import com.mysport.mysport_mobile.fragments.calendar.FloatingFragment;
 import com.mysport.mysport_mobile.fragments.calendar.MonthViewFragment;
 import com.mysport.mysport_mobile.profile.UserProfile;
 import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setCheckedItem(R.id.nav_home);
 
         //fragment transaction
-        handleFragment(new DayViewFragment(), "DAY_VIEW");
+        handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new DayViewFragment(), "DAY_VIEW");
         toolbar.setTitle(CalendarUtils.toSimpleString(Calendar.getInstance()));
         //handleFragment(new MonthViewFragment(), "MONTH_VIEW");
 
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 Fragment fragment = getSupportFragmentManager().findFragmentByTag("DAY_VIEW");
                 if(fragment != null && fragment.isVisible()) {
-                    handleFragment(new MonthViewFragment(), "MONTH_VIEW");
+                    handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new MonthViewFragment(), "MONTH_VIEW");
                     toolbar.setTitle("Calendar View");
                     viewOption.setVisibility(View.INVISIBLE);
                     viewOption.setClickable(false);
@@ -90,14 +90,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    public void handleFragment(Fragment fragment){
-        handleFragment(fragment, null);
+    public void handleFragment(int containerViewId, Fragment fragment){
+        handleFragment(TransactionAction.REPLACE, containerViewId, fragment, null);
     }
 
-    public void handleFragment(Fragment fragment, String tag){
+    public void handleFragment(TransactionAction action, int containerViewId, Fragment fragment){
+        handleFragment(action, containerViewId, fragment, null);
+    }
+
+    public void handleFragment(TransactionAction action, int containerViewId, Fragment fragment, String tag){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-        transaction.replace(R.id.frameLayout, fragment, tag == null ? "" : tag);
+        transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        switch (action) {
+            case ADD:
+                transaction.add(containerViewId, fragment, tag == null ? "" : tag);
+                break;
+            case REMOVE:
+                transaction.remove(fragment);
+                break;
+            case ATTACH:
+                transaction.attach(fragment);
+                break;
+            case DETACH:
+                transaction.detach(fragment);
+                break;
+            case HIDE:
+                transaction.hide(fragment);
+                break;
+            default:
+                transaction.replace(containerViewId, fragment, tag == null ? "" : tag);
+        }
         transaction.commit();
     }
 
@@ -121,17 +143,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else if(id == R.id.nav_home){
             Fragment fragment = getSupportFragmentManager().findFragmentByTag("DAY_VIEW");
             if(fragment != null && fragment.isVisible())
-                handleFragment(new MonthViewFragment(), "MONTH_VIEW");
+                handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new MonthViewFragment(), "MONTH_VIEW");
             else
-                handleFragment(new DayViewFragment(), "DAY_VIEW");
+                handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new DayViewFragment(), "DAY_VIEW");
         }
         else if(id == R.id.nav_settings)
-            handleFragment(new SettingsFragment());
+            handleFragment(R.id.main_place_for_fragments, new SettingsFragment());
         else if (id == R.id.nav_profile)
-            handleFragment(new UserProfile());
+            handleFragment(R.id.main_place_for_fragments, new UserProfile());
         else if (id == R.id.nav_share)
             Toast.makeText(this, R.string.message_share_example, Toast.LENGTH_SHORT).show();
-
 //        else if (id == R.id.nav_logout)
 //            FirebaseAuth.getInstance().signOut();
 

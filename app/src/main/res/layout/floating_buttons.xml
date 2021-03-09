@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/floating_buttons_linear_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentBottom="true"
+    android:layout_gravity="end|bottom"
+    android:orientation="vertical">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/day_view_add_person_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/popupBlueLightColor"
+        android:clickable="true"
+        android:contentDescription="Floating button"
+        android:focusable="true"
+        android:src="@drawable/ic_person_add"
+        android:tint="@color/whiteColor"
+        android:visibility="invisible"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/day_view_edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/colorAccentPopup"
+        android:clickable="true"
+        android:contentDescription="Floating button"
+        android:focusable="true"
+        android:src="@drawable/ic_edit"
+        android:tint="@color/whiteColor"
+        android:visibility="invisible"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/day_view_add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/color4"
+        android:clickable="true"
+        android:contentDescription="Floating button"
+        android:focusable="true"
+        android:src="@drawable/ic_add"
+        android:tint="@color/whiteColor"
+        tools:ignore="HardcodedText" />
+
+</LinearLayout>

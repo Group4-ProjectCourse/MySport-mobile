@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="nested_scrollview" type="id" />
-    <item name="frameLayout" type="id" />
+    <item name="main_place_for_fragments" type="id" />
     <item name="drawer_layout" type="id" />
     <item name="nav_view" type="id" />
     <item name="toolbar" type="id" />

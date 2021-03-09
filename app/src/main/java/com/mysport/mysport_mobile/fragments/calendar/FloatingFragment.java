@@ -19,7 +19,7 @@ import com.mysport.mysport_mobile.R;
 public class FloatingFragment extends Fragment {
     private Dialog dialog;
     private Animation rotateOpen, rotateClose, fromBottom, toBottom;
-    private FloatingActionButton addActivity, edit, addMember;
+    private FloatingActionButton addButton, edit, addMember;
     private Boolean clicked = false;
 
     @Override
@@ -27,13 +27,13 @@ public class FloatingFragment extends Fragment {
         View view = inflater.inflate(R.layout.floating_buttons, container, false);
 
         dialog = new Dialog(getContext());
-        addActivity = view.findViewById(R.id.day_view_add_button);
+        addButton = view.findViewById(R.id.day_view_add_button);
         edit = view.findViewById(R.id.day_view_edit_button);
         addMember = view.findViewById(R.id.day_view_add_person_button);
 
         loadAnimations();
 
-        addActivity.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OnAddButtonClicked();
@@ -61,16 +61,17 @@ public class FloatingFragment extends Fragment {
         setVisibility();
         startAnimation();
         setClickable();
+        clicked = !clicked;
     }
 
     private void startAnimation() {
-        addActivity.startAnimation(clicked ? rotateClose : rotateOpen);
+        addButton.startAnimation(clicked ? rotateClose : rotateOpen);
         edit.startAnimation(clicked ? toBottom : fromBottom);
-        addActivity.startAnimation(clicked ? toBottom : fromBottom);
+        addMember.startAnimation(clicked ? toBottom : fromBottom);
     }
 
     private void setVisibility() {
-        edit.setVisibility((clicked = !clicked) ? View.INVISIBLE : View.VISIBLE);
+        edit.setVisibility(clicked ? View.INVISIBLE : View.VISIBLE);
         addMember.setVisibility(clicked ? View.INVISIBLE : View.VISIBLE);
     }
 

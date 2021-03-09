@@ -80,13 +80,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         viewOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = getSupportFragmentManager().findFragmentByTag("DAY_VIEW");
-                if(fragment != null && fragment.isVisible()) {
-                    handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new MonthViewFragment(), "MONTH_VIEW");
-                    toolbar.setTitle("Calendar View");
-                    viewOption.setVisibility(View.INVISIBLE);
-                    viewOption.setClickable(false);
-                }
+//                Fragment fragment = getSupportFragmentManager().findFragmentByTag("DAY_VIEW");
+//                if(fragment != null && fragment.isVisible()) {
+//                    handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new MonthViewFragment(), "MONTH_VIEW");
+//                    toolbar.setTitle("Calendar View");
+//                    viewOption.setVisibility(View.INVISIBLE);
+//                    viewOption.setClickable(false);
+//                }
+                handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new MonthViewFragment(), "MONTH_VIEW");
+                toolbar.setTitle("Calendar View");
+                viewOption.setVisibility(View.INVISIBLE);
+                viewOption.setClickable(false);
             }
         });
     }

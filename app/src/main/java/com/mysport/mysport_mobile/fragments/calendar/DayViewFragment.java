@@ -18,6 +18,7 @@ import com.mysport.mysport_mobile.MainActivity;
 import com.mysport.mysport_mobile.R;
 import com.mysport.mysport_mobile.enums.TransactionAction;
 import com.mysport.mysport_mobile.models.SportEvent;
+import com.mysport.mysport_mobile.utils.CalendarUtils;
 import com.mysport.mysport_mobile.views.DayView;
 
 public class DayViewFragment extends Fragment {
@@ -32,6 +33,8 @@ public class DayViewFragment extends Fragment {
 
         MainActivity parent = (MainActivity) getActivity();
         parent.handleFragment(TransactionAction.ADD, R.id.main_place_for_floating_buttons, floatingFragment);
+        parent.getViewOption().setVisibility(View.VISIBLE);
+        parent.getViewOption().setClickable(true);
 
         dayView.addEventClickedListener(new DayView.EventClickedListener() {
                 @Override
@@ -156,5 +159,13 @@ public class DayViewFragment extends Fragment {
         super.onStop();
         MainActivity parent = (MainActivity) getActivity();
         parent.handleFragment(TransactionAction.REMOVE, R.id.main_place_for_floating_buttons, floatingFragment);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MainActivity parent = (MainActivity) getActivity();
+        parent.getViewOption().setVisibility(View.INVISIBLE);
+        parent.getViewOption().setClickable(false);
     }
 }

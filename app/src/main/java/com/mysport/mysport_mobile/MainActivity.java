@@ -5,6 +5,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private ImageView viewOption, addSport;
+    private Button viewOption;
     private int currentId;
     private FirebaseAuth mAuth;
 
@@ -46,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         viewOption = findViewById(R.id.nav_overflow_menu_item);
-        addSport = findViewById(R.id.add_sport_button);
         toolbar = findViewById(R.id.toolbar);
         //tool bar
         setSupportActionBar(toolbar);
@@ -83,16 +83,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(fragment != null && fragment.isVisible()) {
                     handleFragment(new MonthViewFragment(), "MONTH_VIEW");
                     toolbar.setTitle("Calendar View");
-                    viewOption.setVisibility(View.GONE);
-                    addSport.setVisibility(View.GONE);
+                    viewOption.setVisibility(View.INVISIBLE);
+                    viewOption.setClickable(false);
                 }
-            }
-        });
-
-        addSport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
     }
@@ -175,11 +168,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return toolbar;
     }
 
-    public ImageView getViewOption() {
+    public Button getViewOption() {
         return viewOption;
-    }
-
-    public ImageView getAddSport() {
-        return addSport;
     }
 }

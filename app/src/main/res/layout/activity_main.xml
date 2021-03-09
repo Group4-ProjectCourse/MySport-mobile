@@ -14,91 +14,83 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/header"
         android:visibility="visible"
+        app:headerLayout="@layout/header"
         app:menu="@menu/main_menu" />
 
 
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
 
-            <com.google.android.material.appbar.AppBarLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:elevation="0dp">
+                android:background="@color/whiteColor"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    app:contentInsetEnd="0dp"
+                    app:contentInsetStart="0dp"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:navigationIcon="@drawable/ic_menu"
+                    app:title="*Your_Fragment_Name_Here*">
 
-                    <androidx.appcompat.widget.Toolbar
-                        android:id="@+id/toolbar"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:background="@color/colorPrimary"
-                        app:contentInsetEnd="0dp"
-                        app:contentInsetStart="0dp"
-                        app:title="*Your_Fragment_Name_Here*"
-                        app:layout_scrollFlags="scroll|enterAlways"
-                        app:navigationIcon="@drawable/ic_menu">
+                </androidx.appcompat.widget.Toolbar>
 
-                    </androidx.appcompat.widget.Toolbar>
+                <Button
+                    android:id="@+id/nav_overflow_menu_item"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/ic_preview"
+                    android:clickable="true"
+                    android:contentDescription="View option for calendar"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-                    <ImageView
-                        android:id="@+id/nav_overflow_menu_item"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/ic_preview"
-                        android:textColor="@color/color2"
-                        android:clickable="true"
-                        android:contentDescription="View option for calendar" />
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-                </LinearLayout>
-
-            </com.google.android.material.appbar.AppBarLayout>
-
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/nested_scrollview"
+            <FrameLayout
+                android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
-                android:fillViewport="true"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+                android:layout_height="wrap_content">
 
-                <FrameLayout
-                    android:id="@+id/frameLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            </FrameLayout>
 
-                </FrameLayout>
-
-            </androidx.core.widget.NestedScrollView>
-
-            <ImageView
-                android:id="@+id/add_sport_button"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="bottom|end"
-                android:layout_marginEnd="30dp"
-                android:background="@drawable/add_background"
-                android:contentDescription="@string/add_event_button"
-                android:padding="5dp"
-                android:layout_marginBottom="25dp"
-                android:src="@drawable/ic_add"
-                app:layout_constraintBottom_toTopOf="@id/nested_scrollview"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:tint="@color/colorGrey" />
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </ScrollView>
-
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
+
+
+    <!--            <ImageView-->
+    <!--                android:id="@+id/add_sport_button"-->
+    <!--                android:layout_width="50dp"-->
+    <!--                android:layout_height="50dp"-->
+    <!--                android:layout_gravity="bottom|end"-->
+    <!--                android:layout_marginEnd="30dp"-->
+    <!--                android:background="@drawable/add_background"-->
+    <!--                android:contentDescription="@string/add_event_button"-->
+    <!--                android:padding="5dp"-->
+    <!--                android:layout_marginBottom="25dp"-->
+    <!--                android:src="@drawable/ic_add"-->
+    <!--                app:layout_constraintBottom_toTopOf="@id/nested_scrollview"-->
+    <!--                app:layout_constraintEnd_toEndOf="parent"-->
+    <!--                app:tint="@color/colorGrey" />-->

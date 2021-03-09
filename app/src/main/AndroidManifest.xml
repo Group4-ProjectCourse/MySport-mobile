@@ -10,8 +10,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.MySportmobile">
+        android:supportsRtl="true">
+<!--        Removed global theme definition which caused a lot of issues with cosmetics, colors especially (e.g.: always white background of buttons)-->
 
         <activity android:name=".activities.authentication.WelcomeActivity" />
         <activity android:name=".activities.authentication.EmailLoginActivity" />
@@ -28,6 +28,8 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.MySportmobile.NoActionBar">
+<!--            Add custom theme for activity manually-->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

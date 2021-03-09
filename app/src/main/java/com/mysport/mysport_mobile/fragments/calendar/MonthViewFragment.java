@@ -33,7 +33,7 @@ public class MonthViewFragment extends Fragment {
                 parent.handleFragment(new DayViewFragment(), "DAY_VIEW");
                 parent.getToolbar().setTitle(CalendarUtils.toSimpleString(day));
                 parent.getViewOption().setVisibility(View.VISIBLE);
-                parent.getAddSport().setVisibility(View.VISIBLE);
+                parent.getViewOption().setClickable(true);
             }
         });
 

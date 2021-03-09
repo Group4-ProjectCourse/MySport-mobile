@@ -34,4 +34,28 @@
     <style name="Theme.MySportmobile.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MySportmobile.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ThemePurple" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorSecondary">@color/colorMySport</item>
+        <item name="colorAccent">@color/purple_200</item>
+        <item name="colorOnSecondary">@color/whiteColor</item>
+        </style>
+
+    <style name="ThemeBlue" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorSecondary">@color/blue_700</item>
+        <item name="colorAccent">@color/blue_200</item>
+        <item name="colorOnSecondary">@color/whiteColor</item>
+    </style>
+
+    <style name="ThemeBlack" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorAccent">@color/black</item>
+        <item name="colorOnSecondary">@color/whiteColor</item>
+    </style>
+
+    <style name="ThemeDGreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorSecondary">@color/darkGreen_700</item>
+        <item name="colorAccent">@color/darkGreen_200</item>
+        <item name="colorOnSecondary">@color/whiteColor</item>
+    </style>
 </resources>

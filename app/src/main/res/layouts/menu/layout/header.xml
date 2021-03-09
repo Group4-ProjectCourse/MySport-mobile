@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="@color/colorMySport"
+    android:background="?colorSecondary"
     android:gravity="bottom"
     android:orientation="vertical">
 
@@ -38,7 +38,7 @@
                 android:fontFamily="@fonts/poppins_medium"
                 android:includeFontPadding="false"
                 android:text="@string/greeting"
-                android:textColor="@android:color/white"
+                android:textColor="?colorOnSecondary"
                 android:textSize="18sp" />
 
             <TextView
@@ -47,7 +47,7 @@
                 android:fontFamily="@fonts/poppins_semibold"
                 android:includeFontPadding="false"
                 android:text="@string/name_example"
-                android:textColor="@android:color/white"
+                android:textColor="?colorOnSecondary"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 

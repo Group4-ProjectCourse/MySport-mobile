@@ -12,14 +12,15 @@
             android:id="@+id/textViewSettingsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorMySport"
             android:paddingStart="45dp"
             android:paddingTop="8dp"
             android:paddingEnd="16dp"
             android:paddingBottom="8dp"
             android:text="@string/settings"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp">
+            android:textColor="?colorOnSecondary"
+            android:textSize="20sp"
+            android:background="?colorSecondary"
+            >
 
         </TextView>
 
@@ -61,11 +62,11 @@
     </Spinner>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorMySport"
-        android:backgroundTint="#F31717"
+        android:background="?colorSecondary"
+        android:textColor="?colorOnSecondary"
         android:text="@string/buttonSave" />
 
 </LinearLayout>

@@ -8,6 +8,14 @@
     <color name="black">#FF000000</color>
     <color name="whiteColor">#FFFFFFFF</color>
 
+    <color name="blue_200">#4572DA</color>
+    <color name="blue_500">#3D589C</color>
+    <color name="blue_700">#142764</color>
+
+    <color name="darkGreen_200">#51661C</color>
+    <color name="darkGreen_500">#294623</color>
+    <color name="darkGreen_700">#112C1A</color>
+
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#FFC107</color>

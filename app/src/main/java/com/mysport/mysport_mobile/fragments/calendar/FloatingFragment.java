@@ -1,6 +1,8 @@
 package com.mysport.mysport_mobile.fragments.calendar;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mysport.mysport_mobile.R;
+import com.mysport.mysport_mobile.events.DoubleClickListener;
 
 public class FloatingFragment extends Fragment {
     private Dialog dialog;
@@ -33,9 +36,14 @@ public class FloatingFragment extends Fragment {
 
         loadAnimations();
 
-        addButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new DoubleClickListener(300) {
             @Override
-            public void onClick(View v) {
+            public void onDoubleClick(View v) {
+                showAddForm(v);
+            }
+
+            @Override
+            public void onSingleClick(View v) {
                 OnAddButtonClicked();
             }
         });
@@ -85,17 +93,18 @@ public class FloatingFragment extends Fragment {
     }
 
     public void showAddForm(View v){
-        TextView textClose;
-        Button follow;
         dialog.setContentView(R.layout.add_form);
-        textClose = dialog.findViewById(R.id.popup_txtClose_button);
-        follow = dialog.findViewById(R.id.popup_follow_button);
+        TextView textClose = dialog.findViewById(R.id.popup_txtClose_button);
+        Button follow = dialog.findViewById(R.id.popup_follow_button);
+
         textClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 

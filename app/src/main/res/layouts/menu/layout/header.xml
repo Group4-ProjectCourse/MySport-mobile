@@ -38,7 +38,7 @@
                 android:fontFamily="@fonts/poppins_medium"
                 android:includeFontPadding="false"
                 android:text="@string/greeting"
-                android:textColor="?colorOnSecondary"
+                android:textColor="@color/whiteColor"
                 android:textSize="18sp" />
 
             <TextView
@@ -47,7 +47,7 @@
                 android:fontFamily="@fonts/poppins_semibold"
                 android:includeFontPadding="false"
                 android:text="@string/name_example"
-                android:textColor="?colorOnSecondary"
+                android:textColor="@color/whiteColor"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 

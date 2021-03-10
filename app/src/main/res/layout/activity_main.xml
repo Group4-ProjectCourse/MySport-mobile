@@ -26,13 +26,12 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?colorSecondary"
             app:elevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:background="@color/whiteColor"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.Toolbar
@@ -40,14 +39,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="?colorSecondary"
-
+                    android:background="@color/whiteColor"
                     app:contentInsetEnd="0dp"
                     app:contentInsetStart="0dp"
                     app:layout_scrollFlags="scroll|enterAlways"
                     app:navigationIcon="@drawable/ic_menu"
                     app:title="*Your_Fragment_Name_Here*"
-                    app:titleTextColor="?colorOnSecondary">
+                    app:titleTextColor="@color/black">
 
                 </androidx.appcompat.widget.Toolbar>
 

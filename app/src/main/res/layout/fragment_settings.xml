@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,21 +7,20 @@
     tools:context=".fragments.settings.SettingsFragment">
 
 
-        <TextView
-            android:id="@+id/textViewSettingsTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="45dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="8dp"
-            android:text="@string/settings"
-            android:textColor="?colorOnSecondary"
-            android:textSize="20sp"
-            android:background="?colorSecondary"
-            >
+    <TextView
+        android:id="@+id/textViewSettingsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorMySport"
+        android:paddingStart="45dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:text="@string/settings"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp">
 
-        </TextView>
+    </TextView>
 
     <TextView
         android:id="@+id/languagesTextView"
@@ -65,8 +63,8 @@
         android:id="@+id/buttonSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?colorSecondary"
-        android:textColor="?colorOnSecondary"
+        android:background="@color/colorMySport"
+        android:backgroundTint="#F31717"
         android:text="@string/buttonSave" />
 
 </LinearLayout>

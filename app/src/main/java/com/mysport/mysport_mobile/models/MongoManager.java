@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
@@ -47,6 +48,17 @@ public class MongoManager {
                     Filters.eq("_id", date.getDayOfMonth()),
                     Updates.addToSet("activities", activity)
             );
+        }
+    }
+
+    public boolean addUser(MongoUser user){
+        try(MongoClient client = getClient()) {
+            MongoCollection<MongoUser> collection = getCollection(client);
+            if (collection.find(Filters.eq("_id", user.getUserId())).first() == null){
+                insertUser(collection, user);
+                return true;
+            }
+            return false;
         }
     }
 
@@ -103,8 +115,20 @@ public class MongoManager {
         }
     }
 
+    public long removeUser(int userId){
+        try(MongoClient client = getClient()) {
+            return getCollection(client).deleteOne(
+                    BasicDBObject.parse("{ _id: " + userId + " }")
+            ).getDeletedCount();
+        }
+    }
+
     private void insertDay(MongoCollection<MongoDay> collection, int dayOfMonth, int dayOfYear){
         collection.insertOne(new MongoDay(dayOfMonth, dayOfYear, new ArrayList<>(5)));
+    }
+
+    private void insertUser(MongoCollection<MongoUser> collection, MongoUser mongoUser){
+        collection.insertOne(mongoUser);
     }
 
     //Legacy
@@ -162,8 +186,12 @@ public class MongoManager {
         return getDatabase(client, String.valueOf(date.getYear())).getCollection(date.getMonth().name(), MongoDay.class);
     }
 
-    private MongoDatabase getDatabase(MongoClient client, String year){
-        return client.getDatabase(year);
+    private MongoCollection<MongoUser> getCollection(MongoClient client){
+        return getDatabase(client, "user_db").getCollection("users", MongoUser.class);
+    }
+
+    private MongoDatabase getDatabase(MongoClient client, String name){
+        return client.getDatabase(name);
     }
 
     private static MongoClient getClient(){
@@ -233,6 +261,82 @@ public class MongoManager {
 
         public void setDayOfYear(int dayOfYear) {
             this.dayOfYear = dayOfYear;
+        }
+    }
+
+    @Entity
+    public static final class MongoUser {
+        @Id
+        private String userId;
+        private String firstname;
+        private String surname;
+        private String personalNumber;
+        private String position;
+        private double balance;
+
+        public MongoUser(){
+
+        }
+
+        public MongoUser(String firstname, String surname, String personalNumber, String position, double balance){
+            this(UUID.randomUUID().toString(), firstname, surname, personalNumber, position, balance);
+        }
+
+        public MongoUser(String userId, String firstname, String surname, String personalNumber, String position, double balance){
+            this.userId = userId;
+            this.firstname = firstname;
+            this.surname = surname;
+            this.personalNumber = personalNumber;
+            this.position = position;
+            this.balance = balance;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public String getFirstname() {
+            return firstname;
+        }
+
+        public void setFirstname(String firstname) {
+            this.firstname = firstname;
+        }
+
+        public String getSurname() {
+            return surname;
+        }
+
+        public void setSurname(String surname) {
+            this.surname = surname;
+        }
+
+        public String getPersonalNumber() {
+            return personalNumber;
+        }
+
+        public void setPersonalNumber(String personalNumber) {
+            this.personalNumber = personalNumber;
+        }
+
+        public String getPosition() {
+            return position;
+        }
+
+        public void setPosition(String position) {
+            this.position = position;
+        }
+
+        public double getBalance() {
+            return balance;
+        }
+
+        public void setBalance(double balance) {
+            this.balance = balance;
         }
     }
 

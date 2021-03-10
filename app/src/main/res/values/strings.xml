@@ -74,6 +74,12 @@
     <string name="display_option_nav">Display option</string>
     <string name="error_usage_incorrect_place">Parent activity which is MainActivity is null, you are trying to get wrong activity, this fragment is to be used only with MainActivity</string>
     <string name="example_address_home">USA, Minnesota, Gun Beach valley 420</string>
+    <string name="create_activity">Create Activity</string>
+    <string name="form_create">Create</string>
+    <string name="select_date">Select Date</string>
+    <string name="time_starts">Time Starts</string>
+    <string name="time_ends">Time Ends</string>
+    <string name="location">Location</string>
 
 
 </resources>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="475dp"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/popup_txtClose_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/black"
+        android:text="X"
+        android:textStyle="bold"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:background="@drawable/popup_background_circle_black"
+        tools:ignore="HardcodedText" />
+
+    <LinearLayout
+        android:padding="15dp"
+        android:background="@drawable/add_sport_form_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/popup_banner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_activity"
+            android:drawableStart="@drawable/ic_create"
+            android:drawablePadding="3dp"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"/>
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false">
+
+            <EditText
+                android:id="@+id/form_add_sportname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Sport's Name"
+                android:textColor="@color/black"
+                android:autofillHints="Enter sport name"
+                android:background="@drawable/add_sport_input_bg"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="12dp"
+                android:inputType="text"
+                android:drawableLeft="@drawable/ic_volleyball"
+                android:drawablePadding="10dp"/>
+
+            <EditText
+                android:id="@+id/form_add_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/select_date"
+                android:textColor="@color/black"
+                android:autofillHints="Enter date"
+                android:background="@drawable/add_sport_input_bg"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="12dp"
+                android:inputType="none" />
+
+            <EditText
+                android:id="@+id/form_add_time_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/time_starts"
+                android:textColor="@color/black"
+                android:autofillHints="Enter start time"
+                android:background="@drawable/add_sport_input_bg"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="12dp"
+                android:inputType="none" />
+
+            <EditText
+                android:id="@+id/form_add_time_end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/time_ends"
+                android:textColor="@color/black"
+                android:autofillHints="Enter end time"
+                android:background="@drawable/add_sport_input_bg"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="12dp"
+                android:inputType="none" />
+
+            <EditText
+                android:id="@+id/form_add_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/location"
+                android:textColor="@color/black"
+                android:autofillHints="Enter Location"
+                android:background="@drawable/add_sport_input_bg"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="12dp"
+                android:inputType="none" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/form_add_button_create"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="@string/form_create"
+            android:layout_marginTop="25dp"
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/popup_background_button_black"
+            android:textColor="@color/whiteColor"/>
+    </LinearLayout>
+</LinearLayout>

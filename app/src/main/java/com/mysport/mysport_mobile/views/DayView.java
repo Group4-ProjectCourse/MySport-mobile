@@ -669,13 +669,13 @@ public class DayView extends View {
             // Object allocation needed, but will only occur when dirty bit is on and the layout needs to be updated.
             // Not too expensive since we are not changing the text frequently.
             // Create a static layout to contain the event name
-            renderData.textLayout = new StaticLayout(sportEvent.getName(), eventsTextPaint, (int) renderData.bounds.width() - eventsTextPadding * 2, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+            renderData.textLayout = new StaticLayout(sportEvent.getSportName(), eventsTextPaint, (int) renderData.bounds.width() - eventsTextPadding * 2, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
 
             // Check if we can fit all the lines within the event rectangle, if not, we will need to truncate the text to fit
             if (renderData.textLayout.getLineTop(renderData.textLayout.getLineCount()) + eventsTextPadding * 2 > renderData.bounds.height()) {
                 // Get the line of text that the end of the event bounds bottom intersects with
                 int lineMax = renderData.textLayout.getLineForVertical((int) renderData.bounds.height() - eventsTextPadding * 2);
-                String truncatedEventName = sportEvent.getName().substring(0, renderData.textLayout.getLineStart(lineMax));
+                String truncatedEventName = sportEvent.getSportName().substring(0, renderData.textLayout.getLineStart(lineMax));
                 renderData.textLayout = new StaticLayout(truncatedEventName, eventsTextPaint, (int) renderData.bounds.width() - eventsTextPadding * 2, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
             }
 

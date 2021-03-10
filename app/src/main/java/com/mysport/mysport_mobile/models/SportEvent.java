@@ -3,30 +3,30 @@ package com.mysport.mysport_mobile.models;
 import com.mysport.mysport_mobile.utils.ObjectUtils;
 
 public class SportEvent {
-    private String name;
-    private String description;
+    private String sportName;
+    private String participants;
     private CalendarRange calendarRange;
 
-    public SportEvent(String name, String description, CalendarRange calendarRange) {
-        this.name = name;
-        this.description = description;
+    public SportEvent(String sportName, String participants, CalendarRange calendarRange) {
+        this.sportName = sportName;
+        this.participants = participants;
         this.calendarRange = calendarRange;
     }
 
-    public String getName() {
-        return name;
+    public String getSportName() {
+        return sportName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSportName(String sportName) {
+        this.sportName = sportName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getParticipants() {
+        return participants;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setParticipants(String participants) {
+        this.participants = participants;
     }
 
     public CalendarRange getCalendarRange() {
@@ -48,13 +48,13 @@ public class SportEvent {
         }
 
         SportEvent sportEvent = (SportEvent) o;
-        return ObjectUtils.equals(name, sportEvent.name) &&
-                ObjectUtils.equals(description, sportEvent.description) &&
+        return ObjectUtils.equals(sportName, sportEvent.sportName) &&
+                ObjectUtils.equals(participants, sportEvent.participants) &&
                 ObjectUtils.equals(calendarRange, sportEvent.calendarRange);
     }
 
     @Override
     public int hashCode() {
-        return ObjectUtils.hash(name, description, calendarRange);
+        return ObjectUtils.hash(sportName, participants, calendarRange);
     }
 }

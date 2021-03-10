@@ -1,34 +1,33 @@
 package com.mysport.mysport_mobile.fragments.calendar;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mysport.mysport_mobile.MainActivity;
 import com.mysport.mysport_mobile.R;
 import com.mysport.mysport_mobile.enums.TransactionAction;
+import com.mysport.mysport_mobile.models.CalendarRange;
+import com.mysport.mysport_mobile.models.MongoManager;
 import com.mysport.mysport_mobile.models.SportEvent;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
 import com.mysport.mysport_mobile.views.DayView;
 
+import java.util.Calendar;
+
 public class DayViewFragment extends Fragment {
 
     private FloatingFragment floatingFragment;
+    private DayView dayView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_day_view, container, false);
-        DayView dayView = view.findViewById(R.id.dayView);
+        dayView = view.findViewById(R.id.dayView);
         floatingFragment = new FloatingFragment();
 
         MainActivity parent = (MainActivity) getActivity();
@@ -39,7 +38,7 @@ public class DayViewFragment extends Fragment {
         dayView.addEventClickedListener(new DayView.EventClickedListener() {
                 @Override
                 public void onEventClicked(SportEvent sportEvent) {
-                    Toast.makeText(getContext(), sportEvent.getName(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), sportEvent.getSportName(), Toast.LENGTH_SHORT).show();
                 }
             }
         );
@@ -154,6 +153,22 @@ public class DayViewFragment extends Fragment {
         return view;
     }
 
+    private void drawSportEvent(MongoManager.MongoActivity sport){
+        Calendar startCalendar = CalendarUtils.createCalendar();
+        Calendar endCalendar = CalendarUtils.createCalendar();
+
+        startCalendar.add(Calendar.HOUR_OF_DAY, 15);
+        startCalendar.add(Calendar.MINUTE, 35);
+        endCalendar.add(Calendar.HOUR_OF_DAY, 21);
+        endCalendar.add(Calendar.MINUTE, 35);
+
+        dayView.addEvent(new SportEvent(
+                "Test Event Name 6",
+                "Test Event Description 6",
+                new CalendarRange(startCalendar, endCalendar)
+        ));
+    }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -167,5 +182,9 @@ public class DayViewFragment extends Fragment {
         MainActivity parent = (MainActivity) getActivity();
         parent.getViewOption().setVisibility(View.INVISIBLE);
         parent.getViewOption().setClickable(false);
+    }
+
+    public void receiveItem(MongoManager.MongoActivity sport) {
+        drawSportEvent(sport);
     }
 }

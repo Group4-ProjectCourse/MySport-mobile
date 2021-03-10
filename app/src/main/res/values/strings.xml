@@ -80,6 +80,7 @@
     <string name="time_starts">Time Starts</string>
     <string name="time_ends">Time Ends</string>
     <string name="location">Location</string>
+    <string name="class_cast_exception_fragment_data_send_event"><![CDATA[\" must initialize interface -> OnFragmentInteractionListener\"]]></string>
 
 
 </resources>

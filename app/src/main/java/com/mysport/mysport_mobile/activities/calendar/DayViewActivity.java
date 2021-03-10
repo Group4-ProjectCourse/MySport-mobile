@@ -21,7 +21,7 @@ public class DayViewActivity extends BaseActivity {
         dayView.addEventClickedListener(new DayView.EventClickedListener() {
                 @Override
                 public void onEventClicked(SportEvent sportEvent) {
-                    Toast.makeText(DayViewActivity.this, sportEvent.getName(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DayViewActivity.this, sportEvent.getSportName(), Toast.LENGTH_SHORT).show();
                 }
             }
         );

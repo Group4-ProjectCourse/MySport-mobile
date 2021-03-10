@@ -3,6 +3,7 @@ package com.mysport.mysport_mobile.fragments.calendar;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -22,18 +23,39 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mysport.mysport_mobile.App;
 import com.mysport.mysport_mobile.R;
 import com.mysport.mysport_mobile.events.DoubleClickListener;
+import com.mysport.mysport_mobile.events.OnFragmentSendDataListener;
+import com.mysport.mysport_mobile.models.MongoManager;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class FloatingFragment extends Fragment {
+
+    private OnFragmentSendDataListener<MongoManager.MongoActivity> fragmentSendDataListener;
+
     private Dialog dialog;
     private Animation rotateOpen, rotateClose, fromBottom, toBottom;
     private FloatingActionButton addButton, edit, addMember;
     private Boolean clicked = false;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            fragmentSendDataListener = (OnFragmentSendDataListener<MongoManager.MongoActivity>) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + getString(R.string.class_cast_exception_fragment_data_send_event));
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -100,16 +122,12 @@ public class FloatingFragment extends Fragment {
         addMember.setClickable(!clicked);
     }
 
-    private void createSportEvent(){
-
-    }
-
     public void showAddForm(View v){
-        dialog.setContentView(R.layout.add_sport_form);
+        dialog.setContentView(R.layout.form_add_sport);
 
         TextView textClose = dialog.findViewById(R.id.popup_txtClose_button);
-        EditText date, timeStart, timeEnd;
-        Button create = dialog.findViewById(R.id.form_add_button_create);
+        EditText sportName, date, timeStart, timeEnd, location;
+        Button submit = dialog.findViewById(R.id.form_add_button_create);
 
         textClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,17 +139,21 @@ public class FloatingFragment extends Fragment {
         date = dialog.findViewById(R.id.form_add_date);
         timeStart = dialog.findViewById(R.id.form_add_time_start);
         timeEnd = dialog.findViewById(R.id.form_add_time_end);
+        sportName = dialog.findViewById(R.id.form_add_sportname);
+        location = dialog.findViewById(R.id.form_add_location);
 
         timeEnd.setInputType(InputType.TYPE_NULL);
         date.setInputType(InputType.TYPE_NULL);
         timeStart.setInputType(InputType.TYPE_NULL);
 
-        date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDateDialog(date);
-            }
-        });
+//        date.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showDateDialog(date);
+//            }
+//        });
+
+        date.setText(new SimpleDateFormat("yy-MM-dd", Locale.ENGLISH).format(Date.from(Instant.now())));
 
         timeStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +166,25 @@ public class FloatingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 showTimeDialog(timeEnd);
+            }
+        });
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MongoManager.MongoActivity sport = new MongoManager.MongoActivity(
+                        sportName.getText().toString(),
+                        location.getText().toString(),
+                        Arrays.stream(timeStart.getText().toString().split(":")).mapToInt(Integer::parseInt).toArray(),
+                        Arrays.stream(timeEnd.getText().toString().split(":")).mapToInt(Integer::parseInt).toArray()
+                );
+
+                fragmentSendDataListener.onSendData(sport);
+
+                new Thread(() -> {
+                    MongoManager database = App.getMongo();
+                    database.addActivity(LocalDate.now(), sport);
+                }).start();
             }
         });
 
@@ -190,7 +231,8 @@ public class FloatingFragment extends Fragment {
                 time.setText(simpleDateFormat.format(calendar.getTime()));
             }
         };
-        new TimePickerDialog(getContext(), timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),false).show();
+        new TimePickerDialog(getContext(), timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),true)
+                .show();
     }
 
     private void showDateDialog(final EditText date) {

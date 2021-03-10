@@ -146,11 +146,12 @@ public class MongoManager {
                 activities.add(new MongoActivity(
                         document.getString("_id"),
                         document.getString("location"),
-                        document.getInteger("rating"),
-                        document.getInteger("start"),
-                        document.getInteger("end"),
+                        document.getInteger("startHour"),
+                        document.getInteger("startMinutes"),
+                        document.getInteger("endHour"),
+                        document.getInteger("endMinutes"),
                         new ArrayList<>(document.getList("leaders", Integer.class)),
-                        new ArrayList<>(document.getList("members", Integer.class))
+                        new ArrayList<>(document.getList("members", Integer.class)), document.getInteger("rating")
                 ));
             }
         }
@@ -241,8 +242,10 @@ public class MongoManager {
         private String name;
         private String location;
         private int rating;
-        private int start; //in minutes (e.g: 15:30 is (15 * 60 + 30) = 930, then to convert back 930 div 60 + 930 mod 60)
-        private int end; //in minutes (ee.g: 16:45 is (16 * 60 + 45) = 1005, then to convert back 1005 div 60 + 1005 mod 60)
+        private int startHour; //in minutes (e.g: 15:30 is (15 * 60 + 30) = 930, then to convert back 930 div 60 + 930 mod 60)
+        private int startMinutes;
+        private int endHour; //in minutes (ee.g: 16:45 is (16 * 60 + 45) = 1005, then to convert back 1005 div 60 + 1005 mod 60)
+        private int endMinutes;
         private ArrayList<Integer> leaders;
         private ArrayList<Integer> members;
 
@@ -250,12 +253,22 @@ public class MongoManager {
 
         }
 
-        public MongoActivity(String name, String location, int rating, int start, int end, ArrayList<Integer> leaders, ArrayList<Integer> members){
+        public MongoActivity(String name, String location, int[] startHour, int[] endHour){
+            this(name, location, startHour[0], startHour[1], endHour[0], endHour[1]);
+        }
+
+        public MongoActivity(String name, String location, int startHour, int startMinutes, int endHour, int endMinutes){
+            this(name, location, startHour, startMinutes, endHour, endMinutes, null, null, 0);
+        }
+
+        public MongoActivity(String name, String location, int startHour, int startMinutes, int endHour, int endMinutes, ArrayList<Integer> leaders, ArrayList<Integer> members, int rating){
             this.name = name;
             this.location = location;
             this.rating = rating;
-            this.start = start;
-            this.end = end;
+            this.startHour = startHour;
+            this.startMinutes = startMinutes;
+            this.endHour = endHour;
+            this.endMinutes = endMinutes;
             this.leaders = leaders;
             this.members = members;
         }
@@ -270,42 +283,6 @@ public class MongoManager {
 
         public int getRating() {
             return rating;
-        }
-
-        public void setRating(int rating) {
-            this.rating = rating;
-        }
-
-        public int getStart() {
-            return start;
-        }
-
-        public int getStartHour(){
-            return start / 60;
-        }
-
-        public int getStartMin(){
-            return start % 60;
-        }
-
-        public int getEndHour(){
-            return end / 60;
-        }
-
-        public int getEndMin(){
-            return end % 60;
-        }
-
-        public void setStart(int start) {
-            this.start = start;
-        }
-
-        public int getEnd() {
-            return end;
-        }
-
-        public void setEnd(int end) {
-            this.end = end;
         }
 
         public ArrayList<Integer> getLeaders() {
@@ -326,8 +303,8 @@ public class MongoManager {
 
         @Override
         public String toString() {
-            return "Location: " + location + " Rating: " + rating + " Starts: " + start / 60 + ":" + start % 60 +
-                    " Ends: " + end / 60 + ":" + end % 60 + " Leaders count: " + leaders.size() + " Members count: " + members.size();
+            return "Location: " + location + " Rating: " + rating + " Starts: " + startHour / 60 + ":" + startHour % 60 +
+                    " Ends: " + endHour / 60 + ":" + endHour % 60 + " Leaders count: " + leaders.size() + " Members count: " + members.size();
         }
 
         public String getName() {
@@ -336,6 +313,38 @@ public class MongoManager {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public int getStartHour() {
+            return startHour;
+        }
+
+        public void setStartHour(int startHour) {
+            this.startHour = startHour;
+        }
+
+        public int getEndHour() {
+            return endHour;
+        }
+
+        public void setEndHour(int endHour) {
+            this.endHour = endHour;
+        }
+
+        public int getStartMinutes() {
+            return startMinutes;
+        }
+
+        public void setStartMinutes(int startMinutes) {
+            this.startMinutes = startMinutes;
+        }
+
+        public int getEndMinutes() {
+            return endMinutes;
+        }
+
+        public void setEndMinutes(int endMinutes) {
+            this.endMinutes = endMinutes;
         }
     }
 }

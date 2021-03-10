@@ -20,17 +20,19 @@ import com.facebook.login.LoginManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mysport.mysport_mobile.enums.TransactionAction;
+import com.mysport.mysport_mobile.events.OnFragmentSendDataListener;
 import com.mysport.mysport_mobile.fragments.calendar.DayViewFragment;
-import com.mysport.mysport_mobile.fragments.calendar.FloatingFragment;
 import com.mysport.mysport_mobile.fragments.calendar.MonthViewFragment;
+import com.mysport.mysport_mobile.models.MongoManager;
 import com.mysport.mysport_mobile.profile.UserProfile;
 import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
 
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        OnFragmentSendDataListener<MongoManager.MongoActivity> {
+    private DayViewFragment dayViewFragment;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Hide or show items
         Menu menu = navigationView.getMenu();
+        menu.findItem(R.id.nav_login).setVisible(false);
         //menu.findItem(R.id.nav_logout).setVisible(false);
         //menu.findItem(R.id.nav_profile).setVisible(false); //If unlogged
 
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setCheckedItem(R.id.nav_home);
 
         //fragment transaction
-        handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new DayViewFragment(), "DAY_VIEW");
+        handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, (dayViewFragment = new DayViewFragment()), "DAY_VIEW");
         toolbar.setTitle(CalendarUtils.toSimpleString(Calendar.getInstance()));
         //handleFragment(new MonthViewFragment(), "MONTH_VIEW");
 
@@ -150,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if(fragment != null && fragment.isVisible())
                 handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new MonthViewFragment(), "MONTH_VIEW");
             else
-                handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new DayViewFragment(), "DAY_VIEW");
+                handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, (dayViewFragment = new DayViewFragment()), "DAY_VIEW");
         }
         else if(id == R.id.nav_settings)
             handleFragment(R.id.main_place_for_fragments, new SettingsFragment());
@@ -196,5 +199,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public Button getViewOption() {
         return viewOption;
+    }
+
+    @Override
+    public void onSendData(MongoManager.MongoActivity sport) {
+        dayViewFragment.receiveItem(sport);
+    }
+
+    public DayViewFragment setDayViewFragment(DayViewFragment dayViewFragment) {
+        this.dayViewFragment = dayViewFragment;
+
+        return dayViewFragment;
     }
 }

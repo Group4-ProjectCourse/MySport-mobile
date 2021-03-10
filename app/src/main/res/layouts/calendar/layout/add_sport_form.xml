@@ -76,6 +76,8 @@
                 android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
                 android:layout_marginBottom="12dp"
+                android:drawableLeft="@drawable/ic_date"
+                android:drawablePadding="10dp"
                 android:inputType="none" />
 
             <EditText
@@ -91,6 +93,8 @@
                 android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
                 android:layout_marginBottom="12dp"
+                android:drawableLeft="@drawable/ic_time"
+                android:drawablePadding="10dp"
                 android:inputType="none" />
 
             <EditText
@@ -106,6 +110,8 @@
                 android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
                 android:layout_marginBottom="12dp"
+                android:drawableLeft="@drawable/ic_time_fill"
+                android:drawablePadding="10dp"
                 android:inputType="none" />
 
             <EditText
@@ -121,6 +127,8 @@
                 android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
                 android:layout_marginBottom="12dp"
+                android:drawableLeft="@drawable/ic_location"
+                android:drawablePadding="10dp"
                 android:inputType="none" />
 
         </LinearLayout>

@@ -41,10 +41,12 @@ public class FloatingFragment extends Fragment {
             public void onDoubleClick(View v) {
                 showAddForm(v);
             }
-
+        });
+        addButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onSingleClick(View v) {
+            public boolean onLongClick(View v) {
                 OnAddButtonClicked();
+                return true;
             }
         });
 

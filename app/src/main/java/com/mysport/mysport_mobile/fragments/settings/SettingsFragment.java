@@ -16,6 +16,7 @@ import android.os.Bundle;
 import com.mysport.mysport_mobile.MainActivity;
 import com.mysport.mysport_mobile.R;
 import com.mysport.mysport_mobile.language.LanguageManager;
+import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.NotNull;
 
 public class SettingsFragment extends Fragment {
@@ -85,10 +86,15 @@ public class SettingsFragment extends Fragment {
                 }
 
                 if (languageSelected.equals("English")) {
+//                    setNewLocale((AppCompatActivity) getActivity(), LanguageManager.languageDefiner.SUPPORTED_LANGUAGES[0]);
 
                 } else if (languageSelected.equals("Svenska")) {
+//                    setNewLocale((AppCompatActivity) getActivity(), LanguageManager.languageDefiner.SUPPORTED_LANGUAGES[1]);
+
 
                 } else if (languageSelected.equals("Norsk")) {
+//                    setNewLocale((AppCompatActivity) getActivity(), LanguageManager.languageDefiner.SUPPORTED_LANGUAGES[2]);
+
 
                 }
                 Toast.makeText(v.getContext(), "Saved!", Toast.LENGTH_LONG).show();

@@ -215,13 +215,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return dayViewFragment;
     }
 
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(languageManager.setLocale(base));
-    }
+//    protected void attachBaseContext(Context base) {
+//        super.attachBaseContext(languageManager.setLocale(base));
+//    }
 
-    @Override
-    public void onConfigurationChanged(@NonNull @NotNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        languageManager.setLocale(this);
-    }
+//    @Override
+//    public void onConfigurationChanged(@NonNull @NotNull Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        languageManager.setLocale(this);
+//    }
 }

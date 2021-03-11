@@ -12,7 +12,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Locale;
 
-public class languageManager {
+public class LanguageManager {
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({ENGLISH, SWEDISH, NORWEGIAN})
     public @interface languageDefiner {
@@ -26,27 +26,27 @@ public class languageManager {
     private static final String LANGUAGE_KEY = "language_key";
 
 
-    public static Context setLocale(Context mContext) {
+    public Context setLocale(Context mContext) {
         return updateResources(mContext, getLanguagePref(mContext));
     }
 
 
-    public static Context setNewLocale(Context mContext, @languageDefiner String language) {
+    public Context setNewLocale(Context mContext, @languageDefiner String language) {
         setLanguagePref(mContext, language);
         return updateResources(mContext, language);
     }
 
-    public static String getLanguagePref(Context mContext) {
+    public String getLanguagePref(Context mContext) {
         SharedPreferences mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         return mPreferences.getString(LANGUAGE_KEY, ENGLISH);
     }
 
-    private static void setLanguagePref(Context mContext, String localeKey) {
+    private void setLanguagePref(Context mContext, String localeKey) {
         SharedPreferences mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         mPreferences.edit().putString(LANGUAGE_KEY, localeKey).apply();
     }
 
-    private static Context updateResources(Context context, String language) {
+    private Context updateResources(Context context, String language) {
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
         Resources res = context.getResources();
@@ -61,7 +61,7 @@ public class languageManager {
         return context;
     }
 
-    public static Locale getLocale(Resources res) {
+    public Locale getLocale(Resources res) {
         Configuration config = res.getConfiguration();
         return Build.VERSION.SDK_INT >= 24 ? config.getLocales().get(0) : config.locale;
     }

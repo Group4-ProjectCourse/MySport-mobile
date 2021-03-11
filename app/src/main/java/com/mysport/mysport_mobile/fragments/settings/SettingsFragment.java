@@ -1,5 +1,6 @@
 package com.mysport.mysport_mobile.fragments.settings;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,17 +8,20 @@ import android.widget.*;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
 import com.mysport.mysport_mobile.MainActivity;
 import com.mysport.mysport_mobile.R;
+import com.mysport.mysport_mobile.language.LanguageManager;
 import org.jetbrains.annotations.NotNull;
 
 public class SettingsFragment extends Fragment {
 
-    private final String[] languages = { "English", "Svenska", "Norsk" };
+    private LanguageManager languageManager;
+    private final String[] languages = {"English", "Svenska", "Norsk"};
     private final String[] colours = {"Purple", "Blue", "Black", "Dark Green"};
     private Spinner spinnerLanguage;
     private Spinner spinnerColour;
@@ -53,38 +57,38 @@ public class SettingsFragment extends Fragment {
         adapterColour = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, colours);
         adapterColour.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerColour.setAdapter(adapterColour);
-        spinnerColour.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        spinnerColour.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l){
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectedItem = adapterView.getItemAtPosition(i).toString();
                 colourSelected = selectedItem;
                 Toast.makeText(adapterView.getContext(), "Selected: " + selectedItem, Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView){
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
         buttonSave.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (colourSelected.equals("Purple")){
+                if (colourSelected.equals("Purple")) {
 
 
-                } else if (colourSelected.equals("Blue")){
+                } else if (colourSelected.equals("Blue")) {
 
-                } else if (colourSelected.equals("Black")){
+                } else if (colourSelected.equals("Black")) {
 
-                } else if (colourSelected.equals("Dark Green")){
+                } else if (colourSelected.equals("Dark Green")) {
 
                 }
 
-                if (languageSelected.equals("English")){
+                if (languageSelected.equals("English")) {
 
-                } else if (languageSelected.equals("Svenska")){
+                } else if (languageSelected.equals("Svenska")) {
 
-                } else if (languageSelected.equals("Norsk")){
+                } else if (languageSelected.equals("Norsk")) {
 
                 }
                 Toast.makeText(v.getContext(), "Saved!", Toast.LENGTH_LONG).show();
@@ -115,4 +119,11 @@ public class SettingsFragment extends Fragment {
 //            }
 //        });
     }
+
+    private void setNewLocale(AppCompatActivity mContext, @LanguageManager.languageDefiner String language) {
+        languageManager.setNewLocale(mContext, language);
+        Intent intent = mContext.getIntent();
+        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+    // En
 }

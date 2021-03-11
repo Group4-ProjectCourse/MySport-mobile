@@ -2,6 +2,8 @@ package com.mysport.mysport_mobile;
 
 import android.app.Application;
 
+import android.content.Context;
+import com.mysport.mysport_mobile.language.LanguageManager;
 import com.mysport.mysport_mobile.models.MongoManager;
 
 

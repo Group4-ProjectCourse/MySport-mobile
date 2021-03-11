@@ -1,5 +1,8 @@
 package com.mysport.mysport_mobile;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,10 +26,12 @@ import com.mysport.mysport_mobile.enums.TransactionAction;
 import com.mysport.mysport_mobile.events.OnFragmentSendDataListener;
 import com.mysport.mysport_mobile.fragments.calendar.DayViewFragment;
 import com.mysport.mysport_mobile.fragments.calendar.MonthViewFragment;
+import com.mysport.mysport_mobile.language.LanguageManager;
 import com.mysport.mysport_mobile.models.MongoManager;
 import com.mysport.mysport_mobile.profile.UserProfile;
 import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Calendar;
 
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Button viewOption;
     private int currentId;
     private FirebaseAuth mAuth;
+    private LanguageManager languageManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,15 +104,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    public void handleFragment(int containerViewId, Fragment fragment){
+    public void handleFragment(int containerViewId, Fragment fragment) {
         handleFragment(TransactionAction.REPLACE, containerViewId, fragment, null);
     }
 
-    public void handleFragment(TransactionAction action, int containerViewId, Fragment fragment){
+    public void handleFragment(TransactionAction action, int containerViewId, Fragment fragment) {
         handleFragment(action, containerViewId, fragment, null);
     }
 
-    public void handleFragment(TransactionAction action, int containerViewId, Fragment fragment, String tag){
+    public void handleFragment(TransactionAction action, int containerViewId, Fragment fragment, String tag) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         switch (action) {
@@ -133,10 +139,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -146,16 +151,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         int id = menuItem.getItemId();
 
-        if(id == navigationView.getCheckedItem().getItemId())
+        if (id == navigationView.getCheckedItem().getItemId())
             Toast.makeText(this, getString(R.string.menu_item_selected_again) + " - " + navigationView.getCheckedItem().getTitle(), Toast.LENGTH_SHORT).show();
-        else if(id == R.id.nav_home){
+        else if (id == R.id.nav_home) {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag("DAY_VIEW");
-            if(fragment != null && fragment.isVisible())
+            if (fragment != null && fragment.isVisible())
                 handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new MonthViewFragment(), "MONTH_VIEW");
             else
                 handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, (dayViewFragment = new DayViewFragment()), "DAY_VIEW");
-        }
-        else if(id == R.id.nav_settings)
+        } else if (id == R.id.nav_settings)
             handleFragment(R.id.main_place_for_fragments, new SettingsFragment());
         else if (id == R.id.nav_profile)
             handleFragment(R.id.main_place_for_fragments, new UserProfile());
@@ -186,8 +190,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             LoginManager.getInstance().logOut();
             finish();
             return true;
-        }
-        else if(id == R.id.nav_overflow_menu_item) {
+        } else if (id == R.id.nav_overflow_menu_item) {
             Toast.makeText(this, "Overflow menu item selected", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
@@ -210,5 +213,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.dayViewFragment = dayViewFragment;
 
         return dayViewFragment;
+    }
+
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(languageManager.setLocale(base));
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull @NotNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        languageManager.setLocale(this);
     }
 }

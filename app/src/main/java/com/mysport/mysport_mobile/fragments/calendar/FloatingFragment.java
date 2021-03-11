@@ -181,10 +181,10 @@ public class FloatingFragment extends Fragment {
 
                 fragmentSendDataListener.onSendData(sport);
 
-                new Thread(() -> {
-                    MongoManager database = App.getMongo();
-                    database.addActivity(LocalDate.now(), sport);
-                }).start();
+//                new Thread(() -> {
+//                    MongoManager database = App.getMongo();
+//                    database.addActivity(LocalDate.now(), sport);
+//                }).start();
             }
         });
 

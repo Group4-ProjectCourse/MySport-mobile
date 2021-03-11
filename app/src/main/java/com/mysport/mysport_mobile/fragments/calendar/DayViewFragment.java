@@ -163,8 +163,8 @@ public class DayViewFragment extends Fragment {
         endCalendar.add(Calendar.MINUTE, 35);
 
         dayView.addEvent(new SportEvent(
-                "Test Event Name 6",
-                "Test Event Description 6",
+                sport.getName(),
+                sport.getTimeSpan() + "\n\n" + getString(R.string.participants_example),
                 new CalendarRange(startCalendar, endCalendar)
         ));
     }

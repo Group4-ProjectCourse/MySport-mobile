@@ -66,7 +66,7 @@ public class DayView extends View {
 
     private String[] formattedHourTexts = new String[HOURS];
 
-    private List<SportEvent> sportEvents = new ArrayList<>();
+    private List<SportEvent> sportEvents = new ArrayList<>(10);
     private Map<SportEvent, RenderData> eventsRenderData = new LinkedHashMap<>();
     private int eventsPadding;
     private int eventsBorderRadius;

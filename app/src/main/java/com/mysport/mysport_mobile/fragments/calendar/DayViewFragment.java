@@ -173,14 +173,14 @@ public class DayViewFragment extends Fragment {
     public void onStop() {
         super.onStop();
         MainActivity parent = (MainActivity) getActivity();
-        parent.handleFragment(TransactionAction.REMOVE, R.id.main_place_for_floating_buttons, floatingFragment);
+        parent.handleFragment(TransactionAction.REMOVE, R.id.main_place_for_floating_buttons, floatingFragment);//not null, source: "believe me bro"
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         MainActivity parent = (MainActivity) getActivity();
-        parent.getViewOption().setVisibility(View.INVISIBLE);
+        parent.getViewOption().setVisibility(View.INVISIBLE);//not null, source: "believe me bro"
         parent.getViewOption().setClickable(false);
     }
 

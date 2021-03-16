@@ -1,28 +1,45 @@
 package com.mysport.mysport_mobile.fragments.calendar;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.mysport.mysport_mobile.App;
 import com.mysport.mysport_mobile.MainActivity;
 import com.mysport.mysport_mobile.R;
 import com.mysport.mysport_mobile.enums.TransactionAction;
+import com.mysport.mysport_mobile.events.DoubleClickEventListener;
+import com.mysport.mysport_mobile.events.EventClickedListener;
 import com.mysport.mysport_mobile.models.CalendarRange;
+import com.mysport.mysport_mobile.models.Member;
 import com.mysport.mysport_mobile.models.MongoManager;
 import com.mysport.mysport_mobile.models.SportEvent;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
 import com.mysport.mysport_mobile.views.DayView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class DayViewFragment extends Fragment {
 
     private FloatingFragment floatingFragment;
     private DayView dayView;
+    private Calendar today;
+
+    public DayViewFragment(Calendar day){
+        this.today = day;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,20 +52,188 @@ public class DayViewFragment extends Fragment {
         parent.getViewOption().setVisibility(View.VISIBLE);
         parent.getViewOption().setClickable(true);
 
-        dayView.addEventClickedListener(new DayView.EventClickedListener() {
-                @Override
-                public void onEventClicked(SportEvent sportEvent) {
-                    Toast.makeText(getContext(), sportEvent.getSportName(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        );
+//        dayView.addEventClickedListener(new EventClickedListener() {
+//                @Override
+//                public void onEventClicked(SportEvent sportEvent) {
+//                    Toast.makeText(getContext(), sportEvent.getSportName(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        );
 
-//        Calendar startCalendar = CalendarUtils.createCalendar();
-//        startCalendar.add(Calendar.DATE, -1);
-//        startCalendar.add(Calendar.HOUR_OF_DAY, 23);
+        dayView.addEventClickedListener(new DoubleClickEventListener(300){
+                boolean flag = true, isLeader = true;
+                MaterialAlertDialogBuilder[] builders = createBuilders(new ContextThemeWrapper(getContext(), R.style.Theme_MaterialComponents_Light_DarkActionBar), isLeader);
+                @Override
+                public void onDoubleClick(SportEvent sportEvent) {
+                    Toast.makeText(getContext(), sportEvent.getSportName(), Toast.LENGTH_SHORT).show();
+                    builders[0]
+                        .setTitle((flag ? "Join" : "Quit") + " " + sportEvent.getSportName() + "?")
+                        .setMessage(String.format((flag ? "Please press confirm button to join %s" : "Are you sure you want to quit %s?"), sportEvent.getSportName()))
+                        .setPositiveButton(flag ? "JOIN" : "QUIT", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            if(flag) {
+                                sportEvent.getParticipants().add(App.getSession().getUser());
+                                dialog.dismiss();
+                                Toast.makeText(getContext(), String.format(getString(R.string.joined_sport_dialog), sportEvent.getSportName()), Toast.LENGTH_SHORT).show();
+                                //record in DB
+                            }
+                            else {
+                                if(sportEvent.getParticipants().remove(App.getSession().getUser())){
+                                    dialog.dismiss();
+                                    Toast.makeText(getContext(), String.format(getString(R.string.unjoined_sport_dialog), sportEvent.getSportName()), Toast.LENGTH_SHORT).show();
+                                    //record in DB
+                                }
+                                
+                            }
+                            flag = !flag;
+                        }
+                    });
+                    if(isLeader){
+                        //if session is for leader mark attendance
+                        builders[0].setNeutralButton("Attendance", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(sportEvent.getParticipants() == null){
+                                    Toast.makeText(getContext(), R.string.error_no_participants, Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                dialog.dismiss();
+                                builders[1].show();
+                            }
+                        });
+                    }
+                    if(sportEvent.getParticipants() != null){
+                        String[] names = sportEvent.getNames();
+                        builders[1]
+                                //.setMessage(String.format("Please mark the people that appeared on %s session.", sportEvent.getSportName()))
+                                .setMultiChoiceItems(names, new boolean[names.length], (dialog, which, isChecked) -> {
+                                    
+                                });
+                    }
+
+                    builders[0].show();
+                }
+        });
+
+        Calendar startCalendar = CalendarUtils.createCalendar();
+        startCalendar.add(Calendar.HOUR_OF_DAY, 12);
+        startCalendar.add(Calendar.MINUTE, 23);
+
+        Calendar endCalendar = CalendarUtils.createCalendar();
+        endCalendar.add(Calendar.HOUR_OF_DAY,14);
+        endCalendar.add(Calendar.MINUTE, 24);
+
+        dayView.addEvent(
+                new SportEvent(
+                        "Volleyball",
+                        new ArrayList<>(Arrays.asList(
+                                new Member("123", "Bob", "Marley", "deniel@mysport-community.com"),
+                                new Member("132", "John", "Cena", "deniel@mysport-community.com"),
+                                new Member("213", "Tom", "Soyeur", "deniel@mysport-community.com"),
+                                new Member("231", "Chuck", "Norris", "deniel@mysport-community.com"),
+                                new Member("312", "Arnold", "Stalone", "deniel@mysport-community.com"),
+                                new Member("321", "Silvestro", "Rembo", "deniel@mysport-community.com")
+                        )),
+                        new CalendarRange(startCalendar, endCalendar)
+                ));
+
+        return view;
+    }
+
+    private MaterialAlertDialogBuilder[] createBuilders(Context context, boolean isLeader) {
+        MaterialAlertDialogBuilder join = new MaterialAlertDialogBuilder(context)
+                .setIcon(R.drawable.ic_sports)
+                .setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.popup_join_bc, null));
+        join.setNegativeButton("DISMISS", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        MaterialAlertDialogBuilder attendance = isLeader ? new MaterialAlertDialogBuilder(context)
+                .setTitle("Mark Attendance")
+                .setIcon(R.drawable.ic_edit)
+                .setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.popup_join_bc, null))
+                .setNegativeButton("DISMISS", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("MARK SELECTED", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //save to MongoDB the attendance
+                    }
+                })
+                .setNeutralButton("BACK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        join.show();
+                    }
+                }) : null;
+
+        return new MaterialAlertDialogBuilder[] { join, attendance };
+    }
+
+    private void drawSportEvent(MongoManager.MongoActivity sport){
+        Calendar startCalendar = CalendarUtils.createCalendar();
+        startCalendar.add(Calendar.HOUR_OF_DAY, sport.getStartHour());
+        startCalendar.add(Calendar.MINUTE, sport.getStartMinutes());
+
+        Calendar endCalendar = CalendarUtils.createCalendar();
+        endCalendar.add(Calendar.HOUR_OF_DAY, sport.getEndHour());
+        endCalendar.add(Calendar.MINUTE, sport.getEndMinutes());
+
+        dayView.addEvent(new SportEvent(
+                sport.getName(),
+                new ArrayList<>(Arrays.asList(
+                        new Member("123", "Bob", "Marley", "deniel@mysport-community.com"),
+                        new Member("132", "John", "Cena", "deniel@mysport-community.com"),
+                        new Member("213", "Tom", "Soyeur", "deniel@mysport-community.com"),
+                        new Member("231", "Chuck", "Norris", "deniel@mysport-community.com"),
+                        new Member("312", "Arnold", "Stalone", "deniel@mysport-community.com"),
+                        new Member("321", "Silvestro", "Rembo", "deniel@mysport-community.com")
+                )),
+                new CalendarRange(startCalendar, endCalendar)
+        ));
+        //sport.getTimeSpan() + "\n\n" + getString(R.string.participants_example)
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        MainActivity parent = (MainActivity) getActivity();
+        parent.handleFragment(TransactionAction.REMOVE, R.id.main_place_for_floating_buttons, floatingFragment);//not null, source: "believe me bro"
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MainActivity parent = (MainActivity) getActivity();
+        parent.getViewOption().setVisibility(View.INVISIBLE);//not null, source: "believe me bro"
+        parent.getViewOption().setClickable(false);
+    }
+
+    public void receiveItem(MongoManager.MongoActivity sport) {
+        drawSportEvent(sport);
+    }
+
+    public Calendar getToday() {
+        return today;
+    }
+}
 //
-//        Calendar endCalendar = CalendarUtils.createCalendar();
-//        endCalendar.add(Calendar.HOUR_OF_DAY, 2);
+//    Calendar startCalendar = CalendarUtils.createCalendar();
+////        startCalendar.add(Calendar.DATE, -1);
+////        startCalendar.add(Calendar.HOUR_OF_DAY, 23);
+//
+//    Calendar endCalendar = CalendarUtils.createCalendar();
+////        endCalendar.add(Calendar.HOUR_OF_DAY, 2);
 //
 //        dayView.addEvent(
 //                new SportEvent(
@@ -101,16 +286,17 @@ public class DayViewFragment extends Fragment {
 //        ));
 //
 //        startCalendar = CalendarUtils.createCalendar();
-//        startCalendar.add(Calendar.HOUR_OF_DAY, 20);
+//                startCalendar.add(Calendar.HOUR_OF_DAY, 20);
 //
-//        endCalendar = CalendarUtils.createCalendar();
-//        endCalendar.add(Calendar.HOUR_OF_DAY, 22);
+//                endCalendar = CalendarUtils.createCalendar();
+//                endCalendar.add(Calendar.HOUR_OF_DAY, 22);
 //
-//        dayView.addEvent(new SportEvent(
+//                dayView.addEvent(new SportEvent(
 //                "Test Event Name 3",
 //                "Test Event Description 3",
-//                new CalendarRange(startCalendar, endCalendar))
-//        );
+//                new CalendarRange(startCalendar, endCalendar)
+//                )
+//                );
 //
 //        startCalendar = CalendarUtils.createCalendar();
 //        startCalendar.add(Calendar.HOUR_OF_DAY, 19);
@@ -125,66 +311,53 @@ public class DayViewFragment extends Fragment {
 //                new CalendarRange(startCalendar, endCalendar)
 //        ));
 //
-//        startCalendar = CalendarUtils.createCalendar();
-//        startCalendar.add(Calendar.HOUR_OF_DAY, 18);
+//                startCalendar = CalendarUtils.createCalendar();
+//                startCalendar.add(Calendar.HOUR_OF_DAY, 18);
 //
-//        endCalendar = CalendarUtils.createCalendar();
-//        endCalendar.add(Calendar.HOUR_OF_DAY, 19);
-//        endCalendar.add(Calendar.MINUTE, 35);
+//                endCalendar = CalendarUtils.createCalendar();
+//                endCalendar.add(Calendar.HOUR_OF_DAY, 19);
+//                endCalendar.add(Calendar.MINUTE, 35);
 //
-//        dayView.addEvent(new SportEvent(
+//                dayView.addEvent(new SportEvent(
 //                "Test Event Name 5",
 //                "Test Event Description 5",
 //                new CalendarRange(startCalendar, endCalendar)
-//        ));
+//                ));
 //
-//        startCalendar = CalendarUtils.createCalendar();
-//        startCalendar.add(Calendar.HOUR_OF_DAY, 15);
+//                startCalendar = CalendarUtils.createCalendar();
+//                startCalendar.add(Calendar.HOUR_OF_DAY, 17);
 //
-//        endCalendar = CalendarUtils.createCalendar();
-//        endCalendar.add(Calendar.HOUR_OF_DAY, 21);
+//                endCalendar = CalendarUtils.createCalendar();
+//                endCalendar.add(Calendar.HOUR_OF_DAY, 20);
+//                endCalendar.add(Calendar.MINUTE, 35);
 //
-//        dayView.addEvent(new SportEvent(
+//                dayView.addEvent(new SportEvent(
+//                "Test Event Name 555",
+//                "Test Event Description 555",
+//                new CalendarRange(startCalendar, endCalendar)
+//                ));
+//
+//                startCalendar = CalendarUtils.createCalendar();
+//                startCalendar.add(Calendar.HOUR_OF_DAY, 16);
+//
+//                endCalendar = CalendarUtils.createCalendar();
+//                endCalendar.add(Calendar.HOUR_OF_DAY, 19);
+//                endCalendar.add(Calendar.MINUTE, 35);
+//
+//                dayView.addEvent(new SportEvent(
+//                "Test Event Name 512",
+//                "Test Event Description 512",
+//                new CalendarRange(startCalendar, endCalendar)
+//                ));
+//
+//                startCalendar = CalendarUtils.createCalendar();
+//                startCalendar.add(Calendar.HOUR_OF_DAY, 15);
+//
+//                endCalendar = CalendarUtils.createCalendar();
+//                endCalendar.add(Calendar.HOUR_OF_DAY, 21);
+//
+//                dayView.addEvent(new SportEvent(
 //                "Test Event Name 6",
 //                "Test Event Description 6",
 //                new CalendarRange(startCalendar, endCalendar)
-//        ));
-
-        return view;
-    }
-
-    private void drawSportEvent(MongoManager.MongoActivity sport){
-        Calendar startCalendar = CalendarUtils.createCalendar();
-        Calendar endCalendar = CalendarUtils.createCalendar();
-
-        startCalendar.add(Calendar.HOUR_OF_DAY, 15);
-        startCalendar.add(Calendar.MINUTE, 35);
-        endCalendar.add(Calendar.HOUR_OF_DAY, 21);
-        endCalendar.add(Calendar.MINUTE, 35);
-
-        dayView.addEvent(new SportEvent(
-                sport.getName(),
-                sport.getTimeSpan() + "\n\n" + getString(R.string.participants_example),
-                new CalendarRange(startCalendar, endCalendar)
-        ));
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        MainActivity parent = (MainActivity) getActivity();
-        parent.handleFragment(TransactionAction.REMOVE, R.id.main_place_for_floating_buttons, floatingFragment);//not null, source: "believe me bro"
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        MainActivity parent = (MainActivity) getActivity();
-        parent.getViewOption().setVisibility(View.INVISIBLE);//not null, source: "believe me bro"
-        parent.getViewOption().setClickable(false);
-    }
-
-    public void receiveItem(MongoManager.MongoActivity sport) {
-        drawSportEvent(sport);
-    }
-}
+//                ));

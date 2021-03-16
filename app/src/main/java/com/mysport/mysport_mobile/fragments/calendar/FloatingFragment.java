@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mysport.mysport_mobile.App;
+import com.mysport.mysport_mobile.MainActivity;
 import com.mysport.mysport_mobile.R;
 import com.mysport.mysport_mobile.events.DoubleClickListener;
 import com.mysport.mysport_mobile.events.OnFragmentSendDataListener;
@@ -153,7 +154,10 @@ public class FloatingFragment extends Fragment {
 //            }
 //        });
 
-        date.setText(new SimpleDateFormat("yy-MM-dd", Locale.ENGLISH).format(Date.from(Instant.now())));
+        date.setText(new SimpleDateFormat("yy-MM-dd", Locale.ENGLISH)
+                .format(new Date(
+                        ((MainActivity) getActivity()).getDayViewFragment().getToday().getTimeInMillis() //not null dont worry
+                )));
 
         timeStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,6 +189,7 @@ public class FloatingFragment extends Fragment {
 //                    MongoManager database = App.getMongo();
 //                    database.addActivity(LocalDate.now(), sport);
 //                }).start();
+                dialog.dismiss();
             }
         });
 

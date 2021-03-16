@@ -69,4 +69,6 @@
     <string name="example_address_home">USA, Minnesota, Gun Beach valley 420</string>
     <string name="create_activity">Create Activity</string>
     <string name="class_cast_exception_fragment_data_send_event"><![CDATA[\" must initialize interface -> OnFragmentInteractionListener\"]]></string>
+    <string name="error_no_participants">There are no participants currently yet!</string>
+    <string name="joined_sport_dialog">You have joined %s</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.mysport.mysport_mobile.profile;
+package com.mysport.mysport_mobile.fragments;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.mysport.mysport_mobile.R;
 
-public class UserProfile extends Fragment {
+public class ProfileFragment extends Fragment {
 
 
 

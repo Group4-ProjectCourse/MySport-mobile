@@ -1,8 +1,5 @@
 package com.mysport.mysport_mobile;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,10 +25,9 @@ import com.mysport.mysport_mobile.fragments.calendar.DayViewFragment;
 import com.mysport.mysport_mobile.fragments.calendar.MonthViewFragment;
 import com.mysport.mysport_mobile.language.LanguageManager;
 import com.mysport.mysport_mobile.models.MongoManager;
-import com.mysport.mysport_mobile.profile.UserProfile;
+import com.mysport.mysport_mobile.fragments.ProfileFragment;
 import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Calendar;
 
@@ -82,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setCheckedItem(R.id.nav_home);
 
         //fragment transaction
-        handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, (dayViewFragment = new DayViewFragment()), "DAY_VIEW");
+        handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, (dayViewFragment = new DayViewFragment(Calendar.getInstance())), "DAY_VIEW");
         toolbar.setTitle(CalendarUtils.toSimpleString(Calendar.getInstance()));
         //handleFragment(new MonthViewFragment(), "MONTH_VIEW");
 
@@ -153,16 +149,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == navigationView.getCheckedItem().getItemId())
             Toast.makeText(this, getString(R.string.menu_item_selected_again) + " - " + navigationView.getCheckedItem().getTitle(), Toast.LENGTH_SHORT).show();
-        else if (id == R.id.nav_home) {
-            Fragment fragment = getSupportFragmentManager().findFragmentByTag("DAY_VIEW");
-            if (fragment != null && fragment.isVisible())
-                handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new MonthViewFragment(), "MONTH_VIEW");
-            else
-                handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, (dayViewFragment = new DayViewFragment()), "DAY_VIEW");
-        } else if (id == R.id.nav_settings)
+        else if (id == R.id.nav_home)
+            handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new MonthViewFragment(), "MONTH_VIEW");
+        else if(id == R.id.nav_calendar)
+            handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, (dayViewFragment = new DayViewFragment(Calendar.getInstance())), "DAY_VIEW");
+        else if (id == R.id.nav_settings)
             handleFragment(R.id.main_place_for_fragments, new SettingsFragment());
         else if (id == R.id.nav_profile)
-            handleFragment(R.id.main_place_for_fragments, new UserProfile());
+            handleFragment(R.id.main_place_for_fragments, new ProfileFragment());
         else if (id == R.id.nav_share)
             Toast.makeText(this, R.string.message_share_example, Toast.LENGTH_SHORT).show();
 //        else if (id == R.id.nav_logout)
@@ -215,7 +209,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return dayViewFragment;
     }
 
-//    protected void attachBaseContext(Context base) {
+    public DayViewFragment getDayViewFragment() {
+        return dayViewFragment;
+    }
+
+    //    protected void attachBaseContext(Context base) {
 //        super.attachBaseContext(languageManager.setLocale(base));
 //    }
 

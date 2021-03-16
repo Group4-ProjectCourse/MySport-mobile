@@ -31,7 +31,7 @@ public class MonthViewFragment extends Fragment {
                     Toast.makeText(getContext(), getString(R.string.error_usage_incorrect_place), Toast.LENGTH_LONG).show();
                     return;
                 }
-                parent.handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, parent.setDayViewFragment(new DayViewFragment()), "DAY_VIEW");
+                parent.handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, parent.setDayViewFragment(new DayViewFragment(day)), "DAY_VIEW");
                 parent.getToolbar().setTitle(CalendarUtils.toSimpleString(day));
             }
         });

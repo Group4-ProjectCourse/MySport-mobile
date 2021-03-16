@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.mysport.mysport_mobile.R;
+import com.mysport.mysport_mobile.events.EventClickedListener;
 import com.mysport.mysport_mobile.models.CalendarRange;
 import com.mysport.mysport_mobile.models.SportEvent;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
@@ -74,7 +75,7 @@ public class DayView extends View {
     private int eventsMinHeight;
     private int eventsNumMaxEventsOverlappingTimes;
 
-    private List<EventClickedListener> listeners = new ArrayList<>();
+    private List<EventClickedListener> listeners = new ArrayList<>(5);
 
     // Class to store graphical data about an event
     private static class RenderData {
@@ -92,10 +93,6 @@ public class DayView extends View {
 
         // Flag for if we should draw this event or not
         private boolean shouldDraw = true;
-    }
-
-    public interface EventClickedListener {
-        void onEventClicked(SportEvent sportEvent);
     }
 
     public DayView(Context context) {
@@ -352,7 +349,7 @@ public class DayView extends View {
         return sportEvents;
     }
 
-    public void setSportEvents(List<SportEvent> sportEvents) {
+    public void addSportEvents(List<SportEvent> sportEvents) {
         if (sportEvents == null) {
             return;
         }
@@ -377,7 +374,7 @@ public class DayView extends View {
 
         // We need to check if this event can be added to this day
         if (!dayRange.intersects(sportEvent.getCalendarRange())) {
-            return;
+            return;// Error: there is alrady event going that day
         }
 
         sportEvents.add(sportEvent);
@@ -669,14 +666,24 @@ public class DayView extends View {
             // Object allocation needed, but will only occur when dirty bit is on and the layout needs to be updated.
             // Not too expensive since we are not changing the text frequently.
             // Create a static layout to contain the event name
-            renderData.textLayout = new StaticLayout(sportEvent.getSportName(), eventsTextPaint, (int) renderData.bounds.width() - eventsTextPadding * 2, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
-
+            //renderData.textLayout = new StaticLayout(sportEvent.getSportName() + "\n\n" + sportEvent.getDescription(), eventsTextPaint, (int) renderData.bounds.width() - eventsTextPadding * 2, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+            String text = sportEvent.getSportName() + "\n\n" + sportEvent.getDescription();
+            renderData.textLayout = StaticLayout.Builder.obtain(text, 0, text.length(), eventsTextPaint, (int) renderData.bounds.width() - eventsTextPadding << 1)
+                    .setAlignment(Layout.Alignment.ALIGN_NORMAL)
+                    .setLineSpacing(0.0f, 1.0f)
+                    .setIncludePad(false)
+                    .build();
             // Check if we can fit all the lines within the event rectangle, if not, we will need to truncate the text to fit
             if (renderData.textLayout.getLineTop(renderData.textLayout.getLineCount()) + eventsTextPadding * 2 > renderData.bounds.height()) {
                 // Get the line of text that the end of the event bounds bottom intersects with
                 int lineMax = renderData.textLayout.getLineForVertical((int) renderData.bounds.height() - eventsTextPadding * 2);
                 String truncatedEventName = sportEvent.getSportName().substring(0, renderData.textLayout.getLineStart(lineMax));
-                renderData.textLayout = new StaticLayout(truncatedEventName, eventsTextPaint, (int) renderData.bounds.width() - eventsTextPadding * 2, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+                //renderData.textLayout = new StaticLayout(truncatedEventName, eventsTextPaint, (int) renderData.bounds.width() - eventsTextPadding * 2, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+                renderData.textLayout = StaticLayout.Builder.obtain(truncatedEventName, 0, truncatedEventName.length(), eventsTextPaint, (int) renderData.bounds.width() - eventsTextPadding << 1)
+                        .setAlignment(Layout.Alignment.ALIGN_NORMAL)
+                        .setLineSpacing( 0.0f, 1.0f)
+                        .setIncludePad(false)
+                        .build();
             }
 
             // Set the dirty bit off so we don't update this again

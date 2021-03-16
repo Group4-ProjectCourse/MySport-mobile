@@ -81,6 +81,9 @@
     <string name="time_ends">Time Ends</string>
     <string name="location">Location</string>
     <string name="class_cast_exception_fragment_data_send_event"><![CDATA[\" must initialize interface -> OnFragmentInteractionListener\"]]></string>
+    <string name="error_no_participants">There are no participants currently yet!</string>
+    <string name="joined_sport_dialog">You have joined %s</string>
+    <string name="unjoined_sport_dialog">You have been withdrawn from %s</string>
 
 
 </resources>

@@ -71,4 +71,5 @@
     <string name="class_cast_exception_fragment_data_send_event"><![CDATA[\" must initialize interface -> OnFragmentInteractionListener\"]]></string>
     <string name="error_no_participants">There are no participants currently yet!</string>
     <string name="joined_sport_dialog">You have joined %s</string>
+<!--    <string name="aboutText">MySport is a student project for DA224C VT21 Development towards Mobile Platforms made by the following students:<br/> Denial Alekseev <br/>Kristijan Đaković <br/>Petros Daniel <br/>Robin Kamprad <br/>Stefan Vojtek <br/>For support contact: Admin@mysport.com</string> -->
 </resources>

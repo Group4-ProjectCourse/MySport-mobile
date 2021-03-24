@@ -70,7 +70,6 @@ public class DayViewFragment extends Fragment {
                         .setPositiveButton(flag ? "JOIN" : "QUIT", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
                             if(flag) {
                                 sportEvent.getParticipants().add(App.getSession().getUser());
                                 dialog.dismiss();
@@ -94,8 +93,9 @@ public class DayViewFragment extends Fragment {
                                     //    };
 //                                }
                                 
+                                }
+                                flag = !flag;
                             }
-                            flag = !flag;
                         }
                     });
                     if(isLeader){

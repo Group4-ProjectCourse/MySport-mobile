@@ -6,8 +6,8 @@ public class Leader extends Member {
     private final String cardNum;
     private final String[] leadingSports;
 
-    protected Leader(String userId, String firstname, String surname, String email, String cardNum, String[] leadingSports) {
-        super(userId, firstname, surname, email);
+    protected Leader(String firstname, String surname, String email, String cardNum, String[] leadingSports) {
+        super(firstname, surname, email);
         this.cardNum = cardNum;
         this.leadingSports = leadingSports;
     }

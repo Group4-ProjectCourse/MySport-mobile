@@ -29,6 +29,7 @@ import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
 import com.mysport.mysport_mobile.models.MongoActivity;
 import com.mysport.mysport_mobile.models.Session;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import java.util.Calendar;
 
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int currentId;
     private FirebaseAuth mAuth;
     private LanguageManager languageManager;
+    private CircleImageView circleImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.nav_view);
         viewOption = findViewById(R.id.nav_overflow_menu_item);
         toolbar = findViewById(R.id.toolbar);
+        circleImageView = findViewById(R.id.profileImage);
         //tool bar
         setSupportActionBar(toolbar);
         //nav drawer menu
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         );
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        circleImageView.setImageURI(App.getSession().getUser().getPhotoUri());
 
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
@@ -153,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(this, getString(R.string.menu_item_selected_again) + " - " + navigationView.getCheckedItem().getTitle(), Toast.LENGTH_SHORT).show();
         else if (id == R.id.nav_home)
             handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new MonthViewFragment(), "MONTH_VIEW");
-        else if(id == R.id.nav_calendar)
+        else if (id == R.id.nav_calendar)
             handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, (dayViewFragment = new DayViewFragment(Calendar.getInstance())), "DAY_VIEW");
         else if (id == R.id.nav_settings)
             handleFragment(R.id.main_place_for_fragments, new SettingsFragment());

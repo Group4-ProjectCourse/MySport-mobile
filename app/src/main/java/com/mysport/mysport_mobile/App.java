@@ -2,8 +2,11 @@ package com.mysport.mysport_mobile;
 
 import android.app.Application;
 
+import android.net.Uri;
 import com.mysport.mysport_mobile.models.Member;
 import com.mysport.mysport_mobile.models.Session;
+
+import java.net.URL;
 
 
 public class App extends Application {
@@ -13,6 +16,7 @@ public class App extends Application {
     private static Session session;
 
     static {
+        //need to figure this out
         session = new Session(new Member("Deniel", "Alekseev", "deniel@mysport-community.com"));
     }
 
@@ -20,8 +24,8 @@ public class App extends Application {
         return session;
     }
 
-    public static void setSession(String firstName, String familyName, String email) {
-        session = new Session(new Member(firstName, familyName, email));
+    public static void setSession(String firstName, String familyName, String email, Uri photoUrl) {
+        session = new Session(new Member(firstName, familyName, email, photoUrl));
     }
 
     @Override

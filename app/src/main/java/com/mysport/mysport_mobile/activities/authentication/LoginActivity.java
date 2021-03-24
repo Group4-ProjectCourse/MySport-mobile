@@ -39,6 +39,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mysport.mysport_mobile.MainActivity;
 import com.mysport.mysport_mobile.R;
+import com.mysport.mysport_mobile.models.Member;
+import com.mysport.mysport_mobile.models.Session;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -46,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     private VideoView videoBG;
     MediaPlayer mMediaPlayer;
     int mCurrentVideoPosition;
+    private static Session session;
 
     private CallbackManager mCallbackManager;
     private FirebaseAuth mFirebaseAuth;
@@ -186,6 +189,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            session = new Session(new Member(task.getResult().getGivenName(), task.getResult().getFamilyName(), task.getResult().getEmail()));
+            Log.d("Mylog", "Surname: " + task.getResult().getFamilyName() + "\nName: " + task.getResult().getGivenName());
             handleSignInResult(task);
         }
         mCallbackManager.onActivityResult(requestCode, resultCode, data);

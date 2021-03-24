@@ -31,6 +31,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.GeoPoint;
+import com.mysport.mysport_mobile.App;
 import com.mysport.mysport_mobile.MainActivity;
 import com.mysport.mysport_mobile.R;
 import com.mysport.mysport_mobile.events.DoubleClickListener;
@@ -210,7 +211,7 @@ public class FloatingFragment extends Fragment {
                 fragmentSendDataListener.onSendData(sport);
 
                 new Thread(() -> {
-                    String url = "http://192.168.1.72:3000/sports/add";
+                    String url = App.baseURL + "sports/add";
                     JSONObject obj = new JSONObject();
                     try {
                         obj.put("title", sportName.getText().toString())

@@ -3,20 +3,14 @@ package com.mysport.mysport_mobile.models;
 import androidx.annotation.NonNull;
 
 public class Member {
-    private String userId;
     private String firstname;
     private String surname;
     private String email;
 
-    public Member(String userId, String firstname, String surname, String email) {
-        this.userId = userId;
+    public Member(String firstname, String surname, String email) {
         this.firstname = firstname;
         this.surname = surname;
         this.email = email;
-    }
-
-    public String getUserId() {
-        return userId;
     }
 
     public String getFirstname() {

@@ -82,7 +82,17 @@ public class DayViewFragment extends Fragment {
                                     dialog.dismiss();
                                     Toast.makeText(getContext(), String.format(getString(R.string.unjoined_sport_dialog), sportEvent.getSportName()), Toast.LENGTH_SHORT).show();
                                     //record in DB
-                                }
+
+//                                     const url2 = `http://localhost:${port}/auth/register`;
+//
+                                    //    const user = {
+//                                            "firstname": "Deniel",
+//                                            "lastname": "Alekseev",
+//                                            "email": "daniel.neo.eu@icloud.com",
+//                                            "password": "123",
+//                                            "personal_number": "19980516-1234"
+                                    //    };
+//                                }
                                 
                             }
                             flag = !flag;

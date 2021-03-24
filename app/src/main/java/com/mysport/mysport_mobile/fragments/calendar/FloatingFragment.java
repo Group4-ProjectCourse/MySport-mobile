@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -22,26 +23,39 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mysport.mysport_mobile.App;
+import com.google.firebase.firestore.GeoPoint;
 import com.mysport.mysport_mobile.MainActivity;
 import com.mysport.mysport_mobile.R;
 import com.mysport.mysport_mobile.events.DoubleClickListener;
 import com.mysport.mysport_mobile.events.OnFragmentSendDataListener;
-import com.mysport.mysport_mobile.models.MongoManager;
+import com.mysport.mysport_mobile.models.MongoActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import static java.lang.System.out;
 
 public class FloatingFragment extends Fragment {
 
-    private OnFragmentSendDataListener<MongoManager.MongoActivity> fragmentSendDataListener;
-
+    private OnFragmentSendDataListener<MongoActivity> fragmentSendDataListener;
     private Dialog dialog;
     private Animation rotateOpen, rotateClose, fromBottom, toBottom;
     private FloatingActionButton addButton, edit, addMember;
@@ -51,7 +65,7 @@ public class FloatingFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            fragmentSendDataListener = (OnFragmentSendDataListener<MongoManager.MongoActivity>) context;
+            fragmentSendDataListener = (OnFragmentSendDataListener<MongoActivity>) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
                     + getString(R.string.class_cast_exception_fragment_data_send_event));
@@ -129,6 +143,8 @@ public class FloatingFragment extends Fragment {
         TextView textClose = dialog.findViewById(R.id.popup_txtClose_button);
         EditText sportName, date, timeStart, timeEnd, location;
         Button submit = dialog.findViewById(R.id.form_add_button_create);
+        Calendar startDate = getSelectedToday();
+        Calendar endDate = getSelectedToday();
 
         textClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,40 +171,58 @@ public class FloatingFragment extends Fragment {
 //        });
 
         date.setText(new SimpleDateFormat("yy-MM-dd", Locale.ENGLISH)
-                .format(new Date(
-                        ((MainActivity) getActivity()).getDayViewFragment().getToday().getTimeInMillis() //not null dont worry
-                )));
+                .format(getSelectedToday().getTime()));
 
         timeStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showTimeDialog(timeStart);
+                showTimeDialog(timeStart, startDate);
             }
         });
 
         timeEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showTimeDialog(timeEnd);
+                showTimeDialog(timeEnd, endDate);
             }
         });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MongoManager.MongoActivity sport = new MongoManager.MongoActivity(
+
+                if(timeStart.getText().length() == 0 || timeEnd.getText().length() == 0 || sportName.getText().length() == 0 || location.getText().length() == 0){
+                    Toast.makeText(getContext(), getString(R.string.error_sport_add_form_fill_all_fields), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                //ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.);
+
+                MongoActivity sport = new MongoActivity(
                         sportName.getText().toString(),
+                        startDate,
+                        endDate,
                         location.getText().toString(),
-                        Arrays.stream(timeStart.getText().toString().split(":")).mapToInt(Integer::parseInt).toArray(),
-                        Arrays.stream(timeEnd.getText().toString().split(":")).mapToInt(Integer::parseInt).toArray()
+                        null
                 );
 
                 fragmentSendDataListener.onSendData(sport);
 
-//                new Thread(() -> {
-//                    MongoManager database = App.getMongo();
-//                    database.addActivity(LocalDate.now(), sport);
-//                }).start();
+                new Thread(() -> {
+                    String url = "http://192.168.1.72:3000/sports/add";
+                    JSONObject obj = new JSONObject();
+                    try {
+                        obj.put("title", sportName.getText().toString())
+                            .put("start_date", startDate.getTime())
+                            .put("start_millis", startDate.getTime().getTime())
+                            .put("end_date", endDate.getTime())
+                            .put("end_millis", endDate.getTime().getTime())
+                            .put("location", location.getText().toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    volleyPost(getContext(), url, obj);
+                }).start();
                 dialog.dismiss();
             }
         });
@@ -196,69 +230,147 @@ public class FloatingFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
+//    var request = require('request');
+//    const obj = {
+//        "title": "Football",
+//                "start_date": new Date(2021, 11, 25, 17, 30),
+//                "end_date": new Date(2021, 11, 25, 19, 30),
+//                "location": {
+//            type: 'Point',
+//                    coordinates: [-71.1513232, 42.40513]
+//        }
+//    };
+//
+//    const url1 = `http://localhost:${port}/sports/add`;
+//            const url2 = `http://localhost:${port}/auth/register`;
+//
+//            const user = {
+//        "firstname": "Deniel",
+//                "lastname": "Alekseev",
+//                "email": "daniel.neo.eu@icloud.com",
+//                "password": "123",
+//                "personal_number": "19980516-1234"
+//    };
+//    private void showDateTimeDialog(final EditText dateTime) {
+//        final Calendar calendar = Calendar.getInstance();
+//        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                calendar.set(Calendar.YEAR, year);
+//                calendar.set(Calendar.MONTH, month);
+//                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//
+//                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+//                    @Override
+//                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+//                        calendar.set(Calendar.MINUTE, minute);
+//
+//                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm", Locale.ENGLISH);
+//
+//                        dateTime.setText(simpleDateFormat.format(calendar.getTime()));
+//                    }
+//                };
+//
+//                new TimePickerDialog(getContext(), timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),false).show();
+//            }
+//        };
+//        new DatePickerDialog(getContext(), dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+//    }
 
-    private void showDateTimeDialog(final EditText dateTime) {
-        final Calendar calendar = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                        calendar.set(Calendar.MINUTE, minute);
-
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm", Locale.ENGLISH);
-
-                        dateTime.setText(simpleDateFormat.format(calendar.getTime()));
-                    }
-                };
-
-                new TimePickerDialog(getContext(), timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),false).show();
-            }
-        };
-        new DatePickerDialog(getContext(), dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-    }
-
-    private void showTimeDialog(final EditText time) {
-        final Calendar calendar = Calendar.getInstance();
-
+    private void showTimeDialog(final EditText time, Calendar outDate) {
         TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                calendar.set(Calendar.MINUTE, minute);
+                outDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                outDate.set(Calendar.MINUTE, minute);
+                //setting utils.Date for database
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
-                time.setText(simpleDateFormat.format(calendar.getTime()));
+                time.setText(simpleDateFormat.format(outDate.getTime()));
             }
         };
-        new TimePickerDialog(getContext(), timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),true)
+        new TimePickerDialog(getContext(), timeSetListener, outDate.get(Calendar.HOUR_OF_DAY), outDate.get(Calendar.MINUTE),true)
                 .show();
     }
 
-    private void showDateDialog(final EditText date) {
-        final Calendar calendar = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd", Locale.ENGLISH);
-                date.setText(simpleDateFormat.format(calendar.getTime()));
-            }
-        };
-        new DatePickerDialog(getContext(), dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-    }
+//    private void showDateDialog(final EditText date) {
+//        final Calendar calendar = Calendar.getInstance();
+//        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                calendar.set(Calendar.YEAR, year);
+//                calendar.set(Calendar.MONTH, month);
+//                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd", Locale.ENGLISH);
+//                date.setText(simpleDateFormat.format(calendar.getTime()));
+//            }
+//        };
+//        new DatePickerDialog(getContext(), dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+//    }
 
     private void loadAnimations(){
         rotateOpen = AnimationUtils.loadAnimation(getContext(), R.anim.dayview_rotate_open_anim);
         rotateClose = AnimationUtils.loadAnimation(getContext(), R.anim.dayview_rotate_close_anim);
         fromBottom = AnimationUtils.loadAnimation(getContext(), R.anim.dayview_from_bottom_anim);
         toBottom = AnimationUtils.loadAnimation(getContext(), R.anim.dayview_to_bottom_anim);
+    }
+
+    public static void volleyPost(Context context, String url, JSONObject postData){
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+    public void volleyGet(String url){
+        List<String> jsonResponses = new ArrayList<>(5);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("data");
+                    for(int i = 0; i < jsonArray.length(); i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String email = jsonObject.getString("email");
+
+                        jsonResponses.add(email);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private Calendar getSelectedToday(){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(((MainActivity)getActivity())
+                .getDayViewFragment()
+                .getToday()
+                .getTime()
+                .getTime()
+        );
+
+        return calendar;
     }
 }

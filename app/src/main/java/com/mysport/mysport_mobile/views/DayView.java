@@ -667,7 +667,7 @@ public class DayView extends View {
             // Not too expensive since we are not changing the text frequently.
             // Create a static layout to contain the event name
             //renderData.textLayout = new StaticLayout(sportEvent.getSportName() + "\n\n" + sportEvent.getDescription(), eventsTextPaint, (int) renderData.bounds.width() - eventsTextPadding * 2, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
-            String text = sportEvent.getSportName() + "\n\n" + sportEvent.getDescription();
+            String text = sportEvent.getSportName();// + "\n\n" + sportEvent.getDescription();
             renderData.textLayout = StaticLayout.Builder.obtain(text, 0, text.length(), eventsTextPaint, (int) renderData.bounds.width() - eventsTextPadding << 1)
                     .setAlignment(Layout.Alignment.ALIGN_NORMAL)
                     .setLineSpacing(0.0f, 1.0f)

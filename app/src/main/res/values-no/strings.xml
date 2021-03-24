@@ -71,4 +71,6 @@
     <string name="class_cast_exception_fragment_data_send_event"><![CDATA[\" must initialize interface -> OnFragmentInteractionListener\"]]></string>
     <string name="error_no_participants">There are no participants currently yet!</string>
     <string name="joined_sport_dialog">You have joined %s</string>
+    <string name="select_sport">Select sport</string>
+    <string name="error_sport_add_form_fill_all_fields">Fill in all fields before submitting form</string>
 </resources>

@@ -1,13 +1,13 @@
 package com.mysport.mysport_mobile.models;
 
-public class Session {
-    private final Member member;
+public class Session<T extends Member> {
+    private final T member;
 
-    public Session(Member member) {
+    public Session(T member) {
         this.member = member;
     }
 
-    public Member getUser() {
+    public T getUser() {
         return member;
     }
 }

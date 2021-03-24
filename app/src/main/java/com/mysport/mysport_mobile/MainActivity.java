@@ -24,15 +24,15 @@ import com.mysport.mysport_mobile.events.OnFragmentSendDataListener;
 import com.mysport.mysport_mobile.fragments.calendar.DayViewFragment;
 import com.mysport.mysport_mobile.fragments.calendar.MonthViewFragment;
 import com.mysport.mysport_mobile.language.LanguageManager;
-import com.mysport.mysport_mobile.models.MongoManager;
 import com.mysport.mysport_mobile.fragments.ProfileFragment;
 import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
+import com.mysport.mysport_mobile.models.MongoActivity;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
 
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        OnFragmentSendDataListener<MongoManager.MongoActivity> {
+        OnFragmentSendDataListener<MongoActivity> {
     private DayViewFragment dayViewFragment;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onSendData(MongoManager.MongoActivity sport) {
+    public void onSendData(MongoActivity sport) {
         dayViewFragment.receiveItem(sport);
     }
 

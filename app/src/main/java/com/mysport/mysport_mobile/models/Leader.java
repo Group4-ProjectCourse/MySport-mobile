@@ -1,20 +1,22 @@
 package com.mysport.mysport_mobile.models;
 
-public class Leader extends Member {
-    private String cardNum;
-    private String leadingSport;
+import com.mysport.mysport_mobile.R;
 
-    protected Leader(String userId, String firstname, String surname, String email, String cardNum, String leadingSport) {
+public class Leader extends Member {
+    private final String cardNum;
+    private final String[] leadingSports;
+
+    protected Leader(String userId, String firstname, String surname, String email, String cardNum, String[] leadingSports) {
         super(userId, firstname, surname, email);
         this.cardNum = cardNum;
-        this.leadingSport = leadingSport;
+        this.leadingSports = leadingSports;
     }
 
     public String getCardNum() {
         return cardNum;
     }
 
-    public String getLeadingSport() {
-        return leadingSport;
+    public String[] getLeadingSport() {
+        return leadingSports;
     }
 }

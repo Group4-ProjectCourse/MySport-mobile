@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
@@ -19,10 +18,9 @@ import com.mysport.mysport_mobile.MainActivity;
 import com.mysport.mysport_mobile.R;
 import com.mysport.mysport_mobile.enums.TransactionAction;
 import com.mysport.mysport_mobile.events.DoubleClickEventListener;
-import com.mysport.mysport_mobile.events.EventClickedListener;
 import com.mysport.mysport_mobile.models.CalendarRange;
 import com.mysport.mysport_mobile.models.Member;
-import com.mysport.mysport_mobile.models.MongoManager;
+import com.mysport.mysport_mobile.models.MongoActivity;
 import com.mysport.mysport_mobile.models.SportEvent;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
 import com.mysport.mysport_mobile.views.DayView;
@@ -35,7 +33,7 @@ public class DayViewFragment extends Fragment {
 
     private FloatingFragment floatingFragment;
     private DayView dayView;
-    private Calendar today;
+    private final Calendar today;
 
     public DayViewFragment(Calendar day){
         this.today = day;
@@ -117,27 +115,27 @@ public class DayViewFragment extends Fragment {
                 }
         });
 
-        Calendar startCalendar = CalendarUtils.createCalendar();
-        startCalendar.add(Calendar.HOUR_OF_DAY, 12);
-        startCalendar.add(Calendar.MINUTE, 23);
-
-        Calendar endCalendar = CalendarUtils.createCalendar();
-        endCalendar.add(Calendar.HOUR_OF_DAY,14);
-        endCalendar.add(Calendar.MINUTE, 24);
-
-        dayView.addEvent(
-                new SportEvent(
-                        "Volleyball",
-                        new ArrayList<>(Arrays.asList(
-                                new Member("123", "Bob", "Marley", "deniel@mysport-community.com"),
-                                new Member("132", "John", "Cena", "deniel@mysport-community.com"),
-                                new Member("213", "Tom", "Soyeur", "deniel@mysport-community.com"),
-                                new Member("231", "Chuck", "Norris", "deniel@mysport-community.com"),
-                                new Member("312", "Arnold", "Stalone", "deniel@mysport-community.com"),
-                                new Member("321", "Silvestro", "Rembo", "deniel@mysport-community.com")
-                        )),
-                        new CalendarRange(startCalendar, endCalendar)
-                ));
+//        Calendar startCalendar = CalendarUtils.createCalendar();
+//        startCalendar.add(Calendar.HOUR_OF_DAY, 12);
+//        startCalendar.add(Calendar.MINUTE, 23);
+//
+//        Calendar endCalendar = CalendarUtils.createCalendar();
+//        endCalendar.add(Calendar.HOUR_OF_DAY,14);
+//        endCalendar.add(Calendar.MINUTE, 24);
+//
+//        dayView.addEvent(
+//                new SportEvent(
+//                        "Volleyball",
+//                        new ArrayList<>(Arrays.asList(
+//                                new Member("123", "Bob", "Marley", "deniel@mysport-community.com"),
+//                                new Member("132", "John", "Cena", "deniel@mysport-community.com"),
+//                                new Member("213", "Tom", "Soyeur", "deniel@mysport-community.com"),
+//                                new Member("231", "Chuck", "Norris", "deniel@mysport-community.com"),
+//                                new Member("312", "Arnold", "Stalone", "deniel@mysport-community.com"),
+//                                new Member("321", "Silvestro", "Rembo", "deniel@mysport-community.com")
+//                        )),
+//                        new CalendarRange(startCalendar, endCalendar)
+//                ));
 
         return view;
     }
@@ -180,7 +178,7 @@ public class DayViewFragment extends Fragment {
         return new MaterialAlertDialogBuilder[] { join, attendance };
     }
 
-    private void drawSportEvent(MongoManager.MongoActivity sport){
+    private void drawSportEvent(MongoActivity sport){
         Calendar startCalendar = CalendarUtils.createCalendar();
         startCalendar.add(Calendar.HOUR_OF_DAY, sport.getStartHour());
         startCalendar.add(Calendar.MINUTE, sport.getStartMinutes());
@@ -190,17 +188,23 @@ public class DayViewFragment extends Fragment {
         endCalendar.add(Calendar.MINUTE, sport.getEndMinutes());
 
         dayView.addEvent(new SportEvent(
-                sport.getName(),
-                new ArrayList<>(Arrays.asList(
-                        new Member("123", "Bob", "Marley", "deniel@mysport-community.com"),
-                        new Member("132", "John", "Cena", "deniel@mysport-community.com"),
-                        new Member("213", "Tom", "Soyeur", "deniel@mysport-community.com"),
-                        new Member("231", "Chuck", "Norris", "deniel@mysport-community.com"),
-                        new Member("312", "Arnold", "Stalone", "deniel@mysport-community.com"),
-                        new Member("321", "Silvestro", "Rembo", "deniel@mysport-community.com")
-                )),
+                sport.getTitle(),
+                null,
                 new CalendarRange(startCalendar, endCalendar)
         ));
+
+//        dayView.addEvent(new SportEvent(
+//                sport.getTitle(),
+//                new ArrayList<>(Arrays.asList(
+//                        new Member("123", "Bob", "Marley", "deniel@mysport-community.com"),
+//                        new Member("132", "John", "Cena", "deniel@mysport-community.com"),
+//                        new Member("213", "Tom", "Soyeur", "deniel@mysport-community.com"),
+//                        new Member("231", "Chuck", "Norris", "deniel@mysport-community.com"),
+//                        new Member("312", "Arnold", "Stalone", "deniel@mysport-community.com"),
+//                        new Member("321", "Silvestro", "Rembo", "deniel@mysport-community.com")
+//                )),
+//                new CalendarRange(startCalendar, endCalendar)
+//        ));
         //sport.getTimeSpan() + "\n\n" + getString(R.string.participants_example)
     }
 
@@ -219,7 +223,7 @@ public class DayViewFragment extends Fragment {
         parent.getViewOption().setClickable(false);
     }
 
-    public void receiveItem(MongoManager.MongoActivity sport) {
+    public void receiveItem(MongoActivity sport) {
         drawSportEvent(sport);
     }
 

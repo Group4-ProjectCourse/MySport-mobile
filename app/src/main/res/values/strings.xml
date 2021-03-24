@@ -70,20 +70,26 @@
     <string name="register">Register</string>
     <string name="already_registered_login_here">Already Registered ? Login Here</string>
     <string name="continue_with_email">Continue with Email</string>
-    <string name="buttonSave">Save</string>
+    <string name="buttonSave" translatable="false">Save</string>
     <string name="display_option_nav">Display option</string>
-    <string name="error_usage_incorrect_place">Parent activity which is MainActivity is null, you are trying to get wrong activity, this fragment is to be used only with MainActivity</string>
+    <string name="error_usage_incorrect_place" translatable="false">Parent activity which is MainActivity is null, you are trying to get wrong activity, this fragment is to be used only with MainActivity</string>
     <string name="example_address_home">USA, Minnesota, Gun Beach valley 420</string>
     <string name="create_activity">Create Activity</string>
-    <string name="form_create">Create</string>
-    <string name="select_date">Select Date</string>
-    <string name="time_starts">Time Starts</string>
-    <string name="time_ends">Time Ends</string>
-    <string name="location">Location</string>
+    <string name="form_create" translatable="false">Create</string>
+    <string name="select_date" translatable="false">Select Date</string>
+    <string name="time_starts" translatable="false">Time Starts</string>
+    <string name="time_ends" translatable="false">Time Ends</string>
+    <string name="location" translatable="false">Location</string>
     <string name="class_cast_exception_fragment_data_send_event"><![CDATA[\" must initialize interface -> OnFragmentInteractionListener\"]]></string>
     <string name="error_no_participants">There are no participants currently yet!</string>
     <string name="joined_sport_dialog">You have joined %s</string>
-    <string name="unjoined_sport_dialog">You have been withdrawn from %s</string>
+    <string name="unjoined_sport_dialog" translatable="false">You have been withdrawn from %s</string>
+    <string name="select_sport">Select sport</string>
+    <string name="error_sport_add_form_fill_all_fields">Fill in all fields before submitting form</string>
 
-
+    <string-array name="sport_list">
+        <item>Badminton</item>
+        <item>Football</item>
+        <item>Paddle</item>
+    </string-array>
 </resources>

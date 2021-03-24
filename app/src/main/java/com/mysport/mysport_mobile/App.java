@@ -13,7 +13,7 @@ public class App extends Application {
     private static Session session;
 
     static {
-        session = new Session(new Member("012", "Deniel", "Alekseev", "deniel@mysport-community.com"));
+        session = new Session(new Member("Deniel", "Alekseev", "deniel@mysport-community.com"));
     }
 
     public static Session getSession() {
@@ -23,7 +23,5 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-
     }
 }

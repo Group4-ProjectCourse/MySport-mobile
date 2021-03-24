@@ -24,15 +24,22 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.mysport.mysport_mobile.App;
 import com.mysport.mysport_mobile.R;
+import com.mysport.mysport_mobile.utils.Networking;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 public class RegisterActivity extends AppCompatActivity {
 
     public static final String TAG = "TAG";
-    EditText mFullName,mEmail,mPassword,mPhone;
+    EditText mFullName,mEmail,mPassword,mPhone,mPersNum;
     Button mRegisterButton;
     TextView mLoginTextView, mCreateAccountTextView;
     FirebaseAuth fAuth;
@@ -54,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         mPhone = findViewById(R.id.phone);
         mRegisterButton = findViewById(R.id.register_button);
         mLoginTextView = findViewById(R.id.login_here_text);
+        mPersNum = findViewById(R.id.personal_number);
 
         mCreateAccountTextView.setTranslationY(800);
         mFullName.setTranslationX(800);
@@ -61,6 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
         mPassword.setTranslationX(800);
         mPhone.setTranslationX(800);
         mRegisterButton.setTranslationX(800);
+        mPersNum.setTranslationX(800);
 
         mCreateAccountTextView.setAlpha(value);
         mFullName.setAlpha(value);
@@ -75,6 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
         mPassword.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(1200).start();
         mPhone.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(1600).start();
         mRegisterButton.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(2000).start();
+        mPersNum.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(2000).start();
 
 
         fAuth = FirebaseAuth.getInstance();
@@ -92,7 +102,11 @@ public class RegisterActivity extends AppCompatActivity {
                 final String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
                 final String fullName = mFullName.getText().toString();
-                final String phone    = mPhone.getText().toString();
+                final String phone = mPhone.getText().toString();
+                final String persNum = mPersNum.getText().toString();
+                String[] str = fullName.split(" ");
+                String firstname = str[0];
+                String lastname = str[1];
 
                 if(TextUtils.isEmpty(email)){
                     mEmail.setError("Email is Required.");
@@ -151,7 +165,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     Log.d(TAG, "onFailure: " + e.toString());
                                 }
                             });
-                            startActivity(new Intent(getApplicationContext(),EmailLoginActivity.class));
+                            startActivity(new Intent(getApplicationContext(), EmailLoginActivity.class));
 
                         }else {
                             Toast.makeText(RegisterActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -159,6 +173,25 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
+//                "firstname": "Deniel",
+//                "lastname": "Alekseev",
+//                "email": "daniel.neo.eu@icloud.com",
+//                "password": "123",
+//                "personal_number": "19980516-1234"
+                new Thread(() -> {
+                    String url = App.baseURL + "auth/register";
+                    JSONObject obj = new JSONObject();
+                    try {
+                        obj.put("firstname", firstname)
+                                .put("lastname", lastname)
+                                .put("email", email)
+                                .put("password", BCrypt.withDefaults().hashToString((int)Math.floor(Math.random() * 3) + 10, password.toCharArray()))
+                                .put("personal_number", persNum);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Networking.volleyPost(RegisterActivity.this, url, obj);
+                }).start();
             }
         });
 

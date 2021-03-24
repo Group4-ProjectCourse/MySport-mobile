@@ -86,6 +86,7 @@
     <string name="unjoined_sport_dialog" translatable="false">You have been withdrawn from %s</string>
     <string name="select_sport">Select sport</string>
     <string name="error_sport_add_form_fill_all_fields">Fill in all fields before submitting form</string>
+    <string name="aboutText" translatable="false">MySport is a student project for DA224C VT21 Development towards Mobile Platforms made by the following students:<br/> Denial Alekseev <br/>Kristijan Đaković <br/>Petros Daniel <br/>Robin Kamprad <br/>Stefan Vojtek <br/>For support contact: Admin@mysport.com</string>
 
     <string-array name="sport_list">
         <item>Badminton</item>

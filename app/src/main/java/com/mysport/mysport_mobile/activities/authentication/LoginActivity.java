@@ -37,6 +37,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.mysport.mysport_mobile.App;
 import com.mysport.mysport_mobile.MainActivity;
 import com.mysport.mysport_mobile.R;
 import com.mysport.mysport_mobile.models.Member;
@@ -189,7 +190,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            session = new Session(new Member(task.getResult().getGivenName(), task.getResult().getFamilyName(), task.getResult().getEmail()));
+            App.setSession(task.getResult().getGivenName(), task.getResult().getFamilyName(), task.getResult().getEmail());
             Log.d("Mylog", "Surname: " + task.getResult().getFamilyName() + "\nName: " + task.getResult().getGivenName());
             handleSignInResult(task);
         }

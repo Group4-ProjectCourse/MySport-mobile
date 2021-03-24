@@ -27,6 +27,7 @@ import com.mysport.mysport_mobile.language.LanguageManager;
 import com.mysport.mysport_mobile.fragments.ProfileFragment;
 import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
 import com.mysport.mysport_mobile.models.MongoActivity;
+import com.mysport.mysport_mobile.models.Session;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
 
 import java.util.Calendar;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         //getTheme().applyStyle(R.style.ThemePurple, true);
         setContentView(R.layout.activity_main);
+
 
         //hooks
         drawerLayout = findViewById(R.id.drawer_layout);

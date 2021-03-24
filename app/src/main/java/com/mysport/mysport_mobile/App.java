@@ -20,6 +20,10 @@ public class App extends Application {
         return session;
     }
 
+    public static void setSession(String firstName, String familyName, String email) {
+        session = new Session(new Member(firstName, familyName, email));
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();

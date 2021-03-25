@@ -1,7 +1,5 @@
 package com.mysport.mysport_mobile;
 
-import android.appwidget.AppWidgetProvider;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,6 +18,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +31,6 @@ import com.mysport.mysport_mobile.language.LanguageManager;
 import com.mysport.mysport_mobile.fragments.ProfileFragment;
 import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
 import com.mysport.mysport_mobile.models.MongoActivity;
-import com.mysport.mysport_mobile.models.Session;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -92,11 +90,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         //user photo update
-//        try {
-//            circleImageView.setImageBitmap();
-//        } catch (NullPointerException nullPointerException) {
-//            Log.e("MyLog", "Photo Uri is null!");
-//        }
+        try {
+            Glide.with(this).load(App.getSession().getUser().getPhoto()).into(circleImageView);
+        } catch (NullPointerException nullPointerException) {
+            Log.e("MyLog", "Photo Uri is null!");
+        }
 
         //load name from session
         name.setText(App.getSession().getUser().getFirstname() + " " + App.getSession().getUser().getSurname());

@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
     private VideoView videoBG;
     MediaPlayer mMediaPlayer;
     int mCurrentVideoPosition;
-    private static Session session;
 
     private CallbackManager mCallbackManager;
     private FirebaseAuth mFirebaseAuth;

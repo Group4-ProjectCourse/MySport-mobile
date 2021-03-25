@@ -71,7 +71,7 @@
                 android:layout_marginBottom="15dp"
                 android:autofillHints="Enter sport name"
                 android:background="@drawable/add_sport_input_bg"
-                android:drawableLeft="@drawable/ic_volleyball"
+                android:drawableStart="@drawable/ic_volleyball"
                 android:drawablePadding="10dp"
                 android:hint="Sport's Name"
                 android:paddingStart="20dp"

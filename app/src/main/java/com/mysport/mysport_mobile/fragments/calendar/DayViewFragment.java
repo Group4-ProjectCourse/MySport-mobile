@@ -23,7 +23,11 @@ import com.mysport.mysport_mobile.models.Member;
 import com.mysport.mysport_mobile.models.MongoActivity;
 import com.mysport.mysport_mobile.models.SportEvent;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
+import com.mysport.mysport_mobile.utils.Networking;
 import com.mysport.mysport_mobile.views.DayView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,11 +63,22 @@ public class DayViewFragment extends Fragment {
 //        );
 
         dayView.addEventClickedListener(new DoubleClickEventListener(300){
-                boolean flag = true, isLeader = true;
-                MaterialAlertDialogBuilder[] builders = createBuilders(new ContextThemeWrapper(getContext(), R.style.Theme_MaterialComponents_Light_DarkActionBar), isLeader);
+                boolean flag = true;
+                final boolean isLeader = App.getSession().getUser().isLeader();
+                final MaterialAlertDialogBuilder[] builders = createBuilders(new ContextThemeWrapper(getContext(), R.style.Theme_MaterialComponents_Light_DarkActionBar), isLeader);
                 @Override
                 public void onDoubleClick(SportEvent sportEvent) {
                     Toast.makeText(getContext(), sportEvent.getSportName(), Toast.LENGTH_SHORT).show();
+                    JSONObject json = new JSONObject();
+                    //const { date, title, fullname } = req.body;
+                    try {
+                        json.put("title", sportEvent.getSportName())
+                                .put("fullname", App.getSession().getUser().toString())
+                                .put("date", today.getTime());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                     builders[0]
                         .setTitle((flag ? "Join" : "Quit") + " " + sportEvent.getSportName() + "?")
                         .setMessage(String.format((flag ? "Please press confirm button to join %s" : "Are you sure you want to quit %s?"), sportEvent.getSportName()))
@@ -74,25 +89,28 @@ public class DayViewFragment extends Fragment {
                                 sportEvent.getParticipants().add(App.getSession().getUser());
                                 dialog.dismiss();
                                 Toast.makeText(getContext(), String.format(getString(R.string.joined_sport_dialog), sportEvent.getSportName()), Toast.LENGTH_SHORT).show();
+                                String[] names = sportEvent.getNames();
+                                builders[1]
+                                        //.setMessage(String.format("Please mark the people that appeared on %s session.", sportEvent.getSportName()))
+                                        .setMultiChoiceItems(names, new boolean[names.length], (dialog1, which1, isChecked) -> {
+
+                                        });
                                 //record in DB
+                                String url = App.baseURL + "sports/add-participant";
+                                Networking.volleyPost(getContext(), url, json);
                             }
                             else {
                                 if(sportEvent.getParticipants().remove(App.getSession().getUser())){
                                     dialog.dismiss();
                                     Toast.makeText(getContext(), String.format(getString(R.string.unjoined_sport_dialog), sportEvent.getSportName()), Toast.LENGTH_SHORT).show();
-                                    //record in DB
+                                    String[] names = sportEvent.getNames();
+                                    builders[1]
+                                            .setMultiChoiceItems(names, new boolean[names.length], (dialog1, which1, isChecked) -> {
 
-//                                     const url2 = `http://localhost:${port}/auth/register`;
-//
-                                    //    const user = {
-//                                            "firstname": "Deniel",
-//                                            "lastname": "Alekseev",
-//                                            "email": "daniel.neo.eu@icloud.com",
-//                                            "password": "123",
-//                                            "personal_number": "19980516-1234"
-                                    //    };
-//                                }
-                                
+                                            });
+                                    //record in DB
+                                    String url = App.baseURL + "sports/remove-participant";
+                                    Networking.volleyPost(getContext(), url, json);
                                 }
                                 flag = !flag;
                             }
@@ -125,27 +143,27 @@ public class DayViewFragment extends Fragment {
                 }
         });
 
-//        Calendar startCalendar = CalendarUtils.createCalendar();
-//        startCalendar.add(Calendar.HOUR_OF_DAY, 12);
-//        startCalendar.add(Calendar.MINUTE, 23);
-//
-//        Calendar endCalendar = CalendarUtils.createCalendar();
-//        endCalendar.add(Calendar.HOUR_OF_DAY,14);
-//        endCalendar.add(Calendar.MINUTE, 24);
-//
-//        dayView.addEvent(
-//                new SportEvent(
-//                        "Volleyball",
-//                        new ArrayList<>(Arrays.asList(
-//                                new Member("123", "Bob", "Marley", "deniel@mysport-community.com"),
-//                                new Member("132", "John", "Cena", "deniel@mysport-community.com"),
-//                                new Member("213", "Tom", "Soyeur", "deniel@mysport-community.com"),
-//                                new Member("231", "Chuck", "Norris", "deniel@mysport-community.com"),
-//                                new Member("312", "Arnold", "Stalone", "deniel@mysport-community.com"),
-//                                new Member("321", "Silvestro", "Rembo", "deniel@mysport-community.com")
-//                        )),
-//                        new CalendarRange(startCalendar, endCalendar)
-//                ));
+        Calendar startCalendar = CalendarUtils.createCalendar();
+        startCalendar.add(Calendar.HOUR_OF_DAY, 12);
+        startCalendar.add(Calendar.MINUTE, 23);
+
+        Calendar endCalendar = CalendarUtils.createCalendar();
+        endCalendar.add(Calendar.HOUR_OF_DAY,14);
+        endCalendar.add(Calendar.MINUTE, 24);
+
+        dayView.addEvent(
+                new SportEvent(
+                        "Volleyball",
+                        new ArrayList<>(Arrays.asList(
+                                new Member(1, "Bob", "Marley", "deniel@mysport-community.com"),
+                                new Member(1, "John", "Cena", "deniel@mysport-community.com"),
+                                new Member(1, "Tom", "Soyeur", "deniel@mysport-community.com"),
+                                new Member(1, "Chuck", "Norris", "deniel@mysport-community.com"),
+                                new Member(1, "Arnold", "Stalone", "deniel@mysport-community.com"),
+                                new Member(1, "Silvestro", "Rembo", "deniel@mysport-community.com")
+                        )),
+                        new CalendarRange(startCalendar, endCalendar)
+                ));
 
         return view;
     }
@@ -175,6 +193,7 @@ public class DayViewFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //save to MongoDB the attendance
+                        Toast.makeText(getContext(), "Attendance has been saved in database", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNeutralButton("BACK", new DialogInterface.OnClickListener() {

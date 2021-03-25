@@ -38,14 +38,13 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    public static final String TAG = "TAG";
-    EditText mFullName,mEmail,mPassword,mPhone,mPersNum;
+    public static final String TAG = "RegisterActivity";
+    EditText mFullName, mEmail, mPassword, mPhone, mPersNum;
     Button mRegisterButton;
     TextView mLoginTextView, mCreateAccountTextView;
-    FirebaseAuth fAuth;
+    //FirebaseAuth fAuth;
     ProgressBar progressBar;
     FirebaseFirestore fStore;
-    String userID;
     float value = 0;
 
     @Override
@@ -87,14 +86,14 @@ public class RegisterActivity extends AppCompatActivity {
         mPersNum.animate().translationX(0).alpha(1).setDuration(1000).setStartDelay(2000).start();
 
 
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-        progressBar = findViewById(R.id.progressBar);
-
-        if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(),EmailLoginActivity.class));
-            finish();
-        }
+//        fAuth = FirebaseAuth.getInstance();
+//        fStore = FirebaseFirestore.getInstance();
+//        progressBar = findViewById(R.id.progressBar);
+//
+//        if (fAuth.getCurrentUser() != null) {
+//            startActivity(new Intent(getApplicationContext(), EmailLoginActivity.class));
+//            finish();
+//        }
 
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,76 +107,24 @@ public class RegisterActivity extends AppCompatActivity {
                 String firstname = str[0];
                 String lastname = str[1];
 
-                if(TextUtils.isEmpty(email)){
+                if (TextUtils.isEmpty(email)) {
                     mEmail.setError("Email is Required.");
                     return;
                 }
 
-                if(TextUtils.isEmpty(password)){
+                if (TextUtils.isEmpty(password)) {
                     mPassword.setError("Password is Required.");
                     return;
                 }
 
-                if(password.length() < 6){
+                if (password.length() < 6) {
                     mPassword.setError("Password Must be >= 6 Characters");
                     return;
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                // register the user in firebase
-
-                fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-
-                            // send verification link
-
-                            FirebaseUser fuser = fAuth.getCurrentUser();
-                            fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(RegisterActivity.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
-                                }
-                            });
-
-                            Toast.makeText(RegisterActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
-                            userID = fAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference = fStore.collection("users").document(userID);
-                            Map<String,Object> user = new HashMap<>();
-                            user.put("fName",fullName);
-                            user.put("email",email);
-                            user.put("phone",phone);
-                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG, "onFailure: " + e.toString());
-                                }
-                            });
-                            startActivity(new Intent(getApplicationContext(), EmailLoginActivity.class));
-
-                        }else {
-                            Toast.makeText(RegisterActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    }
-                });
-//                "firstname": "Deniel",
-//                "lastname": "Alekseev",
-//                "email": "daniel.neo.eu@icloud.com",
-//                "password": "123",
-//                "personal_number": "19980516-1234"
+                //register user in MongoDB
                 new Thread(() -> {
                     String url = App.baseURL + "auth/register";
                     JSONObject obj = new JSONObject();
@@ -185,16 +132,66 @@ public class RegisterActivity extends AppCompatActivity {
                         obj.put("firstname", firstname)
                                 .put("lastname", lastname)
                                 .put("email", email)
-                                .put("password", BCrypt.withDefaults().hashToString((int)Math.floor(Math.random() * 3) + 10, password.toCharArray()))
+                                .put("password", BCrypt.withDefaults().hashToString((int) Math.floor(Math.random() * 3) + 10, password.toCharArray()))
                                 .put("personal_number", persNum);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     Networking.volleyPost(RegisterActivity.this, url, obj);
+//                    Toast.makeText(RegisterActivity.this, "Verification Email has been sent", Toast.LENGTH_SHORT)
+//                            .show();
                 }).start();
+
+                // register the user in firebase
+
+//                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//
+//                            // send verification link
+//
+//                            FirebaseUser fuser = fAuth.getCurrentUser();
+//                            fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    Toast.makeText(RegisterActivity.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+//                                }
+//                            });
+//
+//                            Toast.makeText(RegisterActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
+//                            userID = fAuth.getCurrentUser().getUid();
+//                            DocumentReference documentReference = fStore.collection("users").document(userID);
+//                            Map<String, Object> user = new HashMap<>();
+//                            user.put("fName", fullName);
+//                            user.put("email", email);
+//                            user.put("phone", phone);
+//                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    Log.d(TAG, "onSuccess: user Profile is created for " + userID);
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    Log.d(TAG, "onFailure: " + e.toString());
+//                                }
+//                            });
+//                            startActivity(new Intent(getApplicationContext(), EmailLoginActivity.class));
+//
+//                        } else {
+//                            Toast.makeText(RegisterActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                            progressBar.setVisibility(View.GONE);
+//                        }
+//                    }
+//                });
             }
         });
-
 
         mLoginTextView.setOnClickListener(new View.OnClickListener() {
             @Override

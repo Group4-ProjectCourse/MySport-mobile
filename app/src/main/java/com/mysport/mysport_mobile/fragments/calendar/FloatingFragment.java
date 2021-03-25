@@ -205,7 +205,7 @@ public class FloatingFragment extends Fragment {
                         startDate,
                         endDate,
                         location.getText().toString(),
-                        null
+                        new ArrayList<>(10)
                 );
 
                 fragmentSendDataListener.onSendData(sport);

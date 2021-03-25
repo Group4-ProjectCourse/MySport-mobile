@@ -4,12 +4,18 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 
 public class Member {
+    private int userType;
     private String firstname;
     private String surname;
     private String email;
     private Uri photo;
 
-    public Member(String firstname, String surname, String email, Uri photo) {
+    public Member(int userType, String firstname, String surname, String email) {
+        this(userType, firstname, surname, email, null);
+    }
+
+    public Member(int userType, String firstname, String surname, String email, Uri photo) {
+        this.userType = userType;
         this.firstname = firstname;
         this.surname = surname;
         this.email = email;
@@ -36,9 +42,17 @@ public class Member {
         return photo;
     }
 
+    public boolean isLeader(){
+        return this.userType > 1;
+    }
+
     @NonNull
     @Override
     public String toString() {
         return String.format("%s %s", firstname, surname);
+    }
+
+    public int getUserType() {
+        return userType;
     }
 }

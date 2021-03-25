@@ -2,7 +2,9 @@ package com.mysport.mysport_mobile;
 
 import android.app.Application;
 
+import android.content.Context;
 import android.net.Uri;
+import com.mysport.mysport_mobile.language.LanguageManager;
 import com.mysport.mysport_mobile.models.Member;
 import com.mysport.mysport_mobile.models.Session;
 
@@ -30,7 +32,6 @@ public class App extends Application {
     public static void setSession(Member member) {
         session = new Session<Member>(member);
     }
-
 
     @Override
     public void onCreate() {

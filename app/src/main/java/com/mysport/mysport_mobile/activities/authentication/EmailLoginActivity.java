@@ -114,7 +114,6 @@ public class EmailLoginActivity extends AppCompatActivity {
                     mPassword.setError("Password Must be >= 6 Characters");
                     return;
                 }
-
                 //indicatorBar.setVisibility(View.VISIBLE);
 
                 statusView.post(() -> {

@@ -1,6 +1,7 @@
 package com.mysport.mysport_mobile;
 
 import android.appwidget.AppWidgetProvider;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -88,11 +89,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         );
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        try {
-            circleImageView.setImageURI(App.getSession().getUser().getPhoto());
-        } catch (NullPointerException nullPointerException) {
-            Log.e("MyLog", "Photo Uri is null!");
-        }
+
+        //user photo update
+//        try {
+//            circleImageView.setImageBitmap();
+//        } catch (NullPointerException nullPointerException) {
+//            Log.e("MyLog", "Photo Uri is null!");
+//        }
 
         //load name from session
         name.setText(App.getSession().getUser().getFirstname() + " " + App.getSession().getUser().getSurname());
@@ -247,5 +250,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //    public void onConfigurationChanged(@NonNull @NotNull Configuration newConfig) {
 //        super.onConfigurationChanged(newConfig);
 //        languageManager.setLocale(this);
+//    }
+//
+//    @Override
+//    protected void attachBaseContext(Context newBase) {
+//        super.attachBaseContext(LanguageManager.onAttach(newBase));
 //    }
 }

@@ -46,9 +46,9 @@ public class WelcomeActivity extends AppCompatActivity {
         if (mUser != null){
             String name = mUser.getDisplayName();
             String email = mUser.getEmail();
-            String photoURL = mUser.getPhotoUrl().toString();
-            photoURL = photoURL + "?type=large";
-            Glide.with(this).load(photoURL).into(myPhoto);
+//            String photoURL = mUser.getPhotoUrl().toString();
+//            photoURL = photoURL + "?type=large";
+//            Glide.with(this).load(photoURL).into(myPhoto);
             myName.setText(name);
             myEmail.setText(email);
         }

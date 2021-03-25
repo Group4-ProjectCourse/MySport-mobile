@@ -1,76 +1,106 @@
 <resources>
     <string name="app_name">MySport-mobile</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="greeting">Hello,</string>
-    <string name="name_example">John Cena</string>
-    <string name="profile_picture_desc">Profile picture</string>
-    <string name="post_add">Post add</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="sort_by">Sort by</string>
-    <string name="participants_example">Participants:\n\n\t- John Cena\n\t- Jack Daniels\n\t- Morgan Freeman\n\t- Mike
+    <string name="tab_text_1">Flik 1</string>
+    <string name="tab_text_2">Flik 2</string>
+    <string name="greeting">Hej,</string>
+    <string name="name_example" translatable="false">John Cena</string>
+    <string name="profile_picture_desc">Profilbild</string>
+    <string name="post_add">Lägg till inlägg</string>
+    <string name="hello_blank_fragment">Hej tomt fragment</string>
+    <string name="sort_by">Sortera efter</string>
+    <string name="participants_example">Deltagare:\n\n\t- John Cena\n\t- Jack Daniels\n\t- Morgan Freeman\n\t- Mike
         Wazowski\n\t- Chuck Norris\n\t- Brad Pitt\n\t- Conchita Wurst
     </string>
-    <string name="sport_name_example">Volleyball</string>
+    <string name="sport_name_example">Volleyboll</string>
     <string name="sport_time_example">5:30 pm</string>
     <string name="sport_name_example1">Badminton</string>
     <string name="sport_time_example1">4:00 pm</string>
-    <string name="sport_name_example2">Football</string>
+    <string name="sport_name_example2">Fotboll</string>
     <string name="sport_time_example2">7:30 pm</string>
-    <string name="sport_name_example3">Paddle</string>
+    <string name="sport_name_example3">Paddla</string>
     <string name="sport_time_example3">2:30 pm</string>
-    <string name="sport_name_example4">Boxing</string>
+    <string name="sport_name_example4">Boxning</string>
     <string name="sport_time_example4">12:45 am</string>
     <string name="sport_name_example5">Yoga</string>
     <string name="sport_time_example5">10:00 am</string>
-    <string name="home">Home</string>
-    <string name="calendar">Calendar</string>
-    <string name="messenger">Messenger</string>
-    <string name="settings">inställningar</string>
-    <string name="login">Login</string>
-    <string name="profile">Profile</string>
-    <string name="logout">Logout</string>
+    <string name="home">Hem</string>
+    <string name="calendar">Kalender</string>
+    <string name="messenger">Budbärare</string>
+    <string name="settings">Inställningar</string>
+    <string name="login">Logga in</string>
+    <string name="profile">Profil</string>
+    <string name="logout">Logga ut</string>
     <string name="social">Social</string>
-    <string name="rate_app">Rate App</string>
-    <string name="share">Share</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="language">Language:</string>
-    <string name="background_colour">Background colour:</string>
+    <string name="rate_app">Hastighetsansökan</string>
+    <string name="share">Dela med sig</string>
+    <string name="navigation_drawer_open">Öppna navigationslådan</string>
+    <string name="navigation_drawer_close">Stäng navigeringslådan</string>
+    <string name="language">Språk:</string>
+    <string name="background_colour">Bakgrundsfärg:</string>
     <string name="balance_example">$123</string>
-    <string name="balance">Balance</string>
-    <string name="score">Score</string>
+    <string name="balance">Balans</string>
+    <string name="score">Göra</string>
     <string name="score_example">239</string>
-    <string name="fullname">Fullname</string>
+    <string name="fullname">Fullständiga namn</string>
     <string name="email">Email</string>
     <string name="email_example">john.cena@mysport-community.com</string>
-    <string name="phone">Phone</string>
+    <string name="phone">Telefon</string>
     <string name="phone_example">+46 1234 1234 123</string>
-    <string name="password">Password</string>
-    <string name="role">Role</string>
-    <string name="address">Address</string>
+    <string name="password">Lösenord</string>
+    <string name="role">Roll</string>
+    <string name="address">Adress</string>
     <string name="address_example">Olastorpsvagen 23 Lgh 1108</string>
-    <string name="update">Update</string>
-    <string name="account_balance_icon_desc">Account balance icon</string>
-    <string name="saveButton">Save</string>
-    <string name="menu_item_selected_again">You\'ve already selected</string>
-    <string name="message_share_example">Sharing...</string>
-    <string name="add_event_button">Add sportEvent button</string>
-    <string name="login_to">Logga in på</string>
-    <string name="new_here_create_account">Ny här ? Skapa Konto</string>
-    <string name="forgot_password">Glömt ditt Lösenord ?</string>
+    <string name="update">Uppdatering</string>
+    <string name="account_balance_icon_desc">Ikon för kontosaldo</string>
+
+    <string name="saveButton">Spara</string>
+    <string name="menu_item_selected_again">Du har redan valt</string>
+    <string name="message_share_example">Delning...</string>
+    <string name="add_event_button">Lägg till sportEvent-knapp</string>
+
+    <string name="day_view_activity_description" translatable="false">Shows the day view in an activity</string>
+    <string name="month_view_activity_description" translatable="false">Shows the month view in an activity</string>
+
+    <string name="facebook_app_id" translatable="false">426138265341832</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb426138265341832</string>
+    <string name="login_to">Logga in</string>
+    <string name="new_here_create_account">Ny här? Skapa konto</string>
+    <string name="forgot_password">Glömt ditt lösenord?</string>
     <string name="name">Namn</string>
     <string name="sign_out">Logga ut</string>
-    <string name="create_new_account">Skapa Nytt Konto</string>
+    <string name="create_new_account">Skapa nytt konto</string>
     <string name="register">Registrera</string>
     <string name="already_registered_login_here">Redan registrerad ? Logga in här</string>
-    <string name="continue_with_email">Fortsätt med E-post</string>
-    <string name="display_option_nav">Display option</string>
+    <string name="continue_with_email">Fortsätt med e-post</string>
+    <string name="buttonSave">Spara</string>
+    <string name="display_option_nav">Visningsalternativ</string>
+    <string name="error_usage_incorrect_place" translatable="false">Parent activity which is MainActivity is null, you
+        are trying to get wrong activity, this fragment is to be used only with MainActivity
+    </string>
     <string name="example_address_home">USA, Minnesota, Gun Beach valley 420</string>
-    <string name="create_activity">Create Activity</string>
-    <string name="class_cast_exception_fragment_data_send_event"><![CDATA[\" must initialize interface -> OnFragmentInteractionListener\"]]></string>
+    <string name="create_activity">Skapa aktivitet</string>
+    <string name="form_create">Skapa</string>
+    <string name="select_date">Välj datum</string>
+    <string name="time_starts">Starttid</string>
+    <string name="time_ends">Sluttid</string>
+    <string name="location">Plats</string>
+    <string name="class_cast_exception_fragment_data_send_event">
+        <![CDATA[\" must initialize interface -> OnFragmentInteractionListener\"]]></string>
     <string name="error_no_participants">There are no participants currently yet!</string>
-    <string name="joined_sport_dialog">You have joined %s</string>
-    <string name="select_sport">Select sport</string>
-    <string name="error_sport_add_form_fill_all_fields">Fill in all fields before submitting form</string>
+    <string name="joined_sport_dialog">Du har gått med %s</string>
+    <string name="unjoined_sport_dialog" translatable="false">You have been withdrawn from %s</string>
+    <string name="select_sport">Välj sport</string>
+    <string name="error_sport_add_form_fill_all_fields">Fyll i alla fält innan du skickar formuläret</string>
+    <string name="aboutText">MySport är ett studentprojekt för DA224C VT21-utveckling mot
+        Mobila plattformar gjorda av följande studenter:
+        <br/>
+        Denial Alekseev<br/>Kristijan Đaković<br/>Petros Daniel<br/>Robin Kamprad<br/>Stefan Vojtek<br/>For support
+        contact: Admin@mysport.com
+    </string>
+
+    <string-array name="sport_list">
+        <item>Badminton</item>
+        <item>Football</item>
+        <item>Paddle</item>
+    </string-array>
 </resources>

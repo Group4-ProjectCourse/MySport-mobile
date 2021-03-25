@@ -39,7 +39,7 @@
     <string name="balance">Balance</string>
     <string name="score">Score</string>
     <string name="score_example">239</string>
-    <string name="fullname">Fullname</string>
+    <string name="fullname">Full name</string>
     <string name="email">Email</string>
     <string name="email_example">john.cena@mysport-community.com</string>
     <string name="phone">Phone</string>

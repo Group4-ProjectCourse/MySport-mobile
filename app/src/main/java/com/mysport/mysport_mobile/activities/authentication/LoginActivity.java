@@ -190,9 +190,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            App.setSession(task.getResult().getGivenName(), task.getResult().getFamilyName(), task.getResult().getEmail(), task.getResult().getPhotoUrl());
+            try {
+                App.setSession(task.getResult().getGivenName(), task.getResult().getFamilyName(), task.getResult().getEmail(), task.getResult().getPhotoUrl());
+            } catch (RuntimeException exception) {
+                Log.e("MyLog", "No email selected");
+            }
 
-            Log.d("Mylog", "Surname: " + task.getResult().getFamilyName() + "\nName: " + task.getResult().getGivenName() + "\nPhotoUrl" + task.getResult().getPhotoUrl());
+//            Log.d("Mylog", "Surname: " + task.getResult().getFamilyName() + "\nName: " + task.getResult().getGivenName() + "\nPhotoUrl" + task.getResult().getPhotoUrl());
             handleSignInResult(task);
         }
         mCallbackManager.onActivityResult(requestCode, resultCode, data);

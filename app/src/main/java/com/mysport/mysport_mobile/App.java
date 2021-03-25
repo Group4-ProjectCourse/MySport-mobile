@@ -2,7 +2,9 @@ package com.mysport.mysport_mobile;
 
 import android.app.Application;
 
+import android.content.Context;
 import android.net.Uri;
+import com.mysport.mysport_mobile.language.LanguageManager;
 import com.mysport.mysport_mobile.models.Member;
 import com.mysport.mysport_mobile.models.Session;
 
@@ -18,7 +20,7 @@ public class App extends Application {
 
     static {
         //need to figure this out
-        session = new Session(new Member("Deniel", "Alekseev", "deniel@mysport-community.com", photo));
+//        session = new Session(new Member("Deniel", "Alekseev", "deniel@mysport-community.com", photo));
     }
 
     public static Session getSession() {
@@ -28,6 +30,11 @@ public class App extends Application {
     public static void setSession(String firstName, String familyName, String email, Uri photo) {
         session = new Session(new Member(firstName, familyName, email, photo));
     }
+
+//    @Override
+//    protected void attachBaseContext(Context base) {
+//        super.attachBaseContext(LanguageManager.onAttach(base, "en"));
+//    }
 
     @Override
     public void onCreate() {

@@ -67,12 +67,12 @@
         android:text="@string/buttonSave" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:textSize="16sp"
-        android:text="@string/aboutText">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textSize="16sp"
+            android:text="@string/aboutText">
 
     </TextView>
 

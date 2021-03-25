@@ -1,6 +1,10 @@
 package com.mysport.mysport_mobile.fragments.settings;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +22,8 @@ import com.mysport.mysport_mobile.R;
 import com.mysport.mysport_mobile.language.LanguageManager;
 import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Locale;
 
 public class SettingsFragment extends Fragment {
 
@@ -86,14 +92,14 @@ public class SettingsFragment extends Fragment {
                 }
 
                 if (languageSelected.equals("English")) {
-//                    setNewLocale((AppCompatActivity) getActivity(), LanguageManager.languageDefiner.SUPPORTED_LANGUAGES[0]);
+
+//                    updateViews("en");
 
                 } else if (languageSelected.equals("Svenska")) {
-//                    setNewLocale((AppCompatActivity) getActivity(), LanguageManager.languageDefiner.SUPPORTED_LANGUAGES[1]);
 
+//                    updateViews("");
 
                 } else if (languageSelected.equals("Norsk")) {
-//                    setNewLocale((AppCompatActivity) getActivity(), LanguageManager.languageDefiner.SUPPORTED_LANGUAGES[2]);
 
 
                 }
@@ -126,10 +132,8 @@ public class SettingsFragment extends Fragment {
 //        });
     }
 
-    private void setNewLocale(AppCompatActivity mContext, @LanguageManager.languageDefiner String language) {
-        languageManager.setNewLocale(mContext, language);
-        Intent intent = mContext.getIntent();
-        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-    }
-    // En
+//    private void updateViews(String languageCode) {
+//        Context context = LanguageManager.setLocale(getContext(), languageCode);
+//
+//    }
 }

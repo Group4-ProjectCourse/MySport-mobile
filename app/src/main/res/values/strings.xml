@@ -102,6 +102,8 @@
     <string name="description">Please write your feedback</string>
     <string name="defaultComment">This app is pretty cool !</string>
     <string name="defaultHint">Please write your comment here...</string>
+    <string name="text_actionButtonForum" translatable="false">Post to forum</string>
+    <string name="fab_forum" translatable="false">Post</string>
 
     <string-array name="sport_list">
         <item>Badminton</item>

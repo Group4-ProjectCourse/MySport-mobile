@@ -2,8 +2,7 @@ package com.mysport.mysport_mobile;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.appwidget.AppWidgetProvider;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,31 +16,34 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.mysport.mysport_mobile.activities.authentication.LoginActivity;
 import com.mysport.mysport_mobile.enums.TransactionAction;
 import com.mysport.mysport_mobile.events.OnFragmentSendDataListener;
+import com.mysport.mysport_mobile.fragments.ProfileFragment;
 import com.mysport.mysport_mobile.fragments.calendar.DayViewFragment;
 import com.mysport.mysport_mobile.fragments.calendar.MonthViewFragment;
 import com.mysport.mysport_mobile.fragments.forum.ForumFragment;
-import com.mysport.mysport_mobile.language.LanguageManager;
-import com.mysport.mysport_mobile.fragments.ProfileFragment;
 import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
+import com.mysport.mysport_mobile.language.LanguageManager;
 import com.mysport.mysport_mobile.models.MongoActivity;
-import com.mysport.mysport_mobile.models.Session;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import java.util.Calendar;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         OnFragmentSendDataListener<MongoActivity> {
@@ -90,6 +92,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View headerView = navigationView.getHeaderView(0);
         name = headerView.findViewById(R.id.textViewName);
         circleImageView = headerView.findViewById(R.id.profileImage);
+        menu.findItem(R.id.nav_logout).setOnMenuItemClickListener(view -> {
+            App.setSession(null);
+            startActivity(new Intent(this, LoginActivity.class));
+
+            return false;
+        });
 
 
         navigationView.bringToFront();
@@ -104,11 +112,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         //user photo update
-//        try {
-//            circleImageView.setImageBitmap();
-//        } catch (NullPointerException nullPointerException) {
-//            Log.e("MyLog", "Photo Uri is null!");
-//        }
+        try {
+            Glide.with(this).load(App.getSession().getUser().getPhoto()).into(circleImageView);
+        } catch (NullPointerException nullPointerException) {
+            Log.e("MyLog", "Photo Uri is null!");
+        }
 
         //load name from session
         name.setText(App.getSession().getUser().getFirstname() + " " + App.getSession().getUser().getSurname());

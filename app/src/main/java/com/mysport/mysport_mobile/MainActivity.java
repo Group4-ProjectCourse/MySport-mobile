@@ -1,11 +1,14 @@
 package com.mysport.mysport_mobile;
 
+import android.appwidget.AppWidgetProvider;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int currentId;
     private FirebaseAuth mAuth;
     private LanguageManager languageManager;
+    private TextView name;
     private CircleImageView circleImageView;
 
     @Override
@@ -57,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.nav_view);
         viewOption = findViewById(R.id.nav_overflow_menu_item);
         toolbar = findViewById(R.id.toolbar);
-        circleImageView = findViewById(R.id.profileImage);
+
         //tool bar
         setSupportActionBar(toolbar);
         //nav drawer menu
@@ -67,6 +71,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         menu.findItem(R.id.nav_login).setVisible(false);
         //menu.findItem(R.id.nav_logout).setVisible(false);
         //menu.findItem(R.id.nav_profile).setVisible(false); //If unlogged
+
+        //find header view
+        View headerView = navigationView.getHeaderView(0);
+        name = headerView.findViewById(R.id.textViewName);
+        circleImageView = headerView.findViewById(R.id.profileImage);
+
 
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -78,7 +88,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         );
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        circleImageView.setImageURI(App.getSession().getUser().getPhotoUri());
+        try {
+            circleImageView.setImageURI(App.getSession().getUser().getPhoto());
+        } catch (NullPointerException nullPointerException) {
+            Log.e("MyLog", "Photo Uri is null!");
+        }
+
+        //load name from session
+        name.setText(App.getSession().getUser().getFirstname() + " " + App.getSession().getUser().getSurname());
+
+
+        System.out.println("Name: " + App.getSession().getUser().getFirstname());
 
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);

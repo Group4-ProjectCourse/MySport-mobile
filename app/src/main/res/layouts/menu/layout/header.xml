@@ -33,23 +33,23 @@
             android:paddingEnd="16dp">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@fonts/poppins_medium"
-                android:includeFontPadding="false"
-                android:text="@string/greeting"
-                android:textColor="@color/whiteColor"
-                android:textSize="18sp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@fonts/poppins_medium"
+                    android:includeFontPadding="false"
+                    android:text="@string/greeting"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="18sp"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@fonts/poppins_semibold"
-                android:includeFontPadding="false"
-                android:text="@string/name_example"
-                android:textColor="@color/whiteColor"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@fonts/poppins_semibold"
+                    android:includeFontPadding="false"
+                    android:text="@string/name_example"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="22sp"
+                    android:textStyle="bold" android:id="@+id/textViewName"/>
 
         </LinearLayout>
     </RelativeLayout>

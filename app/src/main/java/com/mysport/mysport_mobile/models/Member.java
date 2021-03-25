@@ -7,13 +7,13 @@ public class Member {
     private String firstname;
     private String surname;
     private String email;
-    private Uri photoUri;
+    private Uri photo;
 
-    public Member(String firstname, String surname, String email, Uri photoUri) {
+    public Member(String firstname, String surname, String email, Uri photo) {
         this.firstname = firstname;
         this.surname = surname;
         this.email = email;
-        this.photoUri = photoUri;
+        this.photo = photo;
     }
 
 //    public String getUserId() {
@@ -32,8 +32,8 @@ public class Member {
         return email;
     }
 
-    public Uri getPhotoUri() {
-        return photoUri;
+    public Uri getPhoto() {
+        return photo;
     }
 
     @NonNull

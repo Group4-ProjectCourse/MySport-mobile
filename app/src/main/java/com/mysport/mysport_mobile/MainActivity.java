@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //getTheme().applyStyle(R.style.ThemePurple, true);
         setContentView(R.layout.activity_main);
 
-
         //hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);

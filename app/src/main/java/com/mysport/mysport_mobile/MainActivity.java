@@ -1,6 +1,9 @@
 package com.mysport.mysport_mobile;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,12 +16,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
 import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.google.android.material.navigation.NavigationView;
@@ -26,17 +32,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.mysport.mysport_mobile.activities.authentication.LoginActivity;
 import com.mysport.mysport_mobile.enums.TransactionAction;
 import com.mysport.mysport_mobile.events.OnFragmentSendDataListener;
+import com.mysport.mysport_mobile.fragments.ProfileFragment;
 import com.mysport.mysport_mobile.fragments.calendar.DayViewFragment;
 import com.mysport.mysport_mobile.fragments.calendar.MonthViewFragment;
 import com.mysport.mysport_mobile.fragments.forum.ForumFragment;
-import com.mysport.mysport_mobile.language.LanguageManager;
-import com.mysport.mysport_mobile.fragments.ProfileFragment;
 import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
+import com.mysport.mysport_mobile.language.LanguageManager;
 import com.mysport.mysport_mobile.models.MongoActivity;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import java.util.Calendar;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         OnFragmentSendDataListener<MongoActivity> {
@@ -57,6 +64,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //getTheme().applyStyle(R.style.ThemePurple, true);
         setContentView(R.layout.activity_main);
 
+        //android notification
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            //NotificationChannel channel = new NotificationChannel("My notification", "My notification", IMPORTANCE_DEFAULT)
+            NotificationChannel channel = new NotificationChannel("MS_Notification", "MySport Notification", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
 
         //hooks
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -249,6 +263,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public DayViewFragment getDayViewFragment() {
         return dayViewFragment;
+    }
+
+    public void makeNotice(String title, String content){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "MS_Notification");
+        builder.setContentTitle(title);
+        builder.setContentText(content);
+        builder.setSmallIcon(R.drawable.ic_sports);
+        builder.setAutoCancel(true);
+
+        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
+        managerCompat.notify(1, builder.build());
     }
 
     //    protected void attachBaseContext(Context base) {

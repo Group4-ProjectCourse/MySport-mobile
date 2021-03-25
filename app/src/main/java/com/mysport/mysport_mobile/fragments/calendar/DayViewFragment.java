@@ -29,9 +29,12 @@ import com.mysport.mysport_mobile.views.DayView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 
 public class DayViewFragment extends Fragment {
 
@@ -81,14 +84,14 @@ public class DayViewFragment extends Fragment {
 
                     builders[0]
                         .setTitle((flag ? "Join" : "Quit") + " " + sportEvent.getSportName() + "?")
-                        .setMessage(String.format((flag ? "Please press confirm button to join %s" : "Are you sure you want to quit %s?"), sportEvent.getSportName()))
+                        .setMessage(String.format((flag ? getString(R.string.press_confirm_join) : getString(R.string.quit_question)), sportEvent.getSportName()))
                         .setPositiveButton(flag ? "JOIN" : "QUIT", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if(flag) {
                                 sportEvent.getParticipants().add(App.getSession().getUser().toString());
                                 dialog.dismiss();
-                                Toast.makeText(getContext(), String.format(getString(R.string.joined_sport_dialog), sportEvent.getSportName()), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getContext(), String.format(getString(R.string.joined_sport_dialog), sportEvent.getSportName()), Toast.LENGTH_SHORT).show();
                                 String[] names = sportEvent.getNames();
                                 builders[1]
                                         //.setMessage(String.format("Please mark the people that appeared on %s session.", sportEvent.getSportName()))
@@ -98,11 +101,18 @@ public class DayViewFragment extends Fragment {
                                 //record in DB
                                 String url = App.baseURL + "sports/add-participant";
                                 Networking.volleyPost(getContext(), url, json);
+
+                                flag = false;
+                                makeNotify(sportEvent.getSportName(), String.format(getString(R.string.sport_enroll_notification),
+                                        sportEvent.getSportName(),
+                                        today.getTime().toString(),
+                                        sportEvent.getLocation()
+                                ));
                             }
                             else {
                                 if(sportEvent.getParticipants().remove(App.getSession().getUser().toString())){
                                     dialog.dismiss();
-                                    Toast.makeText(getContext(), String.format(getString(R.string.unjoined_sport_dialog), sportEvent.getSportName()), Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(getContext(), String.format(getString(R.string.unjoined_sport_dialog), sportEvent.getSportName()), Toast.LENGTH_SHORT).show();
                                     String[] names = sportEvent.getNames();
                                     builders[1]
                                             .setMultiChoiceItems(names, new boolean[names.length], (dialog1, which1, isChecked) -> {
@@ -112,10 +122,10 @@ public class DayViewFragment extends Fragment {
                                     String url = App.baseURL + "sports/remove-participant";
                                     Networking.volleyPost(getContext(), url, json);
 
-                                    flag = !flag;
+                                    flag = true;
+                                    makeNotify(sportEvent.getSportName(), String.format(getString(R.string.sport_quit_notification), sportEvent.getSportName()));
                                 }
                             }
-                            //no change detection please
                         }
                     });
                     if(isLeader){
@@ -146,27 +156,27 @@ public class DayViewFragment extends Fragment {
         });
 
         Calendar startCalendar = CalendarUtils.createCalendar();
-        startCalendar.add(Calendar.HOUR_OF_DAY, 12);
+        startCalendar.add(Calendar.HOUR_OF_DAY, 10);
         startCalendar.add(Calendar.MINUTE, 23);
 
         Calendar endCalendar = CalendarUtils.createCalendar();
-        endCalendar.add(Calendar.HOUR_OF_DAY,14);
-        endCalendar.add(Calendar.MINUTE, 24);
+        endCalendar.add(Calendar.HOUR_OF_DAY,13);
+        endCalendar.add(Calendar.MINUTE, 35);
 
-//        dayView.addEvent(
-//                new SportEvent(
-//                        "Volleyball",
-//                        new ArrayList<>(Arrays.asList(
-//                                new Member(1, "Bob", "Marley", "deniel@mysport-community.com"),
-//                                new Member(1, "John", "Cena", "deniel@mysport-community.com"),
-//                                new Member(1, "Tom", "Soyeur", "deniel@mysport-community.com"),
-//                                new Member(1, "Chuck", "Norris", "deniel@mysport-community.com"),
-//                                new Member(1, "Arnold", "Stalone", "deniel@mysport-community.com"),
-//                                new Member(1, "Silvestro", "Rembo", "deniel@mysport-community.com")
-//                        )),
-//                        new CalendarRange(startCalendar, endCalendar)
-//                ));
-
+        dayView.addEvent(
+                new SportEvent(
+                        "Wrestling",
+                        "hus 7",
+                        new ArrayList<>(Arrays.asList(
+                                "Bob Marley",
+                                "John Cena",
+                                "Tom Soyeur",
+                                "Chuck Norris",
+                                "Arnold Stalone",
+                                "Rembo Schwartz"
+                        )),
+                        new CalendarRange(startCalendar, endCalendar)
+                ));
         return view;
     }
 
@@ -220,6 +230,7 @@ public class DayViewFragment extends Fragment {
 
         dayView.addEvent(new SportEvent(
                 sport.getTitle(),
+                sport.getLocation(),
                 sport.getParticipants(),
                 new CalendarRange(startCalendar, endCalendar)
         ));
@@ -260,6 +271,10 @@ public class DayViewFragment extends Fragment {
 
     public Calendar getToday() {
         return today;
+    }
+
+    private void makeNotify(String title, String content){
+        ((MainActivity)getActivity()).makeNotice(title, content);
     }
 }
 //

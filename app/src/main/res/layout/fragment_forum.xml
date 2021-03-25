@@ -1,41 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragments.forum.ForumFragment"
-    android:background="@color/colorMySport">
+    android:background="@color/colorMySport"
+    android:orientation="vertical">
 
-    <LinearLayout
+
+
+    <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/whiteColor"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:text="@string/forum_title"
+                android:textSize="20sp"/>
+
+             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="15dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="@string/forum_text1"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="Hi Guy, I totally agree with you ;)"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="Yeah!"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="15dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="Important! \nI found some shoes lying in the men's locker room, they are bright red running shoes in size 44. Comment here if they belong to you!"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="Hi Buddy, I think they belong to John Cena."/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="Yeah, thanks friend. I totally forgot them there last night. Could you drop them off at the reception and I can pick them up there. "/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="15dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="Anybody going to the football game tomorrow?"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="I'll be there!"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="Me too!"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="I can't unfortunately, my lobotomy is scheduled then."/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="See you there!"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="15dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="Who's bringing what to the bbq after rugby?"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="I'll bring the makings for hotdogs!"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="Nice, I'll bring some beers for the boys."/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="Awesome, I'll prepare a spicy salsa and bring some chips too!"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="I'm bringing nothing..."/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/whiteColor"
+                app:drawableLeftCompat="@drawable/ic_person"
+                android:text="The person bringing nothing, stay home."/>
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        app:fabSize="normal"
+        app:backgroundTint="@color/purple_200"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/whiteColor"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:text="@string/forum_title"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:paddingTop="2dp"
-            android:textColor="@color/whiteColor"
-            app:drawableLeftCompat="@drawable/ic_person"
-            android:text="@string/forum_text1"/>
-
-        
-
-    </LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_add"
+        android:contentDescription="@string/fab_forum"
+        android:layout_margin="16dp" />
 
 
-
-
-</ScrollView>
+</RelativeLayout>

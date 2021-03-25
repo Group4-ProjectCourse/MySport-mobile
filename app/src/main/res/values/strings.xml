@@ -87,6 +87,9 @@
     <string name="select_sport">Select sport</string>
     <string name="error_sport_add_form_fill_all_fields">Fill in all fields before submitting form</string>
     <string name="aboutText" translatable="false">MySport is a student project for DA224C VT21 Development towards Mobile Platforms made by the following students:<br/> Denial Alekseev <br/>Kristijan Đaković <br/>Petros Daniel <br/>Robin Kamprad <br/>Stefan Vojtek <br/>For support contact: Admin@mysport.com</string>
+    <string name="forum">Forum</string>
+    <string name="forum_title" translatable="false">Forum</string>
+    <string name="forum_text1" translatable="false"><![CDATA[Fun Day! Had a great day doing sports with you guys and girls, we should do this again some time!]]></string>
 
     <string-array name="sport_list">
         <item>Badminton</item>

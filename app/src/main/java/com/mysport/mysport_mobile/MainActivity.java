@@ -27,6 +27,7 @@ import com.mysport.mysport_mobile.enums.TransactionAction;
 import com.mysport.mysport_mobile.events.OnFragmentSendDataListener;
 import com.mysport.mysport_mobile.fragments.calendar.DayViewFragment;
 import com.mysport.mysport_mobile.fragments.calendar.MonthViewFragment;
+import com.mysport.mysport_mobile.fragments.forum.ForumFragment;
 import com.mysport.mysport_mobile.language.LanguageManager;
 import com.mysport.mysport_mobile.fragments.ProfileFragment;
 import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
@@ -183,6 +184,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, (dayViewFragment = new DayViewFragment(Calendar.getInstance())), "DAY_VIEW");
         else if (id == R.id.nav_settings)
             handleFragment(R.id.main_place_for_fragments, new SettingsFragment());
+        else if (id == R.id.nav_forum)
+            handleFragment(R.id.main_place_for_fragments, new ForumFragment());
         else if (id == R.id.nav_profile)
             handleFragment(R.id.main_place_for_fragments, new ProfileFragment());
         else if (id == R.id.nav_share)

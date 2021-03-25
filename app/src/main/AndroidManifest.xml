@@ -11,8 +11,9 @@
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/Theme.AppCompat.Light">
+            android:supportsRtl="true">
+    <!--        android:theme="@style/Theme.AppCompat.Light" -->
+
         <!--        Removed global theme definition which caused a lot of issues with cosmetics, colors especially (e.g.: always white background of buttons)-->
 
 <!--        <activity-->

@@ -90,6 +90,8 @@
     <string name="forum">Forum</string>
     <string name="forum_title" translatable="false">Forum</string>
     <string name="forum_text1" translatable="false"><![CDATA[Fun Day! Had a great day doing sports with you guys and girls, we should do this again some time!]]></string>
+    <string name="text_actionButtonForum">Post to forum</string>
+    <string name="fab_forum">Post</string>
 
     <string-array name="sport_list">
         <item>Badminton</item>

@@ -1,5 +1,6 @@
 package com.mysport.mysport_mobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.mysport.mysport_mobile.activities.authentication.LoginActivity;
 import com.mysport.mysport_mobile.enums.TransactionAction;
 import com.mysport.mysport_mobile.events.OnFragmentSendDataListener;
 import com.mysport.mysport_mobile.fragments.calendar.DayViewFragment;
@@ -76,6 +78,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View headerView = navigationView.getHeaderView(0);
         name = headerView.findViewById(R.id.textViewName);
         circleImageView = headerView.findViewById(R.id.profileImage);
+        menu.findItem(R.id.nav_logout).setOnMenuItemClickListener(view -> {
+            App.setSession(null);
+            startActivity(new Intent(this, LoginActivity.class));
+
+            return false;
+        });
 
 
         navigationView.bringToFront();

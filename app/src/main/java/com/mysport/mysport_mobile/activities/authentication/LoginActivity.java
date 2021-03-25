@@ -262,10 +262,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         // mFirebaseAuth.addAuthStateListener(authStateListener);
-        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
-        if (currentUser != null) {
-            updateUI(currentUser);
-        }
+//        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+//        if (currentUser != null) {
+//            updateUI(currentUser);
+//        }
         // Check for existing Google Sign In account, if the user is already signed in
 // the GoogleSignInAccount will be non-null.
 //        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);

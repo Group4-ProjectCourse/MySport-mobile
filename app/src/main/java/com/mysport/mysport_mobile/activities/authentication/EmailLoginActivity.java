@@ -39,7 +39,7 @@ public class EmailLoginActivity extends AppCompatActivity {
     Button mLoginButton;
     TextView mCreateButton, forgotTextLink, loginToTextView;
     ImageView mImageView;
-    ProgressBar indicatorBar;
+    //ProgressBar indicatorBar;
     TextView statusView;
     int currentValue = 0;
     FirebaseAuth fAuth;
@@ -62,8 +62,8 @@ public class EmailLoginActivity extends AppCompatActivity {
         loginToTextView = findViewById(R.id.login_to_text_view);
         mImageView = findViewById(R.id.imageView);
 
-        indicatorBar.setVisibility(View.INVISIBLE);
-        indicatorBar.setProgress(0);
+//        indicatorBar.setVisibility(View.INVISIBLE);
+//        indicatorBar.setProgress(0);
 
         loginToTextView.setTranslationY(800);
         mImageView.setTranslationY(800);
@@ -121,7 +121,7 @@ public class EmailLoginActivity extends AppCompatActivity {
                     JSONObject obj = new JSONObject();
                     try {
                         obj.put("email", email)
-                                .put("password", BCrypt.withDefaults().hashToString((int) Math.floor(Math.random() * 3) + 10, password.toCharArray()))
+                                .put("password", password)
                                 .put("mobile", true);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -159,7 +159,6 @@ public class EmailLoginActivity extends AppCompatActivity {
                     fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(aVoid ->
                             Toast.makeText(EmailLoginActivity.this, "Reset Link Sent To Your Email.", Toast.LENGTH_SHORT).show()).addOnFailureListener(e ->
                             Toast.makeText(EmailLoginActivity.this, "Error ! Reset Link is Not Sent" + e.getMessage(), Toast.LENGTH_SHORT).show());
-
                 });
 
                 passwordResetDialog.setNegativeButton("No", (dialog, which) -> {

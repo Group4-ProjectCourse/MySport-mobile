@@ -40,6 +40,9 @@ public class Networking {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                if(callBack == null)
+                    return;
+
                 if(statusCode > 199 & statusCode < 300){
                     try {
                         callBack.onSuccess(new Member(

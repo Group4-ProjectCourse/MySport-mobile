@@ -15,9 +15,9 @@
             android:theme="@style/Theme.AppCompat.Light">
         <!--        Removed global theme definition which caused a lot of issues with cosmetics, colors especially (e.g.: always white background of buttons)-->
 
-        <activity
-            android:name=".activities.authentication.WelcomeActivity"
-            android:theme="@style/Theme.Design.NoActionBar" />
+<!--        <activity-->
+<!--            android:name=".activities.authentication.WelcomeActivity"-->
+<!--            android:theme="@style/Theme.Design.NoActionBar" />-->
         <activity
             android:name=".activities.authentication.EmailLoginActivity"
             android:theme="@style/Theme.Design.NoActionBar">

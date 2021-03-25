@@ -86,7 +86,7 @@ public class DayViewFragment extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if(flag) {
-                                sportEvent.getParticipants().add(App.getSession().getUser());
+                                sportEvent.getParticipants().add(App.getSession().getUser().toString());
                                 dialog.dismiss();
                                 Toast.makeText(getContext(), String.format(getString(R.string.joined_sport_dialog), sportEvent.getSportName()), Toast.LENGTH_SHORT).show();
                                 String[] names = sportEvent.getNames();
@@ -100,7 +100,7 @@ public class DayViewFragment extends Fragment {
                                 Networking.volleyPost(getContext(), url, json);
                             }
                             else {
-                                if(sportEvent.getParticipants().remove(App.getSession().getUser())){
+                                if(sportEvent.getParticipants().remove(App.getSession().getUser().toString())){
                                     dialog.dismiss();
                                     Toast.makeText(getContext(), String.format(getString(R.string.unjoined_sport_dialog), sportEvent.getSportName()), Toast.LENGTH_SHORT).show();
                                     String[] names = sportEvent.getNames();
@@ -111,9 +111,11 @@ public class DayViewFragment extends Fragment {
                                     //record in DB
                                     String url = App.baseURL + "sports/remove-participant";
                                     Networking.volleyPost(getContext(), url, json);
+
+                                    flag = !flag;
                                 }
-                                flag = !flag;
                             }
+                            //no change detection please
                         }
                     });
                     if(isLeader){
@@ -151,19 +153,19 @@ public class DayViewFragment extends Fragment {
         endCalendar.add(Calendar.HOUR_OF_DAY,14);
         endCalendar.add(Calendar.MINUTE, 24);
 
-        dayView.addEvent(
-                new SportEvent(
-                        "Volleyball",
-                        new ArrayList<>(Arrays.asList(
-                                new Member(1, "Bob", "Marley", "deniel@mysport-community.com"),
-                                new Member(1, "John", "Cena", "deniel@mysport-community.com"),
-                                new Member(1, "Tom", "Soyeur", "deniel@mysport-community.com"),
-                                new Member(1, "Chuck", "Norris", "deniel@mysport-community.com"),
-                                new Member(1, "Arnold", "Stalone", "deniel@mysport-community.com"),
-                                new Member(1, "Silvestro", "Rembo", "deniel@mysport-community.com")
-                        )),
-                        new CalendarRange(startCalendar, endCalendar)
-                ));
+//        dayView.addEvent(
+//                new SportEvent(
+//                        "Volleyball",
+//                        new ArrayList<>(Arrays.asList(
+//                                new Member(1, "Bob", "Marley", "deniel@mysport-community.com"),
+//                                new Member(1, "John", "Cena", "deniel@mysport-community.com"),
+//                                new Member(1, "Tom", "Soyeur", "deniel@mysport-community.com"),
+//                                new Member(1, "Chuck", "Norris", "deniel@mysport-community.com"),
+//                                new Member(1, "Arnold", "Stalone", "deniel@mysport-community.com"),
+//                                new Member(1, "Silvestro", "Rembo", "deniel@mysport-community.com")
+//                        )),
+//                        new CalendarRange(startCalendar, endCalendar)
+//                ));
 
         return view;
     }
@@ -218,7 +220,7 @@ public class DayViewFragment extends Fragment {
 
         dayView.addEvent(new SportEvent(
                 sport.getTitle(),
-                null,
+                sport.getParticipants(),
                 new CalendarRange(startCalendar, endCalendar)
         ));
 

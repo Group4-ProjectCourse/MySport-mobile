@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.mysport.mysport_mobile.App;
+import com.mysport.mysport_mobile.MainActivity;
 import com.mysport.mysport_mobile.R;
 import com.mysport.mysport_mobile.utils.Networking;
 
@@ -122,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                progressBar.setVisibility(View.VISIBLE);
+                //progressBar.setVisibility(View.VISIBLE);
 
                 //register user in MongoDB
                 new Thread(() -> {
@@ -132,7 +133,7 @@ public class RegisterActivity extends AppCompatActivity {
                         obj.put("firstname", firstname)
                                 .put("lastname", lastname)
                                 .put("email", email)
-                                .put("password", BCrypt.withDefaults().hashToString((int) Math.floor(Math.random() * 3) + 10, password.toCharArray()))
+                                .put("password", BCrypt.withDefaults().hashToString(12, password.toCharArray()))
                                 .put("personal_number", persNum);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -141,6 +142,8 @@ public class RegisterActivity extends AppCompatActivity {
 //                    Toast.makeText(RegisterActivity.this, "Verification Email has been sent", Toast.LENGTH_SHORT)
 //                            .show();
                 }).start();
+
+                startActivity(new Intent(RegisterActivity.this, EmailLoginActivity.class));
 
                 // register the user in firebase
 

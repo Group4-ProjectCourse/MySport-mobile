@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public class SportEvent {
     private String sportName;
-    private ArrayList<Member> participants;
+    private ArrayList<String> participants;
     private CalendarRange calendarRange;
 
-    public SportEvent(String sportName, ArrayList<Member> participants, CalendarRange calendarRange) {
+    public SportEvent(String sportName, ArrayList<String> participants, CalendarRange calendarRange) {
         this.sportName = sportName;
         this.participants = participants;
         this.calendarRange = calendarRange;
@@ -23,11 +23,11 @@ public class SportEvent {
         this.sportName = sportName;
     }
 
-    public ArrayList<Member> getParticipants() {
+    public ArrayList<String> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(ArrayList<Member> participants) {
+    public void setParticipants(ArrayList<String> participants) {
         this.participants = participants;
     }
 
@@ -67,7 +67,7 @@ public class SportEvent {
     public String[] getNames() {
         String[] names = new String[participants.size()];
         for(int i = 0; i < names.length; i++)
-            names[i] = participants.get(i).toString();
+            names[i] = participants.get(i);
 
         return names;
     }

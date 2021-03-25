@@ -97,6 +97,7 @@
         Denial Alekseev<br/>Kristijan Đaković<br/>Petros Daniel<br/>Robin Kamprad<br/>Stefan Vojtek<br/>For support
         contact: Admin@mysport.com
     </string>
+    <string name="forum">Forum</string>
 
     <string-array name="sport_list">
         <item>Badminton</item>

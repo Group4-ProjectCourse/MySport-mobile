@@ -226,6 +226,11 @@ public class FloatingFragment extends Fragment {
                     Networking.volleyPost(getContext(), url, obj);
                 }).start();
                 dialog.dismiss();
+                makeNotify("Sport event created", String.format("The %s has been scheduled on %s taking place at %s.",
+                        sportName.getText().toString(),
+                        startDate.getTime().toString(),
+                        location.getText().toString()
+                ));
             }
         });
 
@@ -328,5 +333,9 @@ public class FloatingFragment extends Fragment {
         );
 
         return calendar;
+    }
+
+    private void makeNotify(String title, String content){
+        ((MainActivity)getActivity()).makeNotice(title, content);
     }
 }

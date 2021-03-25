@@ -74,4 +74,14 @@
     <string name="select_sport">Select sport</string>
     <string name="error_sport_add_form_fill_all_fields">Fill in all fields before submitting form</string>
     <string name="forum">Forum</string>
+    <string name="sport_quit_notification">You have just quit %s.</string>
+    <string name="sport_enroll_notification">You have just joined %s taking place on %s at %s.</string>
+    <string name="quit_question">Are you sure you want to quit %s?</string>
+    <string name="send_review">Send review</string>
+    <string name="cancel">Cancel</string>
+    <string name="later">Later</string>
+    <string name="title">App rating</string>
+    <string name="description">Please write your feedback</string>
+    <string name="defaultComment">This app is pretty cool !</string>
+    <string name="defaultHint">Please write your comment here...</string>
 </resources>

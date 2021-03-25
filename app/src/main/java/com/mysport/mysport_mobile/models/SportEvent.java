@@ -5,12 +5,13 @@ import com.mysport.mysport_mobile.utils.ObjectUtils;
 import java.util.ArrayList;
 
 public class SportEvent {
-    private String sportName;
+    private String sportName, location;
     private ArrayList<String> participants;
     private CalendarRange calendarRange;
 
-    public SportEvent(String sportName, ArrayList<String> participants, CalendarRange calendarRange) {
+    public SportEvent(String sportName, String location, ArrayList<String> participants, CalendarRange calendarRange) {
         this.sportName = sportName;
+        this.location = location;
         this.participants = participants;
         this.calendarRange = calendarRange;
     }
@@ -70,5 +71,9 @@ public class SportEvent {
             names[i] = participants.get(i);
 
         return names;
+    }
+
+    public String getLocation() {
+        return location;
     }
 }

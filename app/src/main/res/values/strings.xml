@@ -90,6 +90,18 @@
     <string name="forum">Forum</string>
     <string name="forum_title" translatable="false">Forum</string>
     <string name="forum_text1" translatable="false"><![CDATA[Fun Day! Had a great day doing sports with you guys and girls, we should do this again some time!]]></string>
+    <string name="sport_quit_notification">You have just quit %s.</string>
+    <string name="sport_enroll_notification">You have just joined %s taking place on %s at %s.</string>
+    <string name="press_confirm_join" translatable="false">Please press confirm button to join %s</string>
+    <string name="quit_question">Are you sure you want to quit %s?</string>
+
+    <string name="send_review">Send review</string>
+    <string name="cancel">Cancel</string>
+    <string name="later">Later</string>
+    <string name="title">App rating</string>
+    <string name="description">Please write your feedback</string>
+    <string name="defaultComment">This app is pretty cool !</string>
+    <string name="defaultHint">Please write your comment here...</string>
 
     <string-array name="sport_list">
         <item>Badminton</item>

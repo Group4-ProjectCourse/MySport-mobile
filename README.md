@@ -15,23 +15,15 @@ Being in scope of business happening in HKR Sport board we decided to help them 
 
 #### Technologies used
 - Java 9 - JDK/JRE
-- Kotlin 1.2 - Kotlin/JVM
-- JavaFX - Platform
-- Maven - Build automation tool
+- Gradle - Build automation tool
 - Chat Server - Self-made chatting server
-- Material Design (JFoenix, FontAwesome & ControlsFX)
-- Scene Builder - FXML files building tool
-- MySQL - (DBMS, relational database)
 - MongoDB - (NoSQL database program, document database)
 
 #### Some features
 - FaceBook login integration (RestFB)
-- Multi Language support (I18N)
+- Google login integration
 - Password hashing (B-crypt & SHA256)
-- Sending email (JavaMail)
 - IM(Java RMI)
-- Remote Database hosting (www.freemysqlhosting.net & cloud.mongodb.com)
-- Object-to-Bytes (construction and deconstruction)
 
 #### Challenges
 - Time management

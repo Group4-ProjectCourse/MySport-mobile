@@ -1,9 +1,9 @@
-package com.noelchew.ncapprating.library;
+package com.mysport.mysport_mobile.notification;
 
 /**
  * Created by noelchew on 7/27/16.
  */
-public interface NcAppRatingListener {
+public interface AppRatingListener {
     /**
      * "Rate now" event
      *

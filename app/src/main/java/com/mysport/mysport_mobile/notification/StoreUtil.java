@@ -1,4 +1,4 @@
-package com.noelchew.ncapprating.library;
+package com.mysport.mysport_mobile.notification;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.net.Uri;
 /**
  * Created by noelchew on 7/27/16.
  */
-public class PlayStoreUtil {
+public class StoreUtil {
     public static void goToMarket(Context context, String webUrl, String marketUri) {
         Uri uri = Uri.parse(marketUri);
         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);

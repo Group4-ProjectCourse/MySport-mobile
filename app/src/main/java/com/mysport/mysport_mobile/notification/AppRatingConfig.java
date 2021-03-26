@@ -1,11 +1,11 @@
-package com.noelchew.ncapprating.library;
+package com.mysport.mysport_mobile.notification;
 
 import androidx.annotation.StringRes;
 
 /**
  * Created by noelchew on 7/27/16.
  */
-public class NcAppRatingConfig {
+public class AppRatingConfig {
 
     private int installedDays;
     private int launchedTimes;
@@ -15,12 +15,12 @@ public class NcAppRatingConfig {
     private int yesButtonTextResourceId = 0;
     private int noButtonTextResourceId = 0;
     private int cancelButtonTextResourceId = 0;
-    private NcAppRatingListener listener = null;
+    private AppRatingListener listener = null;
 
     /**
      * Constructor with default criteria.
      */
-    public NcAppRatingConfig() {
+    public AppRatingConfig() {
         this(5, 8, 4, null);
     }
 
@@ -31,14 +31,14 @@ public class NcAppRatingConfig {
      * @param minimumTargetRating Minimum rating to call NcAppRatingListener.onOpenMarket
      * @param listener NcAppRatingListener
      */
-    public NcAppRatingConfig(int installedDays, int launchedTimes, int minimumTargetRating, NcAppRatingListener listener) {
+    public AppRatingConfig(int installedDays, int launchedTimes, int minimumTargetRating, AppRatingListener listener) {
         this.installedDays = installedDays;
         this.launchedTimes = launchedTimes;
         this.minimumTargetRating = minimumTargetRating;
         this.listener = listener;
     }
 
-    public void setListener(NcAppRatingListener listener) {
+    public void setListener(AppRatingListener listener) {
         this.listener = listener;
     }
 
@@ -114,7 +114,7 @@ public class NcAppRatingConfig {
         return cancelButtonTextResourceId;
     }
 
-    public NcAppRatingListener getListener() {
+    public AppRatingListener getListener() {
         return listener;
     }
 }

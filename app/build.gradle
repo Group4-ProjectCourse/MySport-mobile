@@ -1,6 +1,13 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'idea'
+}
+
+idea {
+    module {
+        excludeDirs.add(file('src/main/java/com/mysport/mysport_mobile/typography'))
+    }
 }
 
 configurations {

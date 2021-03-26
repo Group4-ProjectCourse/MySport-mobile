@@ -1,4 +1,4 @@
-package com.noelchew.ncapprating.library;
+package com.mysport.mysport_mobile.notification;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -22,16 +22,18 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
+import com.mysport.mysport_mobile.R;
+
 import java.lang.ref.WeakReference;
 import java.util.Date;
 
 /**
  * Created by noelchew on 7/18/16.
  */
-public class NcAppRating {
+public class AppRating {
 
-    private static final String TAG = "NcAppRating";
-    private static final String PREF_NAME = "NcAppRating";
+    private static final String TAG = "AppRating";
+    private static final String PREF_NAME = "AppRating";
     private static final String KEY_INSTALL_DATE = "nc_install_date";
     private static final String KEY_LAUNCH_TIMES = "nc_launch_times";
     private static final String NEVER_SHOW_AGAIN = "nc_opt_out";
@@ -46,7 +48,7 @@ public class NcAppRating {
     private boolean mNeverShowAgain = false;
     private Date mAskLaterDate = new Date();
 
-    private NcAppRatingConfig sConfig = new NcAppRatingConfig();
+    private AppRatingConfig sConfig = new AppRatingConfig();
 
     // Weak ref to avoid leaking the context
     private WeakReference<AlertDialog> sDialogRef = null;
@@ -54,18 +56,18 @@ public class NcAppRating {
     private AlertDialog.Builder builder;
     private View dialogView;
 
-    public NcAppRating(Context context) {
+    public AppRating(Context context) {
         this.context = context;
         onStart();
     }
 
-    public NcAppRating(Context context, NcAppRatingConfig config) {
+    public AppRating(Context context, AppRatingConfig config) {
         this.context = context;
         this.sConfig = config;
         onStart();
     }
 
-    public NcAppRating(Context context, NcAppRatingListener callback) {
+    public AppRating(Context context, AppRatingListener callback) {
         this.context = context;
         this.sConfig.setListener(callback);
         onStart();
@@ -351,7 +353,7 @@ public class NcAppRating {
 
     // call this method if you want users to rate your app
     public static void rateUs(Context context) {
-        PlayStoreUtil.rateUs(context);
+        StoreUtil.rateUs(context);
     }
 
     private boolean checkContext(Context context) {

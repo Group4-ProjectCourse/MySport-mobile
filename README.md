@@ -17,13 +17,11 @@ Being in scope of business happening in HKR Sport board we decided to help them 
 - Java 9 - JDK/JRE
 - Gradle - Build automation tool
 - Chat Server - Self-made chatting server
-- MongoDB - (NoSQL database program, document database)
+- NodeJS server
 
 #### Some features
 - FaceBook login integration (RestFB)
 - Google login integration
-- Password hashing (B-crypt & SHA256)
-- IM(Java RMI)
 
 #### Challenges
 - Time management

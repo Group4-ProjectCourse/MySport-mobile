@@ -10,7 +10,7 @@
 
 
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
-                android:paddingTop="15dp"
+                android:paddingTop="20dp"
                 android:textColor="@color/whiteColor"
                 app:drawableLeftCompat="@drawable/ic_person"
                 android:text="@string/forum_text1"/>
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
-                android:paddingTop="15dp"
+                android:paddingTop="20dp"
                 android:textColor="@color/whiteColor"
                 app:drawableLeftCompat="@drawable/ic_person"
                 android:text="Important! \nI found some shoes lying in the men's locker room, they are bright red running shoes in size 44. Comment here if they belong to you!"/>
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
-                android:paddingTop="15dp"
+                android:paddingTop="20dp"
                 android:textColor="@color/whiteColor"
                 app:drawableLeftCompat="@drawable/ic_person"
                 android:text="Anybody going to the football game tomorrow?"/>
@@ -138,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
-                android:paddingTop="15dp"
+                android:paddingTop="20dp"
                 android:textColor="@color/whiteColor"
                 app:drawableLeftCompat="@drawable/ic_person"
                 android:text="Who's bringing what to the bbq after rugby?"/>
@@ -193,15 +193,15 @@
 
 
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         app:fabSize="normal"
         app:backgroundTint="@color/purple_200"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
         android:src="@drawable/ic_add"
         android:contentDescription="@string/fab_forum"
         android:layout_margin="16dp" />

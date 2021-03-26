@@ -75,15 +75,15 @@
         tools:visibility="visible" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="124dp"
-        android:layout_height="110dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/videoView"
-        app:srcCompat="@mipmap/ic_logo_round" />
+            android:id="@+id/imageView"
+            android:layout_width="124dp"
+            android:layout_height="110dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/videoView"
+            app:srcCompat="@drawable/mysport_icon"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

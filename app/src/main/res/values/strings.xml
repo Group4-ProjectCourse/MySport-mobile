@@ -104,9 +104,9 @@
     <string name="defaultHint">Please write your comment here...</string>
     <string name="text_actionButtonForum" translatable="false">Post to forum</string>
     <string name="fab_forum" translatable="false">Post</string>
-    <string name="rate_title">\"Leave a feedback about \"</string>
-    <string name="rate_content">\"Let us know how was your experience at \"</string>
-    <string name="rate_content_notification">\"You have just rated \"</string>
+    <string name="rate_title">Leave a feedback about </string>
+    <string name="rate_content">Let us know how was your experience at </string>
+    <string name="rate_content_notification">You have just rated </string>
     <string name="nc_utils_rate_dialog_title">Rate Us</string>
     <string name="nc_utils_rate_dialog_message">Enjoying this app?</string>
     <string name="nc_utils_rate_dialog_message_2">If you enjoy using this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thank you for your support!</string>

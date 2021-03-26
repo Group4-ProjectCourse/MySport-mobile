@@ -1,6 +1,5 @@
 package com.mysport.mysport_mobile.activities.authentication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,13 +11,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mysport.mysport_mobile.App;
 import com.mysport.mysport_mobile.MainActivity;
@@ -28,10 +23,6 @@ import com.mysport.mysport_mobile.utils.Networking;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import at.favre.lib.crypto.bcrypt.BCrypt;
-
-import static java.lang.System.out;
 
 public class EmailLoginActivity extends AppCompatActivity {
 
@@ -126,7 +117,7 @@ public class EmailLoginActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Networking.volleyPost(EmailLoginActivity.this, url, obj, new Networking.VolleyCallBack() {
+                    Networking.volleyPost(EmailLoginActivity.this, url, obj, new Networking.VolleyCallBackMember() {
                         @Override
                         public void onSuccess(Member member) {
                             App.setSession(member);

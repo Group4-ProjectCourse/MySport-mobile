@@ -18,6 +18,7 @@ import com.mysport.mysport_mobile.MainActivity;
 import com.mysport.mysport_mobile.R;
 import com.mysport.mysport_mobile.enums.TransactionAction;
 import com.mysport.mysport_mobile.events.DoubleClickEventListener;
+import com.mysport.mysport_mobile.events.EventClickedListener;
 import com.mysport.mysport_mobile.models.CalendarRange;
 import com.mysport.mysport_mobile.models.MongoActivity;
 import com.mysport.mysport_mobile.models.SportEvent;
@@ -81,6 +82,15 @@ public class DayViewFragment extends Fragment implements NegativeReviewListener,
                         e.printStackTrace();
                     }
 
+                    builders[1].setNeutralButton("RATE", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            makeReview(getString(R.string.rate_title) + sportEvent.getSportName(),
+                                    getString(R.string.rate_content) + sportEvent.getSportName(),
+                                    getString(R.string.rate_content_notification) + sportEvent.getSportName());
+                        }
+                    });
+
                     builders[0]
                         .setTitle((flag ? "Join" : "Quit") + " " + sportEvent.getSportName() + "?")
                         .setMessage(String.format((flag ? getString(R.string.press_confirm_join) : getString(R.string.quit_question)), sportEvent.getSportName()))
@@ -127,16 +137,6 @@ public class DayViewFragment extends Fragment implements NegativeReviewListener,
                                 }
                             }
                         });
-                    if(!flag){
-                        builders[0].setNeutralButton("RATE", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                makeReview(getString(R.string.rate_title) + sportEvent.getSportName(),
-                                        getString(R.string.rate_content) + sportEvent.getSportName(),
-                                        getString(R.string.rate_content_notification) + sportEvent.getSportName());
-                            }
-                        });
-                    }
                     if(isLeader){
                         //if session is for leader mark attendance
                         builders[0].setNeutralButton("Attendance", new DialogInterface.OnClickListener() {
@@ -226,6 +226,10 @@ public class DayViewFragment extends Fragment implements NegativeReviewListener,
                 }) : null;
 
         return new MaterialAlertDialogBuilder[] { join, attendance };
+    }
+
+    private void loadToday(){
+
     }
 
     private void drawSportEvent(MongoActivity sport){

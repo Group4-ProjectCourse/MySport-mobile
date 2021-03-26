@@ -17,10 +17,6 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.mysport.mysport_mobile.R;
 
-
-/**
- * Created by angtrim on 12/09/15.
- */
 public class RatingDialog implements DialogInterface.OnClickListener {
 
     private final static String DEFAULT_TITLE = "Rate this app";
@@ -67,7 +63,7 @@ public class RatingDialog implements DialogInterface.OnClickListener {
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 Log.d(TAG, "Rating changed : " + v);
                 if (isForceMode && v >= upperBound) {
-                    openMarket();
+                    //openMarket();
                     if (reviewListener != null)
                         reviewListener.onReview((int) ratingBar.getRating(), notificationMsg);
                 }
@@ -99,14 +95,14 @@ public class RatingDialog implements DialogInterface.OnClickListener {
         editor.apply();
     }
 
-    private void openMarket() {
-        final String appPackageName = context.getPackageName();
-        try {
-            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-        } catch (android.content.ActivityNotFoundException anfe) {
-            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-        }
-    }
+//    private void openMarket() {
+//        final String appPackageName = context.getPackageName();
+//        try {
+//            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+//        } catch (android.content.ActivityNotFoundException anfe) {
+//            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+//        }
+//    }
 
     private void sendEmail() {
         final Intent emailIntent = new Intent(Intent.ACTION_SEND);
@@ -118,8 +114,8 @@ public class RatingDialog implements DialogInterface.OnClickListener {
     }
 
     private void show() {
-        boolean disabled = sharedPrefs.getBoolean(SP_DISABLED, false);
-        if (!disabled) {
+        //boolean disabled = sharedPrefs.getBoolean(SP_DISABLED, false);
+        if (true) {
             build();
             alertDialog.show();
         }
@@ -148,7 +144,8 @@ public class RatingDialog implements DialogInterface.OnClickListener {
                 }
 
             } else if (!isForceMode) {
-                openMarket();
+                //openMarket();
+                alertDialog.dismiss();
             }
             disable();
             if (reviewListener != null)

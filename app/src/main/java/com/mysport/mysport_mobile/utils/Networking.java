@@ -9,15 +9,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.mysport.mysport_mobile.models.Member;
+import com.mysport.mysport_mobile.models.MongoActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-import static java.lang.System.err;
 import static java.lang.System.out;
 
 public class Networking {
@@ -26,7 +27,7 @@ public class Networking {
         volleyPost(context, url, postData, null);
     }
 
-    public static void volleyPost(Context context, String url, JSONObject postData, final VolleyCallBack callBack){
+    public static void volleyPost(Context context, String url, JSONObject postData, final VolleyCallBackMember callBack){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData, new Response.Listener<JSONObject>() {
@@ -70,6 +71,44 @@ public class Networking {
         requestQueue.add(jsonObjectRequest);
     }
 
+//    public static void volleyPost(Context context, String url, JSONObject postData, final VolleyCallBackSport callBack){
+//        RequestQueue requestQueue = Volley.newRequestQueue(context);
+//
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject res) {
+//                ArrayList<MongoActivity> activities = new ArrayList<>(3);
+//                try {
+//                    JSONArray array = res.getJSONArray("sports");
+//                    for(int i = 0; i < array.length(); i++){
+//                        JSONObject obj = array.getJSONObject(i);
+//                        activities.add(new MongoActivity(
+//                                obj.getString("title"),
+//
+//                        ));
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                if(callBack == null)
+//                    return;
+//
+//                    try {
+//                        callBack.onSuccess(new MongoActivity());
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                out.println("message: " + error.getMessage());
+//            }
+//        });
+//
+//        requestQueue.add(jsonObjectRequest);
+//    }
+
     public static void volleyGet(Context context, String url){
         List<String> jsonResponses = new ArrayList<>(5);
 
@@ -99,9 +138,13 @@ public class Networking {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public interface VolleyCallBack {
+    public interface VolleyCallBackMember {
         void onSuccess(Member member);
 
         void onError(int statusCode, String message);
+    }
+
+    public interface VolleyCallBackSport {
+        void onSuccess(ArrayList<MongoActivity> activity);
     }
 }

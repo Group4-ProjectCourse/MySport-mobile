@@ -109,6 +109,9 @@
     <string name="description">Please write your feedback</string>
     <string name="defaultComment">This app is pretty cool !</string>
     <string name="defaultHint">Please write your comment here...</string>
+    <string name="rate_title">\"Leave a feedback about \"</string>
+    <string name="rate_content">\"Let us know how was your experience at \"</string>
+    <string name="rate_content_notification">\"You have just rated \"</string>
 
     <string-array name="sport_list">
         <item>Badminton</item>

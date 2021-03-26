@@ -19,9 +19,11 @@ import com.mysport.mysport_mobile.R;
 import com.mysport.mysport_mobile.enums.TransactionAction;
 import com.mysport.mysport_mobile.events.DoubleClickEventListener;
 import com.mysport.mysport_mobile.models.CalendarRange;
-import com.mysport.mysport_mobile.models.Member;
 import com.mysport.mysport_mobile.models.MongoActivity;
 import com.mysport.mysport_mobile.models.SportEvent;
+import com.mysport.mysport_mobile.rating.RatingDialog;
+import com.mysport.mysport_mobile.rating.NegativeReviewListener;
+import com.mysport.mysport_mobile.rating.ReviewListener;
 import com.mysport.mysport_mobile.utils.CalendarUtils;
 import com.mysport.mysport_mobile.utils.Networking;
 import com.mysport.mysport_mobile.views.DayView;
@@ -29,14 +31,11 @@ import com.mysport.mysport_mobile.views.DayView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
 
-public class DayViewFragment extends Fragment {
+public class DayViewFragment extends Fragment implements NegativeReviewListener, ReviewListener {
 
     private FloatingFragment floatingFragment;
     private DayView dayView;
@@ -86,48 +85,58 @@ public class DayViewFragment extends Fragment {
                         .setTitle((flag ? "Join" : "Quit") + " " + sportEvent.getSportName() + "?")
                         .setMessage(String.format((flag ? getString(R.string.press_confirm_join) : getString(R.string.quit_question)), sportEvent.getSportName()))
                         .setPositiveButton(flag ? "JOIN" : "QUIT", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if(flag) {
-                                sportEvent.getParticipants().add(App.getSession().getUser().toString());
-                                dialog.dismiss();
-                                //Toast.makeText(getContext(), String.format(getString(R.string.joined_sport_dialog), sportEvent.getSportName()), Toast.LENGTH_SHORT).show();
-                                String[] names = sportEvent.getNames();
-                                builders[1]
-                                        //.setMessage(String.format("Please mark the people that appeared on %s session.", sportEvent.getSportName()))
-                                        .setMultiChoiceItems(names, new boolean[names.length], (dialog1, which1, isChecked) -> {
-
-                                        });
-                                //record in DB
-                                String url = App.baseURL + "sports/add-participant";
-                                Networking.volleyPost(getContext(), url, json);
-
-                                flag = false;
-                                makeNotify(sportEvent.getSportName(), String.format(getString(R.string.sport_enroll_notification),
-                                        sportEvent.getSportName(),
-                                        today.getTime().toString(),
-                                        sportEvent.getLocation()
-                                ));
-                            }
-                            else {
-                                if(sportEvent.getParticipants().remove(App.getSession().getUser().toString())){
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(flag) {
+                                    sportEvent.getParticipants().add(App.getSession().getUser().toString());
                                     dialog.dismiss();
-                                    //Toast.makeText(getContext(), String.format(getString(R.string.unjoined_sport_dialog), sportEvent.getSportName()), Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(getContext(), String.format(getString(R.string.joined_sport_dialog), sportEvent.getSportName()), Toast.LENGTH_SHORT).show();
                                     String[] names = sportEvent.getNames();
                                     builders[1]
+                                            //.setMessage(String.format("Please mark the people that appeared on %s session.", sportEvent.getSportName()))
                                             .setMultiChoiceItems(names, new boolean[names.length], (dialog1, which1, isChecked) -> {
 
                                             });
                                     //record in DB
-                                    String url = App.baseURL + "sports/remove-participant";
+                                    String url = App.baseURL + "sports/add-participant";
                                     Networking.volleyPost(getContext(), url, json);
 
-                                    flag = true;
-                                    makeNotify(sportEvent.getSportName(), String.format(getString(R.string.sport_quit_notification), sportEvent.getSportName()));
+                                    flag = false;
+                                    makeNotify(sportEvent.getSportName(), String.format(getString(R.string.sport_enroll_notification),
+                                            sportEvent.getSportName(),
+                                            today.getTime().toString(),
+                                            sportEvent.getLocation()
+                                    ));
+                                }
+                                else {
+                                    if(sportEvent.getParticipants().remove(App.getSession().getUser().toString())){
+                                        dialog.dismiss();
+                                        //Toast.makeText(getContext(), String.format(getString(R.string.unjoined_sport_dialog), sportEvent.getSportName()), Toast.LENGTH_SHORT).show();
+                                        String[] names = sportEvent.getNames();
+                                        builders[1]
+                                                .setMultiChoiceItems(names, new boolean[names.length], (dialog1, which1, isChecked) -> {
+
+                                                });
+                                        //record in DB
+                                        String url = App.baseURL + "sports/remove-participant";
+                                        Networking.volleyPost(getContext(), url, json);
+
+                                        flag = true;
+                                        makeNotify(sportEvent.getSportName(), String.format(getString(R.string.sport_quit_notification), sportEvent.getSportName()));
+                                    }
                                 }
                             }
-                        }
-                    });
+                        });
+                    if(!flag){
+                        builders[0].setNeutralButton("RATE", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                makeReview(getString(R.string.rate_title) + sportEvent.getSportName(),
+                                        getString(R.string.rate_content) + sportEvent.getSportName(),
+                                        getString(R.string.rate_content_notification) + sportEvent.getSportName());
+                            }
+                        });
+                    }
                     if(isLeader){
                         //if session is for leader mark attendance
                         builders[0].setNeutralButton("Attendance", new DialogInterface.OnClickListener() {
@@ -275,6 +284,27 @@ public class DayViewFragment extends Fragment {
 
     private void makeNotify(String title, String content){
         ((MainActivity)getActivity()).makeNotice(title, content);
+    }
+
+    @Override
+    public void onNegativeReview(int stars, String message) {
+        makeNotify(message + String.format(" with %s stars rating!", stars), "Thanks for your feedback!");
+    }
+
+    @Override
+    public void onReview(int stars, String message) {
+        makeNotify(message + String.format(" with %s stars rating!", stars), "Thanks for your feedback!");
+    }
+
+    private void makeReview(String title, String content, String notifMsg){
+        RatingDialog ratingDialog = new RatingDialog(getContext());
+        ratingDialog.setRateText(title)
+                .setTitle(content)
+                .setForceMode(false)
+                .setUpperBound(2)
+                .setNegativeReviewListener(this, notifMsg)
+                .setReviewListener(this, notifMsg)
+                .showAfter(0);
     }
 }
 //

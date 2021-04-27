@@ -72,4 +72,11 @@
     <color name="commentTextColor2">#000000</color>
     <color name="commentBackgroundColor2">#F9F7F9</color>
     <color name="hintTextColor2">#8B888F</color>
+
+    <color name="forum_colorPrimary">#3F51B5</color>
+    <color name="forum_colorPrimaryDark">#303F9F</color>
+    <color name="forum_colorAccent">#FF4081</color>
+    <color name="forum_lightGray">#d3d3d3</color>
+    <color name="forum_white">#FFFFFF</color>
+    <color name="forum_black">#000000</color>
 </resources>

@@ -26,16 +26,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
-import com.cometchat.pro.core.AppSettings;
-import com.cometchat.pro.core.CometChat;
-import com.cometchat.pro.exceptions.CometChatException;
 import com.facebook.login.LoginManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mysport.mysport_mobile.activities.authentication.LoginActivity;
-import com.mysport.mysport_mobile.chat.AppConfig;
 import com.mysport.mysport_mobile.enums.TransactionAction;
 import com.mysport.mysport_mobile.events.OnFragmentSendDataListener;
+import com.mysport.mysport_mobile.forum.Home;
 import com.mysport.mysport_mobile.fragments.ProfileFragment;
 import com.mysport.mysport_mobile.fragments.calendar.DayViewFragment;
 import com.mysport.mysport_mobile.fragments.calendar.MonthViewFragment;
@@ -61,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private LanguageManager languageManager;
     private TextView name;
     private CircleImageView circleImageView;
-    private String TAG = "Chat";
+    private final String TAG = "Chat";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,18 +66,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //getTheme().applyStyle(R.style.ThemePurple, true);
         setContentView(R.layout.activity_main);
 
-        AppSettings appSettings=new AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(AppConfig.REGION).build();
-
-        CometChat.init(this, AppConfig.APP_ID,appSettings, new CometChat.CallbackListener<String>() {
-            @Override
-            public void onSuccess(String successMessage) {
-                Log.d(TAG, "Initialization completed successfully");
-            }
-            @Override
-            public void onError(CometChatException e) {
-                Log.d(TAG, "Initialization failed with exception: " + e.getMessage());
-            }
-        });
+//        AppSettings appSettings=new AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(AppConfig.REGION).build();
+//
+//        CometChat.init(this, AppConfig.APP_ID,appSettings, new CometChat.CallbackListener<String>() {
+//            @Override
+//            public void onSuccess(String successMessage) {
+//                Log.d(TAG, "Initialization completed successfully");
+//            }
+//            @Override
+//            public void onError(CometChatException e) {
+//                Log.d(TAG, "Initialization failed with exception: " + e.getMessage());
+//            }
+//        });
 
 
         //android notification
@@ -224,8 +221,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, (dayViewFragment = new DayViewFragment(Calendar.getInstance())), "DAY_VIEW");
         else if (id == R.id.nav_settings)
             handleFragment(R.id.main_place_for_fragments, new SettingsFragment());
-        else if (id == R.id.nav_forum)
-            handleFragment(R.id.main_place_for_fragments, new ForumFragment());
+        else if (id == R.id.nav_forum){
+            //handleFragment(R.id.main_place_for_fragments, new ForumFragment());
+
+            Intent intent = new Intent(MainActivity.this, Home.class);
+            intent.putExtra("username", "example-email@mysport-community.com");//current session
+
+            startActivity(intent);
+        }
         else if (id == R.id.nav_profile)
             handleFragment(R.id.main_place_for_fragments, new ProfileFragment());
         else if (id == R.id.nav_share)

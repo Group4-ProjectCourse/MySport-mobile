@@ -30,4 +30,7 @@
     <dimen name="monthViewDefaultSelectedDayCircleRadius">15dp</dimen>
     <dimen name="monthViewDefaultChevronWidth">30dp</dimen>
     <dimen name="monthViewDefaultChevronHeight">30dp</dimen>
+
+    <dimen name="forum_activity_horizontal_margin">16dp</dimen>
+    <dimen name="forum_activity_vertical_margin">16dp</dimen>
 </resources>

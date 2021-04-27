@@ -19,16 +19,28 @@
 <!--        <activity-->
 <!--            android:name=".activities.authentication.WelcomeActivity"-->
 <!--            android:theme="@style/Theme.Design.NoActionBar" />-->
-        <activity
-            android:name=".activities.authentication.EmailLoginActivity"
-            android:theme="@style/Theme.Design.NoActionBar">
+<!--        <activity-->
+<!--            android:name=".activities.authentication.EmailLoginActivity"-->
+<!--            android:theme="@style/Theme.Design.NoActionBar">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN"/>-->
 
-        </activity>
-        <activity
-            android:name=".activities.authentication.RegisterActivity"
-            android:theme="@style/Theme.Design.NoActionBar">
+<!--                <category android:name="android.intent.category.LAUNCHER"/>-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+        <activity android:name=".forum.Home"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
+<!--        <activity-->
+<!--            android:name=".activities.authentication.RegisterActivity"-->
+<!--            android:theme="@style/Theme.Design.NoActionBar">-->
+
+<!--        </activity>-->
         <activity
                 android:name=".activities.authentication.LoginActivity"
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -50,6 +62,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".forum.CreatePost"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".forum.ViewPost" />
+        <activity
+            android:name=".forum.EditPost"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".forum.CreateComment"></activity>
 
         <meta-data
                 android:name="com.facebook.sdk.ApplicationId"

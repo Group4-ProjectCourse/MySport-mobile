@@ -120,4 +120,46 @@
     <!-- feedback email -->
     <string name="nc_utils_feedback_email_subject">App - Feedback</string>
     <string name="nc_utils_feedback_email_message">Hello\u002C</string>
+
+    <string name="login_header">Login Here:</string>
+    <string name="login_username">Username:</string>
+    <string name="login_password">Password:</string>
+    <string name="button_login">Login</string>
+    <string name="button_register">Register</string>
+    <string name="button_create_account">Create Account</string>
+    <string name="button_upload">Take Picture</string>
+    <string name="profile_picture_prompt">Use camera to take a profile picture?</string>
+    <string name="register_header">Register Here:</string>
+    <string name="register_failure">Registration Failed. Username Taken.</string>
+    <string name="register_success">Success! Redirecting to Login Screen...</string>
+    <string name="login_failure">Login Failed. Bad Credentials. Try Again.</string>
+    <string name="home_header">Home Screen</string>
+    <string name="button_create_post">Create Post</string>
+    <string name="button_create_reply">Reply</string>
+    <string name="button_create_comment">Comment</string>
+    <string name="button_submit_edit">Submit Edit</string>
+    <string name="button_back">Back</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_logout">Logout</string>
+    <string name="button_confirm">Confirm</string>
+    <string name="button_edit_post">Edit Post</string>
+    <string name="button_delete_post">Delete Post</string>
+    <string name="button_submit_comment">Submit Comment</string>
+    <string name="create_comment_header">Create Comment:</string>
+    <string name="create_comment_hint">Enter Comment Here...</string>
+    <string name="create_post_title"><b>Title:</b></string>
+    <string name="create_post_content"><b>Content:</b></string>
+    <string name="create_post_header">Create Forum Post:</string>
+    <string name="create_post_success">Successfully Created Post!</string>
+    <string name="button_submit_reply">Submit Reply</string>
+    <string name="home_container_header">Forum Posts:</string>
+    <string name="profile_pic_success">Profile Picture Successfully Changed!</string>
+    <string name="home_title_header"><b>Title</b></string>
+    <string name="home_author_header"><b>Author</b></string>
+    <string name="delete_post_prompt">Delete this post?</string>
+    <string name="delete_post_success">Successfully Deleted Post!</string>
+    <string name="create_comment_success">Successfully Created Comment!</string>
+    <string name="edit_post_header">Edit Forum Post:</string>
+    <string name="edit_post_success">Successfully Edited Post!</string>
+    <string name="server_url">https://frozen-stream-48405.herokuapp.com/</string>
 </resources>

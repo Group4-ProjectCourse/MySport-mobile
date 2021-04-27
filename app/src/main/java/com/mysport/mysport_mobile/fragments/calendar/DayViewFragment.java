@@ -50,10 +50,12 @@ public class DayViewFragment extends Fragment implements NegativeReviewListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_day_view, container, false);
         dayView = view.findViewById(R.id.dayView);
-        floatingFragment = new FloatingFragment();
 
         MainActivity parent = (MainActivity) getActivity();
-        parent.handleFragment(TransactionAction.ADD, R.id.main_place_for_floating_buttons, floatingFragment);
+        if(App.getSession().getUser().isLeader()){
+            floatingFragment = new FloatingFragment();
+            parent.handleFragment(TransactionAction.ADD, R.id.main_place_for_floating_buttons, floatingFragment);
+        }
         parent.getViewOption().setVisibility(View.VISIBLE);
         parent.getViewOption().setClickable(true);
 
@@ -82,7 +84,7 @@ public class DayViewFragment extends Fragment implements NegativeReviewListener,
                         e.printStackTrace();
                     }
 
-                    builders[1].setNeutralButton("RATE", new DialogInterface.OnClickListener() {
+                    builders[0].setNeutralButton("RATE", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             makeReview(getString(R.string.rate_title) + sportEvent.getSportName(),
@@ -137,7 +139,9 @@ public class DayViewFragment extends Fragment implements NegativeReviewListener,
                                 }
                             }
                         });
+
                     if(isLeader){
+
                         //if session is for leader mark attendance
                         builders[0].setNeutralButton("Attendance", new DialogInterface.OnClickListener() {
                             @Override
@@ -150,14 +154,14 @@ public class DayViewFragment extends Fragment implements NegativeReviewListener,
                                 builders[1].show();
                             }
                         });
-                    }
-                    if(sportEvent.getParticipants() != null){
-                        String[] names = sportEvent.getNames();
-                        builders[1]
-                                //.setMessage(String.format("Please mark the people that appeared on %s session.", sportEvent.getSportName()))
-                                .setMultiChoiceItems(names, new boolean[names.length], (dialog, which, isChecked) -> {
-                                    
-                                });
+                        if(sportEvent.getParticipants() != null){
+                            String[] names = sportEvent.getNames();
+                            builders[1]
+                                    //.setMessage(String.format("Please mark the people that appeared on %s session.", sportEvent.getSportName()))
+                                    .setMultiChoiceItems(names, new boolean[names.length], (dialog, which, isChecked) -> {
+
+                                    });
+                        }
                     }
 
                     builders[0].show();
@@ -267,7 +271,8 @@ public class DayViewFragment extends Fragment implements NegativeReviewListener,
     public void onStop() {
         super.onStop();
         MainActivity parent = (MainActivity) getActivity();
-        parent.handleFragment(TransactionAction.REMOVE, R.id.main_place_for_floating_buttons, floatingFragment);//not null, source: "believe me bro"
+        if(floatingFragment != null)
+            parent.handleFragment(TransactionAction.REMOVE, R.id.main_place_for_floating_buttons, floatingFragment);//not null, source: "believe me bro"
     }
 
     @Override

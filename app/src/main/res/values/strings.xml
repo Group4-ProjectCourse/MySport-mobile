@@ -35,13 +35,13 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="language">Language:</string>
     <string name="background_colour">Background colour:</string>
-    <string name="balance_example">$123</string>
-    <string name="balance">Balance</string>
+    <string name="balance_example">1d 4h 12min</string>
+    <string name="balance">Last active</string>
     <string name="score">Score</string>
     <string name="score_example">239</string>
     <string name="fullname">Full name</string>
     <string name="email">Email</string>
-    <string name="email_example">john.cena@mysport-community.com</string>
+    <string name="email_example">ktest6070@gmail.com</string>
     <string name="phone">Phone</string>
     <string name="phone_example">+46 1234 1234 123</string>
     <string name="password">Password</string>

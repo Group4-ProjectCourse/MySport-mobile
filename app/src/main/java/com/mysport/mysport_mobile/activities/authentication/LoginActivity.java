@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         mImageView = findViewById(R.id.imageView);
         mImageView.setTranslationY(800);
         mImageView.setAlpha(value);
-        mImageView.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(2000);
+        mImageView.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(2000).start();
 
         mEmailButton = findViewById(R.id.email_button);
         mLoginButton = findViewById(R.id.login_button);

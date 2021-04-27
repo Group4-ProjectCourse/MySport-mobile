@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         //getTheme().applyStyle(R.style.ThemePurple, true);
         setContentView(R.layout.activity_main);
-
+        
 //        AppSettings appSettings=new AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(AppConfig.REGION).build();
 //
 //        CometChat.init(this, AppConfig.APP_ID,appSettings, new CometChat.CallbackListener<String>() {
@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                Log.d(TAG, "Initialization failed with exception: " + e.getMessage());
 //            }
 //        });
-
 
         //android notification
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -115,6 +114,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return false;
         });
 
+//        menu.findItem(R.id.nav_profile).setOnMenuItemClickListener(view -> {
+//            handleFragment(TransactionAction.REPLACE, R.id.main_place_for_fragments, new ProfileFragment());
+//            return false;
+//        });
+
 
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -129,7 +133,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //user photo update
         try {
-            Glide.with(this).load(App.getSession().getUser().getPhoto()).into(circleImageView);
+            if (App.getSession().getUser().getPhoto() != null) {
+                Glide.with(this).load(App.getSession().getUser().getPhoto()).into(circleImageView);
+            } else {
+                circleImageView.setImageDrawable(getResources().getDrawable(R.drawable.ronaldo));
+            }
         } catch (NullPointerException nullPointerException) {
             Log.e("MyLog", "Photo Uri is null!");
         }
@@ -287,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return dayViewFragment;
     }
 
-    public void makeNotice(String title, String content){
+    public void makeNotice(String title, String content) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "MS_Notification");
         builder.setContentTitle(title);
         builder.setContentText(content);

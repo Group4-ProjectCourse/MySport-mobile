@@ -29,9 +29,9 @@ public class CreatePost extends AppCompatActivity {
     //entry point URL
     //public String entryPointURL;
     //reference to calling user's username
-    public String username;
+    public static String username;
     //references to post title and content
-    public EditText postTitle, postContent;
+    public static EditText postTitle, postContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

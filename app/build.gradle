@@ -18,6 +18,10 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    packagingOptions {
+        pickFirst 'META-INF/*'
+    }
+
     defaultConfig {
         applicationId "com.mysport.mysport_mobile"
         minSdkVersion 26
@@ -25,8 +29,12 @@ android {
         versionCode 1
         versionName "1.0.1"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
 
     signingConfigs {
         dev {
@@ -82,6 +90,8 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.2.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+    androidTestImplementation 'org.junit.jupiter:junit-jupiter:5.4.2'
+//    androidTestImplementation ""
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 //    implementation group: 'org.mongodb', name: 'mongodb-driver-sync', version: '4.0.3'
 //    implementation group: 'eu.dozd', name: 'mongo-mapper', version: '1.0.10'
@@ -90,7 +100,8 @@ dependencies {
 //    implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'com.cometchat:pro-android-chat-sdk:2.2.1'
     implementation 'com.android.volley:volley:1.2.0'
-    implementation 'com.google.dagger:dagger:2.14.1'//dont change version please because you would need to change some stuff in the code, classes changed implementation in newer versions
+    implementation 'com.google.dagger:dagger:2.14.1'
+//dont change version please because you would need to change some stuff in the code, classes changed implementation in newer versions
     annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'//dont change version please
     testImplementation 'junit:junit:4.13.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'

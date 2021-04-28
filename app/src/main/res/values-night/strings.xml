@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="server_url">https://frozen-stream-48405.herokuapp.com/</string>
+    <string name="forum_text_example">hello I have I question if sports are going during this pandemic? I am an international student and I want to ask you here.</string>
 </resources>

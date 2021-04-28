@@ -38,7 +38,6 @@ public class CreatePost extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
 
-        //entryPointURL = "http://localhost:3000/";
         //grab username from extras
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
@@ -68,7 +67,6 @@ public class CreatePost extends AppCompatActivity {
         String ts = Long.toString(timeStamp);
         //make url
         String url = App.baseURL + "posts";
-        Log.d("URL POST: ", url);
 
         //create Volley queue
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -88,8 +86,8 @@ public class CreatePost extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 //grab status and check
                 try {
-                    int responseStatus = response.getInt("status");
-                    if(responseStatus == 200){
+                    String responseStatus = response.getString("status");
+                    if(responseStatus.equals("OK")){
                         //good to go
                         Log.d("Debug", "Post successfully submitted.");
                         //create toast and redirect back to home

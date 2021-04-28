@@ -162,4 +162,5 @@
     <string name="edit_post_header">Edit Forum Post:</string>
     <string name="edit_post_success">Successfully Edited Post!</string>
     <string name="server_url">https://frozen-stream-48405.herokuapp.com/</string>
+    <string name="forum_text_example">hello I have I question if sports are going during this pandemic? I am an international student and I want to ask you here.</string>
 </resources>

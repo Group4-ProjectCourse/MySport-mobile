@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         //getTheme().applyStyle(R.style.ThemePurple, true);
         setContentView(R.layout.activity_main);
-        
+
 //        AppSettings appSettings=new AppSettings.AppSettingsBuilder().subscribePresenceForAllUsers().setRegion(AppConfig.REGION).build();
 //
 //        CometChat.init(this, AppConfig.APP_ID,appSettings, new CometChat.CallbackListener<String>() {

@@ -22,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.mysport.mysport_mobile.App;
 import com.mysport.mysport_mobile.R;
+import com.mysport.mysport_mobile.models.ForumPost;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,22 +30,24 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class ViewPost extends AppCompatActivity {
 
     //entry point URL
     //declare username string that we will use throughout activity
     public String username;
-    //declare string for title of post we are viewing
-    public String title;
-    //string for content of post we are viewing
-    public String postContent;
+    public Bundle bundle;
     //volley queue to process requests
     public RequestQueue queue;
     //references for view comments page
-    public TextView originalContent, originalTitle, originalAuthor;
+    public TextView originalContent, originalTitle, originalAuthor, lastModifiedView;
     //references to Edit and Delete Post buttons so that we can hide them
     public Button editBtn, deleteBtn;
+
+    private ForumPost forumPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +55,27 @@ public class ViewPost extends AppCompatActivity {
         setContentView(R.layout.activity_view_post);
         //get username and post title from intent
         Intent intent = getIntent();
-        username = intent.getStringExtra("username");
-        title = intent.getStringExtra("title");
+        bundle = intent.getExtras();
+
+        String id = bundle.getString("id");
+        String title = bundle.getString("title");
+        String username = bundle.getString("username");
+        String author = bundle.getString("author");
+        String createdAt = bundle.getString("time");
+        String content = bundle.getString("content");
+        String lastEditTime = bundle.getString("lastEditTime");
+        String timeRaw = bundle.getString("timeRaw");
+
+        Log.d("After view: ", bundle.toString());
+
+        this.username = username;
+        forumPost = new ForumPost(id, author, title, createdAt, content, timeRaw);
 
         //get views
         originalContent = findViewById(R.id.view_post_content);
         originalAuthor = findViewById(R.id.view_post_author);
         originalTitle = findViewById(R.id.view_post_title);
+        lastModifiedView = findViewById(R.id.view_post_lastmodified);
         editBtn = findViewById(R.id.button_edit_post);
         deleteBtn = findViewById(R.id.button_delete_post);
         //hide buttons
@@ -69,8 +86,20 @@ public class ViewPost extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
 
         //fetch post data
-        fetchPostData();
+        //fetchPostData();
         //fetch comments
+
+        String authorFull = "Author: " + author;
+        originalAuthor.setText(authorFull);
+        originalTitle.setText(title);
+        originalContent.setText(content);
+//        long millis = Long.parseLong(lastEditTime);
+//        if(millis != 0)
+//            lastModifiedView.setText(("last modified: " +
+//                    new SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.UK)
+//                            .format(new Date(millis)))
+//            );
+
         fetchComments();
     }
 
@@ -79,7 +108,7 @@ public class ViewPost extends AppCompatActivity {
         //make url
         String url = "";
         try {
-            url = App.baseURL + "posts/comments/" + URLEncoder.encode(title, "UTF-8");
+            url = App.baseURL + "posts/comments/" + URLEncoder.encode(forumPost.getId(), "UTF-8");
         } catch(UnsupportedEncodingException e) {
             Log.e("Error", "Caught encoding exception: " + e);
         }
@@ -110,9 +139,9 @@ public class ViewPost extends AppCompatActivity {
         //iterate through each comment object and create a view
         for(int i = 0; i < array.length(); i++){
             try {
-                String author = array.getJSONObject(i).getJSONObject("author").getString("username");
+                String author = array.getJSONObject(i).getString("author");
                 String content = array.getJSONObject(i).getString("content");
-                String date = array.getJSONObject(i).getString("date");
+                String date = array.getJSONObject(i).getString("time");
                 Log.d("Debug", "Element: " + author + " " + content + " " + date);
                 //now create a view to house each element
                 LinearLayout linearLayout = new LinearLayout(this);
@@ -135,57 +164,66 @@ public class ViewPost extends AppCompatActivity {
     }
 
     //function that will fetch post data from the API
-    public void fetchPostData(){
-        //make URL
-        String url = "";
-        try {
-            url = App.baseURL + "posts/" + URLEncoder.encode(title, "UTF-8");
-        } catch(UnsupportedEncodingException e){
-            Log.e("Debug", "Caught encoding exception: " + e);
-        }
-
-        //construct JSON object
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("title", title);
-        } catch (JSONException e) {
-            Log.e("Error", "Caught JSON exception: " + e);
-        }
-        //create request
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    //get data from the post
-                    String author = response.getString("username");
-                    String title = response.getString("title");
-                    String content = response.getString("content");
-                    //now populate our views with it
-                    String authorFull = "Author: " + author;
-                    originalAuthor.setText(authorFull);
-                    originalTitle.setText(title);
-                    originalContent.setText(content);
-                    postContent = content;
-                    Log.d("Debug", "Current user: " + username + "\nAuthor: " + author);
-                    //check if current user is author
-                    if(username.equals(author)){
-                        Log.d("Debug", "Current user is author.");
-                        //show edit / delete buttons
-                        showButtons(editBtn, deleteBtn);
-                    }
-                } catch (JSONException e) {
-                    Log.e("Error", "Caught JSON exception: " + e);
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Error", "Volley error: " + error);
-            }
-        });
-        //submit request
-        queue.add(request);
-    }
+    //deprecated
+//    public void fetchPostData(){
+//        //make URL
+//        String url = "";
+//        try {
+//            url = App.baseURL + "posts/" + URLEncoder.encode(forumPost.getId(), "UTF-8");
+//        } catch(UnsupportedEncodingException e){
+//            Log.e("Debug", "Caught encoding exception: " + e);
+//        }
+//
+//        //construct JSON object
+//        JSONObject jsonObject = new JSONObject();
+//        try {
+//            jsonObject.put("id", forumPost.getId());
+//        } catch (JSONException e) {
+//            Log.e("Error", "Caught JSON exception: " + e);
+//        }
+//        //create request
+//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, jsonObject, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                try {
+//                    //get data from the post
+//                    String author = response.getString("author");
+//                    String title = response.getString("title");
+//                    String content = response.getString("content");
+//                    String lastModified = response.getString("lastEditTime");
+//                    long millis = Long.parseLong(lastModified);
+//                    //now populate our views with it
+//                    String authorFull = "Author: " + author;
+//                    originalAuthor.setText(authorFull);
+//                    originalTitle.setText(title);
+//                    originalContent.setText(content);
+//                    if(millis != 0)
+//                        lastModifiedView.setText(("last modfified: " +
+//                            new SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.UK)
+//                                    .format(new Date(millis)))
+//                        );
+//
+//                    postContent = content;
+//                    Log.d("Debug", "Current user: " + username + "\nAuthor: " + author);
+//                    //check if current user is author
+//                    if(username.equals(author)){
+//                        Log.d("Debug", "Current user is author.");
+//                        //show edit / delete buttons
+//                        showButtons(editBtn, deleteBtn);
+//                    }
+//                } catch (JSONException e) {
+//                    Log.e("Error", "Caught JSON exception: " + e);
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e("Error", "Volley error: " + error);
+//            }
+//        });
+//        //submit request
+//        queue.add(request);
+//    }
 
     //function to show delete and edit buttons
     public void showButtons(Button btn1, Button btn2){
@@ -211,7 +249,7 @@ public class ViewPost extends AppCompatActivity {
         //make url
         String url = "";
         try {
-            url = App.baseURL + "posts/" + URLEncoder.encode(title, "UTF-8");
+            url = App.baseURL + "posts/" + URLEncoder.encode(forumPost.getId(), "UTF-8");
         } catch(UnsupportedEncodingException e) {
             Log.e("Error", "Caught encoding exception: " + e);
         }
@@ -219,7 +257,7 @@ public class ViewPost extends AppCompatActivity {
         //make JSON object
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("title", title);
+            jsonObject.put("title", forumPost.getId());
         } catch(JSONException e) {
             Log.e("Error", "Caught JSON object exception: " + e);
         }
@@ -231,7 +269,7 @@ public class ViewPost extends AppCompatActivity {
                 //get status
                 try {
                     int responseStatus = response.getInt("status");
-                    if(responseStatus == 1){
+                    if(responseStatus == 200){
                         //success, post has been deleted
                         //create toast
                         Toast success = Toast.makeText(ViewPost.this, R.string.delete_post_success, Toast.LENGTH_SHORT);
@@ -261,9 +299,17 @@ public class ViewPost extends AppCompatActivity {
     public void editPost(View view){
         //create intent with username and post title
         Intent intent = new Intent(this, EditPost.class);
-        intent.putExtra("title", title);
-        intent.putExtra("username", username);
-        intent.putExtra("content", postContent);
+        Bundle bundle = new Bundle(8);
+        bundle.putString("username", username);
+        bundle.putString("title", forumPost.getTitle());
+        bundle.putString("author", forumPost.getAuthor());
+        bundle.putString("id", forumPost.getId());
+        bundle.putString("time", forumPost.getCreatedAt());
+        bundle.putString("content", forumPost.getContent());
+        bundle.putString("lastEditTime", forumPost.getLastModified());
+        bundle.putString("timeRaw", forumPost.getTimeRaw());
+
+        intent.putExtras(bundle);
         //call new activity
         startActivity(intent);
     }
@@ -272,8 +318,17 @@ public class ViewPost extends AppCompatActivity {
     public void createComment(View view){
         //create intent with username and post title
         Intent intent = new Intent(ViewPost.this, CreateComment.class);
-        intent.putExtra("username", username);
-        intent.putExtra("title", title);
+        Bundle bundle = new Bundle(8);
+        bundle.putString("username", username);
+        bundle.putString("title", forumPost.getTitle());
+        bundle.putString("author", forumPost.getAuthor());
+        bundle.putString("id", forumPost.getId());
+        bundle.putString("time", forumPost.getCreatedAt());
+        bundle.putString("content", forumPost.getContent());
+        bundle.putString("lastEditTime", forumPost.getLastModified());
+        bundle.putString("timeRaw", forumPost.getTimeRaw());
+
+        intent.putExtras(bundle);
         //call activity
         startActivity(intent);
     }

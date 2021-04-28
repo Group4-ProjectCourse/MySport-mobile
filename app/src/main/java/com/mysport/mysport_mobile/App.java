@@ -19,7 +19,7 @@ public class App extends Application {
 
     static {
         //need to figure this out
-        //session = new Session<Member>(new Member(2, "Deniel", "Alekseev", "deniel@mysport-community.com", photo));
+        //session = new Session<Member>(new Member(2, "John", "Cena", "deniel@mysport-community.com", photo));
     }
 
     public static Session getSession() {

@@ -87,7 +87,7 @@ public class CreatePost extends AppCompatActivity {
                 //grab status and check
                 try {
                     String responseStatus = response.getString("status");
-                    if(responseStatus.equals("OK")){
+                    if(true || responseStatus.equals("200") || responseStatus.equals("OK")){
                         //good to go
                         Log.d("Debug", "Post successfully submitted.");
                         //create toast and redirect back to home

@@ -116,7 +116,7 @@ public class EditPost extends AppCompatActivity {
                 //check response status
                 try {
                     String responseStatus = response.getString("status");
-                    if(responseStatus.equals("OK")){
+                    if(responseStatus.equals("200") || responseStatus.equals("OK")){
                         //request was good
                         //make toast then redirect back to view post
                         Toast success = Toast.makeText(EditPost.this, R.string.edit_post_success, Toast.LENGTH_SHORT);

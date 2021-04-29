@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class Home extends AppCompatActivity implements ForumPostAdapter.OnRecyclerItemClick {
+public class ForumHome extends AppCompatActivity implements ForumPostAdapter.OnRecyclerItemClick {
 
     //entry point URL
     //public String entryPointURL;
@@ -193,6 +193,10 @@ public class Home extends AppCompatActivity implements ForumPostAdapter.OnRecycl
         if(takePictureIntent.resolveActivity(getPackageManager()) != null){
           startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
+    }
+
+    public int getForumPostListSize() {
+        return forumPostList.size();
     }
 
     //function that will show a preview of the new profile picture to the user

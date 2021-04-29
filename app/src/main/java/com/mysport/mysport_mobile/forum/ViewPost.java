@@ -30,9 +30,6 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class ViewPost extends AppCompatActivity {
 
@@ -336,7 +333,7 @@ public class ViewPost extends AppCompatActivity {
     //function to go back to home screen
     public void goBack(View view){
         //create intent with the user's name
-        Intent intent = new Intent(this, Home.class);
+        Intent intent = new Intent(this, ForumHome.class);
         intent.putExtra("username", username);
         //call home activity
         startActivity(intent);

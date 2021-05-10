@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class Home extends AppCompatActivity implements ForumPostAdapter.OnRecyclerItemClick {
+public class ForumList extends AppCompatActivity implements ForumPostAdapter.OnRecyclerItemClick {
 
     //entry point URL
     //public String entryPointURL;

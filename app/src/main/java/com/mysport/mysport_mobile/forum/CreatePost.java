@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,8 +21,6 @@ import com.mysport.mysport_mobile.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Date;
 
 public class CreatePost extends AppCompatActivity {
     //entry point URL
@@ -50,7 +47,7 @@ public class CreatePost extends AppCompatActivity {
     //cancels post creation screen (go back to home screen)
     public void cancelPost(View view){
         //create an intent with the calling user's username
-        Intent intent = new Intent(this, Home.class);
+        Intent intent = new Intent(this, ForumList.class);
         intent.putExtra("username", username);
         //call the Home activity
         startActivity(intent);
@@ -95,7 +92,7 @@ public class CreatePost extends AppCompatActivity {
                         success.setGravity(Gravity.BOTTOM, 0, 50);
                         success.show();
                         //create an intent with the calling user's username
-                        Intent intent = new Intent(CreatePost.this, Home.class);
+                        Intent intent = new Intent(CreatePost.this, ForumList.class);
                         intent.putExtra("username", username);
                         //call the Home activity
                         startActivity(intent);

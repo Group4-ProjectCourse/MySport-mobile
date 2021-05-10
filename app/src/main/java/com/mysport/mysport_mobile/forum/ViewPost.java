@@ -30,9 +30,6 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class ViewPost extends AppCompatActivity {
 
@@ -254,7 +251,7 @@ public class ViewPost extends AppCompatActivity {
         //make JSON object
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("title", forumPost.getId());
+            jsonObject.put("id", forumPost.getId());
         } catch(JSONException e) {
             Log.e("Error", "Caught JSON object exception: " + e);
         }
@@ -333,7 +330,7 @@ public class ViewPost extends AppCompatActivity {
     //function to go back to home screen
     public void goBack(View view){
         //create intent with the user's name
-        Intent intent = new Intent(this, Home.class);
+        Intent intent = new Intent(this, ForumList.class);
         intent.putExtra("username", username);
         //call home activity
         startActivity(intent);

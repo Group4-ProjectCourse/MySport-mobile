@@ -32,11 +32,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.mysport.mysport_mobile.activities.authentication.LoginActivity;
 import com.mysport.mysport_mobile.enums.TransactionAction;
 import com.mysport.mysport_mobile.events.OnFragmentSendDataListener;
-import com.mysport.mysport_mobile.forum.Home;
+import com.mysport.mysport_mobile.forum.ForumList;
 import com.mysport.mysport_mobile.fragments.ProfileFragment;
 import com.mysport.mysport_mobile.fragments.calendar.DayViewFragment;
 import com.mysport.mysport_mobile.fragments.calendar.MonthViewFragment;
-import com.mysport.mysport_mobile.fragments.forum.ForumFragment;
 import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
 import com.mysport.mysport_mobile.language.LanguageManager;
 import com.mysport.mysport_mobile.models.MongoActivity;
@@ -232,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else if (id == R.id.nav_forum){
             //handleFragment(R.id.main_place_for_fragments, new ForumFragment());
 
-            Intent intent = new Intent(MainActivity.this, Home.class);
+            Intent intent = new Intent(MainActivity.this, ForumList.class);
             intent.putExtra("username", "example-email@mysport-community.com");//current session
 
             startActivity(intent);

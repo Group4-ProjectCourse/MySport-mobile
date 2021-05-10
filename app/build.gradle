@@ -90,10 +90,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.2.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'junit:junit:4.12'
     androidTestImplementation 'org.junit.jupiter:junit-jupiter:5.4.2'
 //    androidTestImplementation ""
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'

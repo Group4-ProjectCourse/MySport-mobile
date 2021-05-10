@@ -78,9 +78,6 @@ public class ViewPost extends AppCompatActivity {
         lastModifiedView = findViewById(R.id.view_post_lastmodified);
         editBtn = findViewById(R.id.button_edit_post);
         deleteBtn = findViewById(R.id.button_delete_post);
-        //hide buttons
-        editBtn.setVisibility(View.INVISIBLE);
-        deleteBtn.setVisibility(View.INVISIBLE);
 
         //initialize the queue
         queue = Volley.newRequestQueue(this);

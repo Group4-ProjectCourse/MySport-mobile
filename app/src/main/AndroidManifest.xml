@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mysport.mysport_mobile">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -29,6 +30,17 @@
         <!--            </intent-filter>-->
         <!--        </activity>-->
         <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MySportmobile">
+            <!--            Add custom theme for activity manually-->
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".forum.ForumList"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>
@@ -51,18 +63,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.MySportmobile">
-            <!--            Add custom theme for activity manually-->
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".forum.CreatePost"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
@@ -80,6 +80,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <meta-data
+            tools:replace="android:value"
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
         <meta-data

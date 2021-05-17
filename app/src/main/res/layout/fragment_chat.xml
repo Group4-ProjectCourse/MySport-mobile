@@ -31,7 +31,7 @@
         android:layout_alignParentBottom="true">
 
         <EditText
-            android:id="@+id/chat_message_content"
+            android:id="@+id/chat_send_message_content"
             android:hint="Enter your message..."
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

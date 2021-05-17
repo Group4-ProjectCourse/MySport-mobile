@@ -36,6 +36,7 @@ import com.mysport.mysport_mobile.forum.ForumList;
 import com.mysport.mysport_mobile.fragments.ProfileFragment;
 import com.mysport.mysport_mobile.fragments.calendar.DayViewFragment;
 import com.mysport.mysport_mobile.fragments.calendar.MonthViewFragment;
+import com.mysport.mysport_mobile.fragments.chat.ChatFragment;
 import com.mysport.mysport_mobile.fragments.settings.SettingsFragment;
 import com.mysport.mysport_mobile.language.LanguageManager;
 import com.mysport.mysport_mobile.models.MongoActivity;
@@ -240,6 +241,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             handleFragment(R.id.main_place_for_fragments, new ProfileFragment());
         else if (id == R.id.nav_share)
             Toast.makeText(this, R.string.message_share_example, Toast.LENGTH_SHORT).show();
+        else if(id == R.id.nav_chat)
+            handleFragment(R.id.main_place_for_fragments, new ChatFragment());
 //        else if (id == R.id.nav_logout)
 //            FirebaseAuth.getInstance().signOut();
 

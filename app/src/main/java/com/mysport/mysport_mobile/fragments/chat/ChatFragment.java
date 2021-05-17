@@ -61,7 +61,7 @@ public class ChatFragment extends Fragment {
 
                 sender.setText(model.getSender());
                 content.setText(model.getContent());
-                time.setText(new SimpleDateFormat());
+                time.setText(android.text.format.DateFormat.format("dd-mm-yyyy HH:mm:ss", model.getPublished()));
             }
         };
     }

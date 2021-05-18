@@ -33,7 +33,7 @@ public class ProfileFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        textViewFullName = view.findViewById(R.id.full_name);
+        textViewFullName = view.findViewById(R.id.profile_full_name);
         textViewFullNameBelow = view.findViewById(R.id.textEditName);
         textViewEmail = view.findViewById(R.id.textEditEmail);
         textViewPhone = view.findViewById(R.id.textEditPhone);

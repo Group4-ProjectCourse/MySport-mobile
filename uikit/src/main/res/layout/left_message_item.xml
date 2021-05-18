@@ -42,7 +42,7 @@
             <TextView
                 android:id="@+id/go_txt_message"
                 android:layout_width="wrap_content"
-                tools:text="message"
+                tools:text="chatMessage"
                 android:textColor="@color/primaryTextColor"
                 android:focusable="true"
                 android:padding="10dp"

@@ -14,7 +14,7 @@
     <!-- Messages Preferences -->
 
     <!-- Sync Preferences -->
-    <string name="message">message</string>
+    <string name="chatMessage">chatMessage</string>
     <string name="you_won_t_be_able_send_or_receive_messages">You won\'t be able send or receive messages</string>
     <string name="unblock">Unblock</string>
     <string name="unabl_to_join_message">Unable to join group</string>
@@ -37,7 +37,7 @@
         \software like Aldus PageMaker including versions of Lorem Ipsum.</string>
     <string name="replyTxt">reply</string>
     <string name="pin">pin</string>
-    <string name="message_deleted">This message was deleted</string>
+    <string name="message_deleted">This chatMessage was deleted</string>
     <string name="tap_to_start_conversation">Tap to start conversation</string>
     <string name="view_on_youtube">View on Youtube</string>
     <string name="visit">Visit</string>

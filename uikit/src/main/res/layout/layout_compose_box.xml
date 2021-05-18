@@ -73,7 +73,7 @@
             android:background="@android:color/transparent"
             android:layout_width="match_parent"
             android:id="@+id/etComposeBox"
-            android:hint="@string/message"
+            android:hint="@string/chatMessage"
             android:paddingStart="16dp"
             android:singleLine="false"
             android:inputType="textMultiLine"
